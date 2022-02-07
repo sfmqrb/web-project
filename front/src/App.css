@@ -7,16 +7,18 @@
   margin-left: 40px;
 }
 
-.margin-b {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
+.margin-top {
+  margin-top: 40px!important;
+
 }
 
 .center {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  margin-top: 4rem;
 }
+
+
 
 .App-logo {
   height: 40vmin;

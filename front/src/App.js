@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Grid container spacing={25} className="margin-f center">
-        <Grid item md={3}>
+        <Grid item md={3} className="margin-top">
           <_Card_
             profile_name="SF"
             title="FOOD TITLE"
@@ -15,7 +15,7 @@ function App() {
             image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={3} className="margin-top">
           <_Card_
             profile_name="SF"
             title="FOOD TITLE"
@@ -24,7 +24,7 @@ function App() {
             image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={3} className="margin-top">
           <_Card_
             profile_name="SF"
             title="FOOD TITLE"
