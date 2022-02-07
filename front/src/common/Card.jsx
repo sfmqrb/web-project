@@ -9,6 +9,18 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import GetRandomColor from "./RandomColor";
+import Tag from "./tag";
+import _ from "lodash";
+
+function doTags(tags) {
+  return (
+    <>
+      {tags.map((tag) => (
+        <Tag tagName={tag} />
+      ))}
+    </>
+  );
+}
 
 class _Card_ extends React.Component {
   render() {
@@ -36,6 +48,7 @@ class _Card_ extends React.Component {
             {this.props.body}
           </Typography>
         </CardContent>
+        <CardHeader subheader={doTags(this.props.tags)} />
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />
