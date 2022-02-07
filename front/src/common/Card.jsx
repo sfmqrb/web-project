@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import GetRandomColor from "./common/RandomColor";
+import GetRandomColor from "./RandomColor";
 
 class _Card_ extends React.Component {
   render() {
