@@ -3,6 +3,8 @@ import _Card_ from "./common/card";
 import NavBar from "./navBar";
 import Footer from "./footer";
 import SearchBox from "./searchBox";
+import { paginate } from "../utils/paginate";
+import Pagination from "./common/pagination";
 
 class CardSet extends Component {
   // state
@@ -88,11 +90,19 @@ class CardSet extends Component {
       },
     ],
     cards: [],
+    cardsAfterPagination: [],
+    pageSize: 3,
+    currentPage: 1,
   };
 
   componentDidMount() {
     this.setState({
       cards: this.state.originalCards,
+      cardsAfterPagination: paginate(
+        this.state.originalCards,
+        1,
+        this.state.pageSize
+      ),
     });
   }
 
@@ -111,17 +121,34 @@ class CardSet extends Component {
     this.setState({ cards: res });
   }
 
+  handlePageChange = (page) => {
+    // this.setState({ currentPage: page });
+    const cards = paginate(this.state.cards, page, this.state.pageSize);
+    // return cards;
+    console.log(page);
+    console.log(cards);
+    this.setState({
+      currentPage: page,
+      cardsAfterPagination: cards,
+    });
+  };
+
   // render
 
   render() {
     console.log(this.props);
-    const cards = this.state.cards;
     return (
       <>
         <NavBar onChangeSearchBox={this.handleChangeSearchBox.bind(this)} />
+        <Pagination
+          itemsCount={this.state.cards.length}
+          pageSize={this.state.pageSize}
+          currentPage={this.state.currentPage}
+          onPageChange={this.handlePageChange}
+        />
         <div className="m-5">
           <div className="row m-0  justify-content-around border-top">
-            {cards.map((card) => (
+            {this.state.cardsAfterPagination.map((card) => (
               <_Card_ key={card._id} {...card} />
             ))}
           </div>
