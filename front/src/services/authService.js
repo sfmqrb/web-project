@@ -1,6 +1,7 @@
 import http from "./httpService";
-import { apiUrl } from "../config.json";
-
+import * as cfgInfo from "../config.json";
+let intermediateJson = cfgInfo;
+const apiUrl = intermediateJson.apiUrl;
 const apiEndpoint = apiUrl + "/auth";
 
 export function login(username, password) {
