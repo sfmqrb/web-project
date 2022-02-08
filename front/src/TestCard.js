@@ -1,5 +1,5 @@
 import "./App.css";
-import _Card_ from "./common/Card";
+import _Card_ from "./components/common/Card";
 import Grid from "@material-ui/core/Grid";
 
 function App() {

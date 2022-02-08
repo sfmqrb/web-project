@@ -1,6 +1,6 @@
 import "./App.css";
-import Tag from "./common/tag";
-import _Card_ from "./common/Card";
+import Tag from "./components/common/tag";
+import _Card_ from "./components/common/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
