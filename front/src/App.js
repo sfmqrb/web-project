@@ -1,5 +1,6 @@
 import _Card_ from "./components/common/Card";
 import LoginForm from "./components/loginForm";
+import RegisterForm from "./components/registerForm";
 // import Tag from "./components/common/tag";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,7 +19,7 @@ function App() {
     //     image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
     //   />
     // </div>
-    <LoginForm />
+    <RegisterForm />
   );
 }
 
