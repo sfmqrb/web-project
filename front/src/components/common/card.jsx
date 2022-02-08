@@ -27,11 +27,13 @@ class _Card_ extends React.Component {
     const clr = GetRandomColor();
 
     return (
-      <Card sx={{ maxWidth: 400 }}>
+      <Card
+        className="mt-5 d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top "
+        sx={{ maxWidth: 400 }}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
-              {this.props.profile_name}
+              {this.props.name.charAt(0)}
             </Avatar>
           }
           title={this.props.title}
