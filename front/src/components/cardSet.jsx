@@ -1,16 +1,25 @@
 import React, { Component } from "react";
 import _Card_ from "./common/card";
+import NavBar from "./navBar";
+import Footer from "./footer";
+import SearchBox from "./searchBox";
 
 class CardSet extends Component {
   render() {
     console.log(this.props);
     const cards = this.props.cards;
     return (
-      <div className="row m-5 d-flex flex-wrap justify-content-around align-items-center py-3 my-4 border-top">
-        {cards.map((card) => (
-          <_Card_ key={card._id} {...card} />
-        ))}
-      </div>
+      <>
+        <NavBar />
+        <div className="m-5">
+          <div className="row m-0  justify-content-around border-top">
+            {cards.map((card) => (
+              <_Card_ key={card._id} {...card} />
+            ))}
+          </div>
+        </div>
+        <Footer />
+      </>
     );
   }
 }
