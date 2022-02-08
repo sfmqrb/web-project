@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/kamva/mgm/v3"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"io/ioutil"
 	"time"
+	"web/project/internal/Entities"
 )
 
 type config struct {
@@ -15,24 +17,6 @@ type config struct {
 	TimeoutSeconds int    `json:"timeoutSeconds"`
 }
 
-type Book struct {
-	// DefaultModel adds _id, created_at and updated_at fields to the Model
-	mgm.DefaultModel `bson:",inline"`
-	Name             string   `json:"name" bson:"name"`
-	Pages            int      `json:"pages" bson:"pages"`
-	Authors          []string `json:"authors" bson:"authors"`
-}
-
-func NewBook(name string, pages int, authors []string) *Book {
-	return &Book{
-		Name:    name,
-		Pages:   pages,
-		Authors: authors,
-	}
-}
-func (model *Book) CollectionName() string {
-	return "test"
-}
 func ConnectDB() {
 	// load DBconfig
 	var config config
@@ -47,14 +31,13 @@ func ConnectDB() {
 	if err != nil {
 		print(err)
 	}
+}
 
-	//test
-	book := NewBook("Pride and Prejudice", 345, []string{"a", "b", "c", "d"})
-	// Make sure to pass the model by reference.
-	err = mgm.Coll(book).Create(book)
-	if err != nil {
-		print(err.Error())
+func GetUserByUsername(username string) *Entities.User {
+	user := &Entities.User{}
+	e := mgm.Coll(&Entities.User{}).First(bson.M{"username": username}, user)
+	if e != nil {
+		print(e.Error())
 	}
-	a := book.ID
-	print(a.Hex())
+	return user
 }
