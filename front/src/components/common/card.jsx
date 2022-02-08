@@ -27,9 +27,7 @@ class _Card_ extends React.Component {
     const clr = GetRandomColor();
 
     return (
-      <Card
-        className="mt-5 d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top "
-        sx={{ maxWidth: 400 }}>
+      <Card className="mt-5" sx={{ maxWidth: 400 }}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
@@ -39,12 +37,16 @@ class _Card_ extends React.Component {
           title={this.props.title}
           subheader={this.props.subheader}
         />
-        <CardMedia
-          component="img"
-          height="300"
-          image={this.props.image}
-          alt="dish"
-        />
+        <div className="w-100 h-100">
+          <CardMedia
+            className="pic-overlay hovered"
+            component="img"
+            height="300"
+            maxHeight="300"
+            image={this.props.image}
+            alt="dish"
+          />
+        </div>
         <CardContent>
           <Typography variant="body2" color="text.secondary">
             {this.props.body}

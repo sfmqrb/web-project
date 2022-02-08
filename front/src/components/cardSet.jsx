@@ -6,7 +6,7 @@ class CardSet extends Component {
     console.log(this.props);
     const cards = this.props.cards;
     return (
-      <div className="row m-5 d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <div className="row m-5 d-flex flex-wrap justify-content-around align-items-center py-3 my-4 border-top">
         {cards.map((card) => (
           <_Card_ {...card} />
         ))}
