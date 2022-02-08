@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Tag from "./common/tag";
+import _Card_ from "./common/Card";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  const tags = ["ab", "ba", "cd", "de", "ge", "hi"];
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <_Card_
+        profile_name="SF"
+        title="FOOD TITLE"
+        subheader="FOOD SUBHEADER"
+        body="BOOOOOOOODY BOOOOOOOODY BOOOOOOOODY BOOOOOOOODY BOOOOOOOODY BOOOOOOOODY"
+        tags={tags}
+        image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+      />
     </div>
   );
 }
