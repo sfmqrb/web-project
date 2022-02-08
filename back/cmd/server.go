@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"web/project/internal/database"
 )
 
 type Config struct {
@@ -23,10 +24,13 @@ func main() {
 }
 
 func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
+	// todo add cros headers
+	// todo add option request OK handle
 
 }
 
 func preLoad() {
+	database.ConnectDB()
 	file, _ := ioutil.ReadFile("back/cmd/config.json")
 	err := json.Unmarshal(file, &config)
 	if err != nil {
