@@ -41,3 +41,10 @@ func GetUserByUsername(username string) *Entities.User {
 	}
 	return user
 }
+
+func CreateUser(user Entities.User) {
+	e := mgm.Coll(&Entities.User{}).Create(&user)
+	if e != nil {
+		print(e.Error())
+	}
+}

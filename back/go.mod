@@ -3,6 +3,7 @@ module web/project
 go 1.17
 
 require (
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/kamva/mgm/v3 v3.4.1
 	go.mongodb.org/mongo-driver v1.8.3
 )
