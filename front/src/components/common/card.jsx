@@ -16,7 +16,7 @@ function doTags(tags) {
   return (
     <>
       {tags.map((tag) => (
-        <Tag tagName={tag} />
+        <Tag key={tag} tagName={tag} />
       ))}
     </>
   );
@@ -42,7 +42,6 @@ class _Card_ extends React.Component {
             className="pic-overlay hovered"
             component="img"
             height="300"
-            maxHeight="300"
             image={this.props.image}
             alt="dish"
           />
@@ -54,7 +53,12 @@ class _Card_ extends React.Component {
         </CardContent>
         <CardHeader subheader={doTags(this.props.tags)} />
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => {
+              this.props.onLike(this.props._id);
+            }}
+            color={this.props.liked ? "error" : "default"}>
             <FavoriteIcon />
           </IconButton>
         </CardActions>

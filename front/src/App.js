@@ -19,6 +19,10 @@ function App() {
       image: "https://unsplash.it/400/300",
       body: "body :: Card 1",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      liked: false,
+      onLike: () => {
+        console.log("like");
+      },
     },
     {
       _id: 2,
@@ -28,6 +32,10 @@ function App() {
       image: "https://unsplash.it/400/600",
       body: "body :: Card 2",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      liked: false,
+      onLike: () => {
+        console.log("like");
+      },
     },
     {
       _id: 3,
@@ -37,6 +45,10 @@ function App() {
       image: "https://source.unsplash.com/random",
       body: "body :: Card 3",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      liked: true,
+      onLike: () => {
+        console.log("like");
+      },
     },
     {
       _id: 4,
@@ -46,6 +58,10 @@ function App() {
       image: "https://source.unsplash.com/random",
       body: "body :: Card 4",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      liked: true,
+      onLike: () => {
+        console.log("like");
+      },
     },
     {
       _id: 5,
@@ -55,6 +71,10 @@ function App() {
       image: "https://source.unsplash.com/random",
       body: "body :: Card 5",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      liked: true,
+      onLike: () => {
+        console.log("like");
+      },
     },
   ];
 

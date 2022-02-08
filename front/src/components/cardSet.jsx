@@ -8,7 +8,7 @@ class CardSet extends Component {
     return (
       <div className="row m-5 d-flex flex-wrap justify-content-around align-items-center py-3 my-4 border-top">
         {cards.map((card) => (
-          <_Card_ {...card} />
+          <_Card_ key={card._id} {...card} />
         ))}
       </div>
     );
