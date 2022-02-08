@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBox from "./searchBox";
 
-const NavBar = ({ user }) => {
+const NavBar = ({ user, onChangeSearchBox: onChange }) => {
   return (
     <header className="p-3 mb-3 border-bottom " style={{ fontSize: "1rem" }}>
       <div className="container">
@@ -25,7 +25,7 @@ const NavBar = ({ user }) => {
           </ul>
 
           <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <SearchBox />
+            <SearchBox onChange={onChange} />
           </form>
 
           <div className="dropdown text-end">
