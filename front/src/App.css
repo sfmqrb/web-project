@@ -17,3 +17,43 @@
   justify-content: space-evenly;
   margin-top: 4rem;
 }
+
+.center-text {
+  text-align: center;
+  padding: auto !important;
+  align-items: center!important;
+
+}
+
+body {
+
+  max-width: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+}
+
+.loginImage 
+{
+  padding-top: 5px;
+  margin: 0px auto;   
+  background-image: url("./imgs/login.jpg");
+  background-repeat: no-repeat;
+  background-size:100% auto;
+}
+
+.takeAllHeight {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.whiteColor {
+  color: #fff!important;
+
+}
+
+.mt-10 {
+  margin-top: 370px!important;
+}

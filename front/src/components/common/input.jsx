@@ -2,7 +2,7 @@ import React from "react";
 
 const Input = ({ name, label, error, textType, ...rest }) => {
   return textType === "textarea" ? (
-    <div className="form-group">
+    <div className="form-group mt-2">
       <label htmlFor={name}>{label}</label>
       <textarea
         {...rest}
@@ -14,7 +14,7 @@ const Input = ({ name, label, error, textType, ...rest }) => {
       {error && <div className="alert alert-danger">{error}</div>}
     </div>
   ) : (
-    <div className="form-group">
+    <div className="form-group mt-2">
       <label htmlFor={name}>{label}</label>
       <input {...rest} name={name} id={name} className="form-control" />
       {error && <div className="alert alert-danger">{error}</div>}

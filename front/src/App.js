@@ -1,8 +1,9 @@
-import "./App.css";
-import Tag from "./components/common/tag";
 import _Card_ from "./components/common/Card";
-import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "./components/loginForm";
+// import Tag from "./components/common/tag";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 function App() {
   // const tags = ["ab", "ba", "cd", "de", "ge", "hi"];

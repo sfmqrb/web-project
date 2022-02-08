@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { login } from "../services/authService";
+import "../App.css";
 
 class LoginForm extends Form {
   state = {
@@ -32,12 +33,19 @@ class LoginForm extends Form {
   render() {
     return (
       <div>
-        <h1>Login</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderButton("Login")}
-        </form>
+        <div class="row p-5 takeAllHeight loginImage whiteColor center-text ">
+          <h1 class="col"></h1>
+          <div class="col center-text">
+            <h1 className="mt-10 m-4 center">Login</h1>
+            <form onSubmit={this.handleSubmit} className="">
+              {this.renderInput("username", "Username")}
+              {this.renderInput("password", "Password", "password")}
+              {/*   replace it with better handling */}
+              {this.renderButton("Login")}
+            </form>
+          </div>
+          <div class="col"></div>
+        </div>
       </div>
     );
   }
