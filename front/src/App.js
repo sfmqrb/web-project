@@ -2,6 +2,7 @@ import _Card_ from "./components/common/Card";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import NavBar from "./components/navBar";
+import Footer from "./components/footer";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -22,7 +23,7 @@ function App() {
 
     // <RegisterForm />
     // <div></div>
-    <NavBar />
+    <Footer />
   );
 }
 
