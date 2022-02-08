@@ -18,14 +18,16 @@ type config struct {
 type Book struct {
 	// DefaultModel adds _id, created_at and updated_at fields to the Model
 	mgm.DefaultModel `bson:",inline"`
-	Name             string `json:"name" bson:"name"`
-	Pages            int    `json:"pages" bson:"pages"`
+	Name             string   `json:"name" bson:"name"`
+	Pages            int      `json:"pages" bson:"pages"`
+	Authors          []string `json:"authors" bson:"authors"`
 }
 
-func NewBook(name string, pages int) *Book {
+func NewBook(name string, pages int, authors []string) *Book {
 	return &Book{
-		Name:  name,
-		Pages: pages,
+		Name:    name,
+		Pages:   pages,
+		Authors: authors,
 	}
 }
 func (model *Book) CollectionName() string {
@@ -47,12 +49,12 @@ func ConnectDB() {
 	}
 
 	//test
-	book := NewBook("Pride and Prejudice", 345)
-	coll := mgm.Coll(book)
-	print(coll.Collection.Name())
+	book := NewBook("Pride and Prejudice", 345, []string{"a", "b", "c", "d"})
 	// Make sure to pass the model by reference.
 	err = mgm.Coll(book).Create(book)
 	if err != nil {
 		print(err.Error())
 	}
+	a := book.ID
+	print(a.Hex())
 }
