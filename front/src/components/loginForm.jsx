@@ -56,7 +56,6 @@ class LoginForm extends Form {
     return (
       <div>
         <div className="row p-5 takeAllHeight loginImage whiteColor center-text ">
-          <NavBar loginRegister={true} />
           <div className="col"></div>
           <div className="col-3 center-text" style={{ fontSize: 20 }}>
             <h1 className="m-4">Login</h1>
