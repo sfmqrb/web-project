@@ -75,14 +75,40 @@ func GetRecipeById(_id string) Entities.Recipe {
 	}
 	return recipe
 }
+func GetAllRecipe() []Entities.Recipe {
+	var recipes []Entities.Recipe
+	err := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, bson.M{})
+	if err != nil {
+		print(err.Error())
+	}
+	return recipes
+}
 
 func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient
 	ingredient = Entities.Ingredients[_id]
 	return ingredient
 }
+func GetProfileRecipes(_id string) []Entities.MiniRecipe {
+	var user Entities.User
+	err := mgm.Coll(&Entities.User{}).FindByID(_id, &user)
+	if err != nil {
+		print(err.Error())
+	}
+	return user.Recipes
+}
+func AddCommentToRecipe(recipeId string, comment Entities.Comment) {
+	recipe := GetRecipeById(recipeId)
+	//todo is add directly to db faster or nah?
+	recipe.Comments = append(recipe.Comments, comment)
+	err := mgm.Coll(&recipe).Update(&recipe)
+	if err != nil {
+		print(err.Error())
+	}
+}
+
 func loadIngredients() {
-	ingredients := []Entities.Ingredient{}
+	var ingredients []Entities.Ingredient
 	err := mgm.Coll(&Entities.Ingredient{}).SimpleFind(&ingredients, bson.M{})
 	if err != nil {
 		print(err.Error())

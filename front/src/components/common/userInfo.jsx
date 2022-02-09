@@ -1,18 +1,27 @@
 import React from "react";
 
-// user img ID must be updated
+// TODO name and bio can be more customized
 
 class UserInfo extends React.Component {
   render() {
     return (
       <div>
         <a href={this.props.userProfile}>
-          <img src="../../img/profile1.jpg" alt="user picture"></img>
+          <img
+            src={this.props.picture}
+            alt="user picture"
+            width="50"
+            height="50"
+            className="rounded-circle"
+          />
         </a>
-        <p>
-          {this.props.name} &emsp {this.props.bio}
-        </p>
+        <span>
+          {" "}
+          &nbsp; <b>{this.props.name}</b> &emsp; {this.props.bio}
+        </span>
       </div>
     );
   }
 }
+
+export default UserInfo;
