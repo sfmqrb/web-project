@@ -12,12 +12,17 @@ type Ingredient struct {
 	ImagePath        string `json:"imagePath" bson:"imagePath"`
 	Type             string `json:"type" bson:"type"`
 	//todo enum
-	Unit    string `json:"unit" bson:"unit"`
-	Protein int    `json:"protein" bson:"protein"`
-	Carbs   int    `json:"carbs" bson:"carbs"`
-	Fat     int    `json:"fat" bson:"fat"`
-	Details string `bson:"details" json:"details"`
+	Unit    string  `json:"unit" bson:"unit"`
+	Serving float64 `json:"serving" bson:"serving"`
+	Energy  float64 `json:"energy" bson:"energy"`
+	Protein float64 `json:"protein" bson:"protein"`
+	Carbs   float64 `json:"carbs" bson:"carbs"`
+	Fat     float64 `json:"fat" bson:"fat"`
+	Details string  `bson:"details" json:"details"`
 }
+
+var Ingredients = make(map[string]Ingredient)
+
 type Tag struct {
 	mgm.DefaultModel `bson:",inline" json:"model"`
 	Name             string `json:"name" bson:"name"`
@@ -78,8 +83,9 @@ type Step struct {
 	Text string `json:"text" bson:"text"`
 }
 type RecipeIngredient struct {
-	IngredientKey string  `json:"ingredientKey" bson:"ingredientKey"`
-	Volume        float32 `json:"volume" bson:"volume"`
+	IngredientKey string     `json:"ingredientKey" bson:"ingredientKey"`
+	Volume        float32    `json:"volume" bson:"volume"`
+	Ingredient    Ingredient `bson:"ingredient" json:"ingredient"`
 }
 type Comment struct {
 	User MiniUser `json:"user" bson:"user"`

@@ -61,8 +61,10 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 	case "ingredient":
 		ingredient := queryHandeler.HandelGetIngredient(urlList[2])
 		sendResponseJson(responseWriter, ingredient)
+	case "recipe":
+		recipe := queryHandeler.HandelGetRecipe(urlList[2])
+		sendResponseJson(responseWriter, recipe)
 	}
-
 }
 
 func preLoad() {
