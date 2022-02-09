@@ -31,6 +31,10 @@ func ConnectDB() {
 	if err != nil {
 		print(err)
 	}
+
+	loadIngredients()
+	//test
+
 }
 
 func GetUserByUsername(username string) *Entities.User {
@@ -46,5 +50,44 @@ func CreateUser(user Entities.User) {
 	e := mgm.Coll(&Entities.User{}).Create(&user)
 	if e != nil {
 		print(e.Error())
+	}
+}
+
+func CreateRecipe(recipe Entities.Recipe) {
+	e := mgm.Coll(&Entities.Recipe{}).Create(&recipe)
+	if e != nil {
+		print(e.Error())
+	}
+}
+func EditRecipe(recipe Entities.Recipe) {
+	//r := Entities.Recipe{}
+	//r.ID
+}
+func GetRecipeById(_id string) Entities.Recipe {
+	var recipe Entities.Recipe
+	err := mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
+	if err != nil {
+		print(err.Error())
+	}
+	// fill ingredients
+	for _, recipeIngredient := range recipe.Ingredients {
+		recipeIngredient.Ingredient = GetIngredientById(recipeIngredient.IngredientKey)
+	}
+	return recipe
+}
+
+func GetIngredientById(_id string) Entities.Ingredient {
+	var ingredient Entities.Ingredient
+	ingredient = Entities.Ingredients[_id]
+	return ingredient
+}
+func loadIngredients() {
+	ingredients := []Entities.Ingredient{}
+	err := mgm.Coll(&Entities.Ingredient{}).SimpleFind(&ingredients, bson.M{})
+	if err != nil {
+		print(err.Error())
+	}
+	for _, ingredient := range ingredients {
+		Entities.Ingredients[ingredient.ID.Hex()] = ingredient
 	}
 }

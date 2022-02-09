@@ -57,5 +57,12 @@ func HandleCreateUserQuery(request CreateUserRequest, sessionLength int) LoginRe
 		fillLoginResponse(sessionLength, response, &user)
 	}
 	return response
-
+}
+func HandelGetIngredient(_id string) Entities.Ingredient {
+	ingredient := database.GetIngredientById(_id)
+	return ingredient
+}
+func HandelGetRecipe(_id string) Entities.Recipe {
+	recipe := database.GetRecipeById(_id)
+	return recipe
 }
