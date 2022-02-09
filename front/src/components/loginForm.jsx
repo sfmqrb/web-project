@@ -16,6 +16,11 @@ class LoginForm extends Form {
     password: Joi.string().required().label("Password"),
   };
 
+  handleClick = function () {
+    localStorage.setItem("user", true);
+    window.location = "/";
+  };
+
   doSubmit = async () => {
     // backend
     console.log("login");
@@ -68,7 +73,7 @@ class LoginForm extends Form {
                 {this.renderInput("password", "Password", "password")}
               </div>
 
-              {this.renderButton("Login")}
+              {this.renderButton("Login", this.handleClick)}
             </form>
           </div>
           <div className="col"></div>

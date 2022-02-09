@@ -14,6 +14,10 @@ class RegisterForm extends Form {
     password: Joi.string().required().min(5).label("Password"),
     name: Joi.string().required().label("Name"),
   };
+  handleClick() {
+    localStorage.setItem("user", true);
+    window.location = "/";
+  }
 
   doSubmit = async () => {
     // backend
@@ -73,7 +77,7 @@ class RegisterForm extends Form {
                 {this.renderInput("name", "Name")}
               </div>
               <div className="p-2 m-1" style={{ fontSize: "13px" }}>
-                {this.renderButton("Register")}
+                {this.renderButton("Register", this.handleClick)}
               </div>
             </form>
           </div>
