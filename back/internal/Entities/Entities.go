@@ -7,7 +7,7 @@ import (
 const ()
 
 type Ingredient struct {
-	mgm.DefaultModel `bson:",inline"`
+	mgm.DefaultModel `bson:",inline" json:"model"`
 	Name             string `json:"name" bson:"name"`
 	ImagePath        string `json:"imagePath" bson:"imagePath"`
 	Type             string `json:"type" bson:"type"`
@@ -19,14 +19,14 @@ type Ingredient struct {
 	Details string `bson:"details" json:"details"`
 }
 type Tag struct {
-	mgm.DefaultModel `bson:",inline"`
+	mgm.DefaultModel `bson:",inline" json:"model"`
 	Name             string `json:"name" bson:"name"`
 	ImagePath        string `json:"imagePath" bson:"imagePath"`
 	Type             string `json:"type" bson:"type"`
 	Details          string `bson:"details" json:"details"`
 }
 type User struct {
-	mgm.DefaultModel `bson:",inline"`
+	mgm.DefaultModel `bson:",inline" json:"model"`
 	Username         string `json:"username" bson:"username"`
 	Password         string `json:"password" bson:"password"`
 	Name             string `json:"name" bson:"name"`
@@ -52,7 +52,7 @@ type Link struct {
 }
 
 type Recipe struct {
-	mgm.DefaultModel `bson:",inline"`
+	mgm.DefaultModel `bson:",inline" json:"model"`
 	Name             string `json:"name" bson:"name"`
 	ImagePath        string `json:"imagePath" bson:"imagePath"`
 	Steps            []Step `json:"steps" bson:"steps"`

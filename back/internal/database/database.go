@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"io/ioutil"
 	"time"
@@ -31,6 +32,29 @@ func ConnectDB() {
 	if err != nil {
 		print(err)
 	}
+
+	r := Entities.Recipe{
+		DefaultModel:   mgm.DefaultModel{},
+		Name:           "",
+		ImagePath:      "",
+		Steps:          nil,
+		Type:           "",
+		Nationality:    "",
+		CookingTime:    0,
+		Ingredients:    nil,
+		Tags:           nil,
+		Writer:         "",
+		Comments:       nil,
+		HasMoreComment: false,
+		Stars:          0,
+		Views:          0,
+	}
+	r.ID = primitive.ObjectID{}
+	x, _ := json.Marshal(r)
+	print(string(x))
+	js := "{\"model\":{\"id\":\"123456789101112130000000\",\"created_at\":\"0001-01-01T00:00:00Z\",\"updated_at\":\"0001-01-01T00:00:00Z\"},\"name\":\"\",\"imagePath\":\"\",\"steps\":null,\"type\":\"\",\"nationality\":\"\",\"cookingTime\":0,\"ingredients\":\nnull,\"tags\":null,\"writer\":\"\",\"comments\":null,\"hasMoreComment\":false,\"stars\":0,\"views\":0}\n"
+	_ = json.Unmarshal([]byte(js), &r)
+	print(1)
 }
 
 func GetUserByUsername(username string) *Entities.User {
@@ -47,4 +71,24 @@ func CreateUser(user Entities.User) {
 	if e != nil {
 		print(e.Error())
 	}
+}
+
+func CreateRecipe(recipe Entities.Recipe) {
+	e := mgm.Coll(&Entities.Recipe{}).Create(&recipe)
+	if e != nil {
+		print(e.Error())
+	}
+}
+func EditRecipe(recipe Entities.Recipe) {
+	//r := Entities.Recipe{}
+	//r.ID
+}
+
+func GetIngredientById(_id string) Entities.Ingredient {
+	var ingredient Entities.Ingredient
+	err := mgm.Coll(&Entities.Ingredient{}).FindByID(_id, &ingredient)
+	if err != nil {
+		return Entities.Ingredient{}
+	}
+	return ingredient
 }

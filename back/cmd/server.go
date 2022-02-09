@@ -58,6 +58,9 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 		} else {
 			responseWriter.WriteHeader(http.StatusOK)
 		}
+	case "ingredient":
+		ingredient := queryHandeler.HandelGetIngredient(urlList[2])
+		sendResponseJson(responseWriter, ingredient)
 	}
 
 }
