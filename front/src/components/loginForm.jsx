@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
+import NavBar from "./navBar";
 import { login } from "../services/authService";
 import "../App.css";
 
@@ -31,16 +32,38 @@ class LoginForm extends Form {
   };
 
   render() {
+    const LoginMessage = (
+      <ul
+        className=" col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 p-0"
+        style={{ fontSize: "13px" }}>
+        <li className="d-block">
+          <a href="/" className="    text-info ">
+            Home
+            <br></br>
+          </a>
+        </li>
+        <p></p>
+        <li className="d-block">
+          Don't you have an account yet?
+          {
+            <a href="/register" className=" px-2   text-info">
+              Register
+            </a>
+          }
+        </li>
+      </ul>
+    );
     return (
       <div>
         <div class="row p-5 takeAllHeight loginImage whiteColor center-text ">
-          <h1 class="col"></h1>
-          <div class="col center-text">
-            <h1 className="mt-10 m-4 center">Login</h1>
+          <NavBar loginRegister={true} />
+          <div class="col"></div>
+          <div class="col-4 center-text ">
+            <h1 className="m-4">Login</h1>
+            {LoginMessage}
             <form onSubmit={this.handleSubmit} className="">
               {this.renderInput("username", "Username")}
               {this.renderInput("password", "Password", "password")}
-              {/*   replace it with better handling */}
               {this.renderButton("Login")}
             </form>
           </div>
