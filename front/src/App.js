@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
-import NavBar from "./components/navBar";
+import NewRecipe from "./components/newRecipe";
 import NotFound from "./components/notFound";
 import CardSet from "./components/cardSet";
 
@@ -38,6 +38,9 @@ function App() {
           </Route>
           <Route path="/logout">
             <Logout />
+          </Route>
+          <Route path="/new-recipe">
+            <NewRecipe />
           </Route>
           <Redirect from="/" to="/recipes" />
           <Route>
