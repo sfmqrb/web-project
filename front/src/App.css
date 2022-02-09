@@ -18,6 +18,13 @@
   margin-top: 4rem;
 }
 
+.centered {
+  height: 5vh; /* Magic here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .center-text {
   text-align: center;
   padding: auto !important;
@@ -42,13 +49,17 @@ body {
   background-image: url("./imgs/login.jpg");
   background-repeat: no-repeat;
   background-size:100% auto;
+  background-position: center center;      
+
 }
 
 .registerImage {
-  object-fit: fill!important;
+  padding-top: 5px;
+  margin: 0px auto;   
   background-image: url("./imgs/register.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover!important;
+  background-position: center center;      
 }
 
 .takeAllHeight {
@@ -98,4 +109,9 @@ body {
   color: #fff!important;
   transition: all 0.5s;
   
+}
+
+
+input {
+  font-size: 14px!important;
 }

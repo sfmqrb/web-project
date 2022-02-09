@@ -1,7 +1,17 @@
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import LoginForm from "./components/loginForm";
+import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
 import NavBar from "./components/navBar";
-import Footer from "./components/footer";
+import NotFound from "./components/notFound";
 import CardSet from "./components/cardSet";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,21 +20,32 @@ import "./App.css";
 function App() {
   // const tags = ["ab", "ba", "cd", "de", "ge", "hi"];
 
+  console.log("in App");
   return (
-    // <div className="App">
-    //   <_Card_
-    //     profile_name="SF"
-    //     title="FOOD TITLE"
-    //     subheader="FOOD SUBHEADER"
-    //     body="BOOOOOOOODY BOOOOOOOODY BOOOOOOOODY BOOOOOOOODY BOOOOOOOODY BOOOOOOOODY"
-    //     tags={tags}
-    //     image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-    //   />
-    // </div>
-
-    // <RegisterForm />
-    // <div></div>
-    <CardSet />
+    <Router>
+      <div>
+        {/* A <Switch> looks through its children <Route>s and
+          renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/recipes">
+            <CardSet />
+          </Route>
+          <Route path="/login">
+            <LoginForm />
+          </Route>
+          <Route path="/register">
+            <RegisterForm />
+          </Route>
+          <Route path="/logout">
+            <Logout />
+          </Route>
+          <Redirect from="/" to="/recipes" />
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

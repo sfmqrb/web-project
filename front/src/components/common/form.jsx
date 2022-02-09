@@ -48,10 +48,17 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderButton(label) {
-    return (
+  renderButton(label, onClick = null) {
+    return !onClick ? (
       <button disabled={this.validate()} className="btn btn-primary mt-2">
         {label}
+      </button>
+    ) : (
+      <button
+        disabled={this.validate()}
+        className="btn btn-primary mt-2"
+        onClick={onClick}>
+        {label}{" "}
       </button>
     );
   }
