@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import * as userService from "../services/userService";
+import { Link } from "react-router-dom";
 
 class RegisterForm extends Form {
   state = {
@@ -44,18 +45,18 @@ class RegisterForm extends Form {
         className=" col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 p-0"
         style={{ fontSize: "13px" }}>
         <li className="d-block">
-          <a href="/" className="    text-info ">
+          <Link to="/" className="    text-info ">
             Home
             <br></br>
-          </a>
+          </Link>
         </li>
         <p></p>
         <li className="d-block">
           Do you have an account?
           {
-            <a href="/login" className=" px-2   text-info">
+            <Link to="/login" className=" px-2   text-info">
               Login
-            </a>
+            </Link>
           }
         </li>
       </ul>
