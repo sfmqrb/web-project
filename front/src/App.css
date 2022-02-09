@@ -103,3 +103,8 @@ body {
   transition: all 0.5s;
   
 }
+
+
+input {
+  font-size: 14px!important;
+}

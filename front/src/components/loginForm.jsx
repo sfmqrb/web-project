@@ -58,12 +58,17 @@ class LoginForm extends Form {
         <div class="row p-5 takeAllHeight loginImage whiteColor center-text ">
           <NavBar loginRegister={true} />
           <div class="col"></div>
-          <div class="col-4 center-text ">
+          <div class="col-3 center-text" style={{ fontSize: 20 }}>
             <h1 className="m-4">Login</h1>
             {LoginMessage}
             <form onSubmit={this.handleSubmit} className="">
-              {this.renderInput("username", "Username")}
-              {this.renderInput("password", "Password", "password")}
+              <div className="p-2" style={{ fontSize: 13 }}>
+                {this.renderInput("username", "Username")}
+              </div>
+              <div className="p-2 mb-2" style={{ fontSize: 13 }}>
+                {this.renderInput("password", "Password", "password")}
+              </div>
+
               {this.renderButton("Login")}
             </form>
           </div>

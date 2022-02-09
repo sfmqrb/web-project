@@ -35,16 +35,46 @@ class RegisterForm extends Form {
   };
 
   render() {
+    const registerMessage = (
+      <ul
+        className=" col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 p-0"
+        style={{ fontSize: "13px" }}>
+        <li className="d-block">
+          <a href="/" className="    text-info ">
+            Home
+            <br></br>
+          </a>
+        </li>
+        <p></p>
+        <li className="d-block">
+          Do you have an account?
+          {
+            <a href="/login" className=" px-2   text-info">
+              Login
+            </a>
+          }
+        </li>
+      </ul>
+    );
     return (
       <div>
         <div class="row p-5 takeAllHeight registerImage whiteColor center-text ">
           <div class="col-3 center-text">
-            <h1 className="mt-10 m-4 ">Register</h1>
+            <h1 className=" m-4 ">Register</h1>
+            {registerMessage}
             <form onSubmit={this.handleSubmit}>
-              {this.renderInput("username", "Username")}
-              {this.renderInput("password", "Password", "password")}
-              {this.renderInput("name", "Name")}
-              {this.renderButton("Register")}
+              <div className="p-2 m-1" style={{ fontSize: "13px" }}>
+                {this.renderInput("username", "Username")}
+              </div>
+              <div className="p-2 m-1" style={{ fontSize: "13px" }}>
+                {this.renderInput("password", "Password", "password")}
+              </div>
+              <div className="p-2 m-1" style={{ fontSize: "13px" }}>
+                {this.renderInput("name", "Name")}
+              </div>
+              <div className="p-2 m-1" style={{ fontSize: "13px" }}>
+                {this.renderButton("Register")}
+              </div>
             </form>
           </div>
           <div class="col"></div>
