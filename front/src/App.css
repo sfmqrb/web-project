@@ -42,13 +42,17 @@ body {
   background-image: url("./imgs/login.jpg");
   background-repeat: no-repeat;
   background-size:100% auto;
+  background-position: center center;      
+
 }
 
 .registerImage {
-  object-fit: fill!important;
+  padding-top: 5px;
+  margin: 0px auto;   
   background-image: url("./imgs/register.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover!important;
+  background-position: center center;      
 }
 
 .takeAllHeight {
