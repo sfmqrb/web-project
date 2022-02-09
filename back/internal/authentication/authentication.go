@@ -1,6 +1,7 @@
 package authentication
 
 import (
+	"fmt"
 	"github.com/golang-jwt/jwt"
 	"time"
 )
@@ -30,4 +31,27 @@ func CreateJWT(username string, sessionLength int) string {
 		}
 	}(tokenString, ticker)
 	return tokenString
+}
+
+func VerifyJWT(tokenString string, minuteTryLimit int) string {
+	token, err := jwt.ParseWithClaims(tokenString, jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+		}
+		return hmacSampleSecret, nil
+	})
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		if jwtTries[tokenString] <= minuteTryLimit {
+			jwtTries[tokenString] += 1
+			//valid jwt
+			return claims["username"].(string)
+		} else {
+			// try limit reached
+			return "l"
+		}
+	} else {
+		fmt.Println(err)
+		//invalid jwt
+		return ""
+	}
 }

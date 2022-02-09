@@ -48,6 +48,7 @@ type User struct {
 	Recipes          []MiniRecipe `json:"recipes" bson:"recipes"`
 }
 type MiniUser struct {
+	Username    string `json:"username" bson:"username"`
 	Name        string `json:"name" bson:"name"`
 	PicturePath string `json:"picturePath" bson:"picturePath"`
 }
@@ -70,7 +71,7 @@ type Recipe struct {
 	Writer         string             `bson:"writer" json:"writer"`
 	Comments       []Comment          `json:"comments" bson:"comments"`
 	HasMoreComment bool               `json:"hasMoreComment" bson:"hasMoreComment"`
-	Stars          float32            `bson:"stars" json:"stars"`
+	Stars          float64            `bson:"stars" json:"stars"`
 	Views          int                `json:"views" bson:"views"`
 }
 type MiniRecipe struct {
@@ -84,11 +85,20 @@ type Step struct {
 }
 type RecipeIngredient struct {
 	IngredientKey string     `json:"ingredientKey" bson:"ingredientKey"`
-	Volume        float32    `json:"volume" bson:"volume"`
+	Volume        float64    `json:"volume" bson:"volume"`
 	Ingredient    Ingredient `bson:"ingredient" json:"ingredient"`
 }
 type Comment struct {
 	User MiniUser `json:"user" bson:"user"`
 	Text string   `json:"text" bson:"text"`
-	Star float32  `json:"star" bson:"star"`
+	Star float64  `json:"star" bson:"star"`
+}
+
+func RecipeToMiniRecipe(recipe Recipe) MiniRecipe {
+	return MiniRecipe{
+		MainId:      recipe.ID.Hex(),
+		Name:        recipe.Name,
+		ImagePath:   recipe.ImagePath,
+		CookingTime: recipe.CookingTime,
+	}
 }

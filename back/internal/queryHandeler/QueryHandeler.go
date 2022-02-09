@@ -1,6 +1,7 @@
 package queryHandeler
 
 import (
+	"errors"
 	"web/project/internal/Entities"
 	"web/project/internal/authentication"
 	"web/project/internal/database"
@@ -65,4 +66,25 @@ func HandelGetIngredient(_id string) Entities.Ingredient {
 func HandelGetRecipe(_id string) Entities.Recipe {
 	recipe := database.GetRecipeById(_id)
 	return recipe
+}
+func HandleGetAllRecipe() []Entities.Recipe {
+	return database.GetAllRecipe()
+}
+func HandleGetUserRecipes(_id string) []Entities.MiniRecipe {
+	return database.GetProfileRecipes(_id)
+}
+func HandleRecipeComment(recipeId string, comment Entities.Comment, username string) error {
+	if comment.User.Username != username {
+		return errors.New("userId and comment userId doesnt match")
+	}
+	comment.User = FillMiniUser(comment.User)
+	database.AddCommentToRecipe(recipeId, comment)
+	return nil
+}
+
+func FillMiniUser(miniUser Entities.MiniUser) Entities.MiniUser {
+	user := database.GetUserByUsername(miniUser.Username)
+	miniUser.Name = user.Name
+	miniUser.PicturePath = user.PicturePath
+	return miniUser
 }
