@@ -58,8 +58,8 @@ class RegisterForm extends Form {
     );
     return (
       <div>
-        <div class="row p-5 takeAllHeight registerImage whiteColor center-text ">
-          <div class="col-3 center-text">
+        <div className="row p-5 takeAllHeight registerImage whiteColor center-text ">
+          <div className="col-3 center-text">
             <h1 className=" m-4 ">Register</h1>
             {registerMessage}
             <form onSubmit={this.handleSubmit}>
@@ -77,8 +77,8 @@ class RegisterForm extends Form {
               </div>
             </form>
           </div>
-          <div class="col"></div>
-          <h1 class="col"></h1>
+          <div className="col"></div>
+          <h1 className="col"></h1>
         </div>
       </div>
     );

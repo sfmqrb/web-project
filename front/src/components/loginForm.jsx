@@ -55,10 +55,10 @@ class LoginForm extends Form {
     );
     return (
       <div>
-        <div class="row p-5 takeAllHeight loginImage whiteColor center-text ">
+        <div className="row p-5 takeAllHeight loginImage whiteColor center-text ">
           <NavBar loginRegister={true} />
-          <div class="col"></div>
-          <div class="col-3 center-text" style={{ fontSize: 20 }}>
+          <div className="col"></div>
+          <div className="col-3 center-text" style={{ fontSize: 20 }}>
             <h1 className="m-4">Login</h1>
             {LoginMessage}
             <form onSubmit={this.handleSubmit} className="">
@@ -72,7 +72,7 @@ class LoginForm extends Form {
               {this.renderButton("Login")}
             </form>
           </div>
-          <div class="col"></div>
+          <div className="col"></div>
         </div>
       </div>
     );

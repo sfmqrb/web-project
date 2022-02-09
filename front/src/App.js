@@ -31,6 +31,9 @@ function App() {
           <Route path="/register">
             <RegisterForm />
           </Route>
+          <Route path="/logout">
+            <Logout />
+          </Route>
         </Switch>
       </div>
     </Router>

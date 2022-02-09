@@ -71,7 +71,7 @@ const NavBar = ({ user, onChangeSearchBox: onChange, loginRegister }) => {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/logout">
                       Sign out
                     </a>
                   </li>
