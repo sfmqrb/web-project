@@ -18,6 +18,13 @@
   margin-top: 4rem;
 }
 
+.centered {
+  height: 5vh; /* Magic here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .center-text {
   text-align: center;
   padding: auto !important;

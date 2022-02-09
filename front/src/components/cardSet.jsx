@@ -5,154 +5,89 @@ import Footer from "./footer";
 import SearchBox from "./searchBox";
 import { paginate } from "../utils/paginate";
 import Pagination from "./common/pagination";
+import getFakeCard from "../services/fakeCard";
 
 class CardSet extends Component {
   // state
   state = {
-    originalCards: [
-      {
-        _id: 1,
-        title: "title :: Card 1",
-        name: "name :: Card 1",
-        subheader: "subheader Card 1",
-        image: "https://unsplash.it/400/300",
-        body: "body :: Card 1",
-        tags: ["ab", "ba", "cd", "de", "ge", "hi"],
-        liked: false,
-        onLike: () => {
-          console.log("like");
-        },
-      },
-      {
-        _id: 2,
-        title: "title :: Card 2",
-        name: "name :: Card 2",
-        subheader: "subheader Card 2",
-        image: "https://unsplash.it/400/600",
-        body: "body :: Card 2",
-        tags: ["ab", "ba", "cd", "de", "ge", "hi"],
-        liked: false,
-        onLike: () => {
-          console.log("like");
-        },
-      },
-      {
-        _id: 3,
-        title: "title :: Card 3",
-        name: "name :: Card 3",
-        subheader: "subheader Card 3",
-        image: "https://source.unsplash.com/random",
-        body: "body :: Card 3",
-        tags: ["ab", "ba", "cd", "de", "ge", "hi"],
-        liked: true,
-        onLike: () => {
-          console.log("like");
-        },
-      },
-      {
-        _id: 4,
-        title: "title :: Card 4",
-        name: "name :: Card 4",
-        subheader: "subheader Card 4",
-        image: "https://unsplash.it/400/400",
-        body: "body :: Card 4",
-        tags: ["ab", "ba", "cd", "de", "ge", "hi"],
-        liked: true,
-        onLike: () => {
-          console.log("like");
-        },
-      },
-      {
-        _id: 5,
-        title: "title :: Card 5",
-        name: "name :: Card 5",
-        subheader: "subheader Card 5",
-        image: "https://unsplash.it/410/400",
-        body: "body :: Card 5",
-        tags: ["ab", "ba", "cd", "de", "ge", "hi"],
-        liked: true,
-        onLike: () => {
-          console.log("like");
-        },
-      },
-      {
-        _id: 6,
-        title: "title :: Card 6",
-        name: "name :: Card 6",
-        subheader: "subheader Card 6",
-        image: "https://unsplash.it/410/410",
-        body: "body :: Card 6",
-        tags: ["ab", "ba", "cd", "de", "ge", "hi"],
-        liked: false,
-        onLike: () => {
-          console.log("like");
-        },
-      },
-    ],
     cards: [],
-    cardsAfterPagination: [],
-    pageSize: 3,
+    types: [],
     currentPage: 1,
+    pageSize: 4,
+    searchQuery: "",
+    sortColumn: { path: "title", order: "asc" },
   };
 
   componentDidMount() {
+    const cards = [...getFakeCard()];
     this.setState({
-      cards: this.state.originalCards,
-      cardsAfterPagination: paginate(
-        this.state.originalCards,
-        1,
-        this.state.pageSize
-      ),
+      cards,
     });
-  }
-
-  handleChangeSearchBox(value) {
-    let res = [...this.state.originalCards];
-    res = res.filter((card) => {
-      return (
-        card.title.toLowerCase().includes(value.toLowerCase()) ||
-        card.name.toLowerCase().includes(value.toLowerCase()) ||
-        card.subheader.toLowerCase().includes(value.toLowerCase()) ||
-        card.body.toLowerCase().includes(value.toLowerCase()) ||
-        card.tags.includes(value.toLowerCase())
-      );
-    });
-
-    this.setState({ cards: res });
   }
 
   handlePageChange = (page) => {
-    // this.setState({ currentPage: page });
-    const cards = paginate(this.state.cards, page, this.state.pageSize);
-    // return cards;
-    console.log(page);
-    console.log(cards);
-    this.setState({
-      currentPage: page,
-      cardsAfterPagination: cards,
-    });
+    this.setState({ currentPage: page });
   };
 
-  // render
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query, currentPage: 1 });
+  };
+
+  getPagedData = () => {
+    const { pageSize, currentPage, searchQuery, cards: allCards } = this.state;
+
+    let filtered = allCards;
+    if (searchQuery)
+      filtered = allCards.filter(
+        (m) =>
+          m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          m.body.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    else {
+      filtered = allCards;
+    }
+
+    const cards = paginate(filtered, currentPage, pageSize);
+
+    return { totalCount: filtered.length, data: cards };
+  };
 
   render() {
-    console.log(this.props);
+    const { length: count } = this.state.cards;
+    const { pageSize, currentPage, searchQuery } = this.state;
+
+    if (count === 0) return <p>There are no recipes in the database.</p>;
+
+    const { totalCount, data: cards } = this.getPagedData();
+
     return (
       <>
-        <NavBar onChangeSearchBox={this.handleChangeSearchBox.bind(this)} />
-        <Pagination
-          itemsCount={this.state.cards.length}
-          pageSize={this.state.pageSize}
-          currentPage={this.state.currentPage}
-          onPageChange={this.handlePageChange}
+        <NavBar
+          searchEnabled={true}
+          value={searchQuery}
+          onChange={this.handleSearch}
         />
-        <div className="m-5">
-          <div className="row m-0  justify-content-around border-top">
-            {this.state.cardsAfterPagination.map((card) => (
-              <_Card_ key={card._id} {...card} />
+        <div className="container center text-center text-black">
+          <p>Found {totalCount} recipes in the database.</p>
+        </div>
+        <div className="container">
+          <div className="row m-0  justify-content-around ">
+            {cards.map((card) => (
+              <_Card_ key={card._id} {...card} onLike={this.handleLike} />
             ))}
           </div>
         </div>
+        <div
+          className="container center-items centered"
+          style={{ justifyContent: "center", alignItems: "center" }}>
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={this.handlePageChange}
+          />
+        </div>
+
         <Footer />
       </>
     );

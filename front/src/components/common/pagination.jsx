@@ -9,7 +9,7 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
 
   return (
     <nav>
-      <ul className="pagination">
+      <ul className="pagination center-text">
         {pages.map((page) => (
           <li
             key={page}
