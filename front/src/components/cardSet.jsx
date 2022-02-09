@@ -68,7 +68,9 @@ class CardSet extends Component {
           onChange={this.handleSearch}
         />
         <div className="container center text-center text-black">
-          <p>Found {totalCount} recipes in the database.</p>
+          <p className="display-6" style={{ fontSize: "30px" }}>
+            Found {totalCount} recipes in the database.
+          </p>
         </div>
         <div className="container">
           <div className="row m-0  justify-content-around ">

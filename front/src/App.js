@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import LoginForm from "./components/loginForm";
@@ -33,6 +38,10 @@ function App() {
           </Route>
           <Route path="/logout">
             <Logout />
+          </Route>
+          <Redirect from="/" to="/recipes" />
+          <Route>
+            <NotFound />
           </Route>
         </Switch>
       </div>

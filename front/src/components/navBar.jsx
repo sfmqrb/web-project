@@ -1,7 +1,16 @@
 import React from "react";
 import SearchBox from "./searchBox";
 
+const isLoginState = () => {
+  if (localStorage.getItem("user")) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 const NavBar = ({ user, onChange, searchQuery }) => {
+  const isLoggedIn = isLoginState();
   return (
     <header className="p-3 mb-3 border-bottom " style={{ fontSize: "1rem" }}>
       <div className="container">
@@ -12,61 +21,79 @@ const NavBar = ({ user, onChange, searchQuery }) => {
                 Home
               </a>
             </li>
-            <li>
-              <a href="#" className="nav-link px-2 link-dark navlinks">
-                My Recipes
-              </a>
-            </li>
-            <li>
-              <a href="#" className="nav-link px-2 link-dark navlinks">
-                {/* "" */}
-              </a>
-            </li>
+            {isLoggedIn ? (
+              <li>
+                <a href="#" className="nav-link px-2 link-dark navlinks">
+                  My Recipes
+                </a>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <a
+                    href="/register"
+                    className="nav-link px-2 link-dark navlinks">
+                    Register
+                  </a>
+                </li>
+                <li>
+                  <a href="/login" className="nav-link px-2 link-dark navlinks">
+                    Login
+                  </a>
+                </li>
+              </>
+            )}
           </ul>
           <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <SearchBox onChange={onChange} searchQuery={searchQuery} />
           </form>
-          <div className="dropdown text-end">
-            <a
-              href="#"
-              className="d-block link-dark text-decoration-none dropdown-toggle"
-              id="dropdownUser1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <img
-                src="https://github.com/mdo.png"
-                alt="mdo"
-                width="50"
-                height="50"
-                className="rounded-circle"
-              />
-            </a>
-            <ul
-              className="dropdown-menu text-small"
-              aria-labelledby="dropdownUser1">
-              <li>
-                <a className="dropdown-item" href="#">
-                  New recipe...
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <a className="dropdown-item" href="/logout">
-                  Sign out
-                </a>
-              </li>
-            </ul>
-          </div>
+          {getIsLoggedInHtml(isLoggedIn)}
         </div>
       </div>
     </header>
+  );
+};
+
+const getIsLoggedInHtml = (isLoggedIn) => {
+  return isLoggedIn ? (
+    <div className="dropdown text-end">
+      <a
+        href="#"
+        className="d-block link-dark text-decoration-none dropdown-toggle"
+        id="dropdownUser1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        <img
+          src="https://github.com/mdo.png"
+          alt="mdo"
+          width="50"
+          height="50"
+          className="rounded-circle"
+        />
+      </a>
+      <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+        <li>
+          <a className="dropdown-item" href="#">
+            New recipe...
+          </a>
+        </li>
+        <li>
+          <a className="dropdown-item" href="#">
+            Profile
+          </a>
+        </li>
+        <li>
+          <hr className="dropdown-divider" />
+        </li>
+        <li>
+          <a className="dropdown-item" href="/logout">
+            Sign out
+          </a>
+        </li>
+      </ul>
+    </div>
+  ) : (
+    <></>
   );
 };
 
