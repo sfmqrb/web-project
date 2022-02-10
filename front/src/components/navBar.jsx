@@ -81,7 +81,7 @@ const getIsLoggedInHtml = (isLoggedIn) => {
       </Link>
       <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
         <li>
-          <Link className="dropdown-item" to="#">
+          <Link className="dropdown-item" to="/new-recipe">
             {" "}
             New recipe...
           </Link>

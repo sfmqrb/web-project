@@ -16,9 +16,9 @@ function NewRecipe() {
   const [images, updateImages] = useState([]);
 
   useEffect(() => {
-    console.log(tags, "useEffect tags");
-    console.log(steps, "useEffect steps");
-    console.log(images, "useEffect images");
+    // console.log("Running useEffect", tags);
+    console.log(steps, "In newRecipe :: steps");
+    // console.log(images, "useEffect images");
   }, [tags, steps, images]);
 
   return (
