@@ -53,7 +53,7 @@ func CreateUser(user Entities.User) {
 	}
 }
 
-func CreateRecipe(recipe Entities.Recipe) {
+func AddRecipe(recipe Entities.Recipe) {
 	e := mgm.Coll(&Entities.Recipe{}).Create(&recipe)
 	if e != nil {
 		print(e.Error())
@@ -73,6 +73,10 @@ func GetRecipeById(_id string) Entities.Recipe {
 	for _, recipeIngredient := range recipe.Ingredients {
 		recipeIngredient.Ingredient = GetIngredientById(recipeIngredient.IngredientKey)
 	}
+	// fill tags
+	for _, recipeTag := range recipe.Tags {
+		recipeTag.Tag = GetTagById(recipeTag.TagId)
+	}
 	return recipe
 }
 func GetAllRecipe() []Entities.Recipe {
@@ -88,6 +92,11 @@ func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient
 	ingredient = Entities.Ingredients[_id]
 	return ingredient
+}
+func GetTagById(_id string) Entities.Tag {
+	var tag Entities.Tag
+	tag = Entities.Tags[_id]
+	return tag
 }
 func GetProfileRecipes(_id string) []Entities.MiniRecipe {
 	var user Entities.User
@@ -115,5 +124,15 @@ func loadIngredients() {
 	}
 	for _, ingredient := range ingredients {
 		Entities.Ingredients[ingredient.ID.Hex()] = ingredient
+	}
+}
+func loadTags() {
+	var tags []Entities.Tag
+	err := mgm.Coll(&Entities.Tag{}).SimpleFind(&tags, bson.M{})
+	if err != nil {
+		print(err.Error())
+	}
+	for _, tag := range tags {
+		Entities.Tags[tag.ID.Hex()] = tag
 	}
 }
