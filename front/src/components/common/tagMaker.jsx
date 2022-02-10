@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { WithContext as ReactTags } from "react-tag-input";
-
+import "./tagMaker.css";
 const SUGGESTIONS = [
   { id: "vegetarian", text: "vegetarian" },
   { id: "vegan", text: "vegan" },
@@ -59,7 +59,9 @@ const TagMaker = ({ onChange }) => {
 
   return (
     <div className="app">
-      <h1> Add the tags you want to add to your recipe! </h1>
+      <h1 className="display-6">
+        <p className="m-3">Add the tags here! </p>
+      </h1>
       <div>
         <ReactTags
           tags={tags}
@@ -69,7 +71,7 @@ const TagMaker = ({ onChange }) => {
           handleAddition={handleAddition}
           handleDrag={handleDrag}
           handleTagClick={handleTagClick}
-          inputFieldPosition="bottom"
+          inputFieldPosition="top"
           autocomplete
         />
       </div>

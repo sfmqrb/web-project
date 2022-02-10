@@ -1,0 +1,32 @@
+textarea {
+    width: 100%;
+    height: auto;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    padding: 10px;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 7px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px!important;
+}
+
+.lead {
+    margin-bottom: 10px!important;
+}
+
+.lead:hover {
+    cursor: pointer;
+}
+
+.delete-textarea:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+    color: rgb(180, 15, 15);
+    transition: 0.3s;
+    border: 1px solid rgb(180, 15, 15);
+}

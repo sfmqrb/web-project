@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function ImageUploader({ onChange: setImagesParent }) {
   const [images, setImages] = useState([]);

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./stepMaker.css";
 
 class StepMaker extends React.Component {
   state = {
@@ -35,31 +37,33 @@ class StepMaker extends React.Component {
   }
 
   render() {
-    const widthStyle = {
-      width: "15rem",
-    };
-
     return (
       <div className="App">
         <form>
           {this.state.Steps.map((el, i) => {
             return (
-              <div key={i}>
-                <input
-                  type="text"
-                  value={el || ""}
-                  onChange={this.handleChange.bind(this, i)}
-                />
-                <input
-                  type="button"
-                  value="remove"
-                  onClick={this.removeClick.bind(this, i)}
-                />
+              <div className="row" key={i}>
+                <div className="col-10">
+                  <textarea
+                    type="text"
+                    name={el || ""}
+                    onChange={this.handleChange.bind(this, i)}
+                  />
+                </div>
+                <div className="col-2 align-middle centered">
+                  <input
+                    className="btn align-middle delete-textarea"
+                    type="button"
+                    value="X"
+                    onClick={this.removeClick.bind(this, i)}
+                  />
+                </div>
               </div>
             );
-          })}
-
-          <button onClick={this.addStep}>ADD Step</button>
+          })}{" "}
+          <a className="btn" onClick={this.addStep}>
+            <p className="lead">Add Step</p>
+          </a>
         </form>
       </div>
     );
