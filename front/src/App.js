@@ -19,7 +19,22 @@ import "./App.css";
 
 function App() {
   // const tags = ["ab", "ba", "cd", "de", "ge", "hi"];
-
+  //////////////// recipe example /////////////////////
+  // {title={"new Recipe"}
+  // tags={[
+  //   { id: "ab", text: "ab" },
+  //   { id: "ba", text: "ba" },
+  // ]}
+  // steps={["step 1", "step 2", "step 3", "step 4"]}
+  // images={[
+  //   // must be file but is not!!
+  //   "https://unsplash.it/400/600",
+  //   "https://unsplash.it/400/600",
+  // ]}
+  // imageURLs={[
+  //   "https://unsplash.it/400/600",
+  //   "https://unsplash.it/400/600",
+  // ]}}
   console.log("in App");
   return (
     <Router>
@@ -40,24 +55,7 @@ function App() {
             <Logout />
           </Route>
           <Route path="/new-recipe">
-            <NewRecipe
-              isAdmin={true}
-              title={"new Recipe"}
-              tags={[
-                { id: "ab", text: "ab" },
-                { id: "ba", text: "ba" },
-              ]}
-              steps={["step 1", "step 2", "step 3", "step 4"]}
-              images={[
-                // must be file but is not!!
-                "https://unsplash.it/400/600",
-                "https://unsplash.it/400/600",
-              ]}
-              imageURLs={[
-                "https://unsplash.it/400/600",
-                "https://unsplash.it/400/600",
-              ]}
-            />
+            <NewRecipe isAdmin={true} />
           </Route>
           <Redirect from="/" to="/recipes" />
           <Route>

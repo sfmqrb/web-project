@@ -11,7 +11,7 @@ function ImageUploader({
   const [images, setImages] = useState(prImages || []);
   const [imageURLs, setImageURLs] = useState(prImageURLs || []);
 
-  const isNotAuthorizedToEdit = isAdmin;
+  const isNotAuthorizedToEdit = !isAdmin;
 
   const myRef = useRef();
 

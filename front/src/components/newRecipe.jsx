@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import TagMaker from "./common/tagMaker";
 import StepMaker from "./common/stepMaker";
 import TitleMaker from "./common/titleMaker";
@@ -12,7 +13,7 @@ const handleClick = (tags) => {
 };
 
 function NewRecipe(props) {
-  const isAdmin = props.isAdmin;
+  const isAdmin = props.isAdmin || false;
 
   const [tags, updateTags] = useState(props.tags || []);
   const [steps, updateSteps] = useState(props.steps || []);
@@ -26,6 +27,9 @@ function NewRecipe(props) {
     console.log(title, "useEffect title");
   }, [tags, steps, images, title]);
 
+  if (!isAdmin) {
+    return <Redirect to="/" />;
+  }
   return (
     <>
       <NavBar searchEnabled={false} />
