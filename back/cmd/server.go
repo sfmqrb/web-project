@@ -137,10 +137,33 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			return
 		}
 	case "users":
-		switch urlList[3] {
-		case "recipes":
-			recipes := queryHandeler.HandleGetUserRecipes(urlList[2])
-			sendResponseJson(responseWriter, recipes)
+		if len(urlList) > 3 {
+			switch urlList[3] {
+			case "recipes":
+				recipes := queryHandeler.HandleGetUserRecipes(urlList[2])
+				sendResponseJson(responseWriter, recipes)
+			}
+		}
+		switch request.Method {
+		case http.MethodGet:
+			//get profile
+			jwt := request.Header.Get("jwt")
+			_username, done := digestJwt(responseWriter, jwt)
+			if done {
+				return
+			}
+			user, found := queryHandeler.HandelGetProfile(_username, urlList[2])
+			if !found {
+				responseWriter.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			sendResponseJson(responseWriter, user)
+		case http.MethodPut:
+			//follow
+
+		case http.MethodDelete:
+			//unfollow
+
 		}
 	case "image":
 		switch request.Method {

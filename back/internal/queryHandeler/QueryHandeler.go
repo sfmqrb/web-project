@@ -113,3 +113,20 @@ func FillMiniUser(miniUser Entities.MiniUser) Entities.MiniUser {
 	miniUser.PicturePath = user.PicturePath
 	return miniUser
 }
+func HandelGetProfile(_reqUserName string, username string) (Entities.User, bool) {
+	user := *database.GetUserByUsername(username)
+	if user.Username == "" {
+		// no uer found
+		return user, false
+	}
+	if _reqUserName == username {
+		// get my profile
+		// todo remove some information
+		user.Email = ""
+		user.PhoneNumber = ""
+		user.Password = ""
+	}
+	// get others profile
+	user.Password = ""
+	return user, true
+}
