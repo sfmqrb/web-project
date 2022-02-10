@@ -144,14 +144,14 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				sendResponseJson(responseWriter, recipes)
 			}
 		}
+		jwt := request.Header.Get("jwt")
+		_username, done := digestJwt(responseWriter, jwt)
+		if done {
+			return
+		}
 		switch request.Method {
 		case http.MethodGet:
 			//get profile
-			jwt := request.Header.Get("jwt")
-			_username, done := digestJwt(responseWriter, jwt)
-			if done {
-				return
-			}
 			user, found := queryHandeler.HandelGetProfile(_username, urlList[2])
 			if !found {
 				responseWriter.WriteHeader(http.StatusBadRequest)
@@ -160,9 +160,10 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			sendResponseJson(responseWriter, user)
 		case http.MethodPut:
 			//follow
-
+			queryHandeler.HandelFollow(_username, urlList[2])
 		case http.MethodDelete:
 			//unfollow
+			queryHandeler.HandelUnfollow(_username, urlList[2])
 
 		}
 	case "image":

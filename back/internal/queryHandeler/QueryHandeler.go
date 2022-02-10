@@ -130,3 +130,32 @@ func HandelGetProfile(_reqUserName string, username string) (Entities.User, bool
 	user.Password = ""
 	return user, true
 }
+
+// HandelFollow todo on db ?
+func HandelFollow(_reqUserName string, username string) {
+	reqUser := *database.GetUserByUsername(_reqUserName)
+	user := *database.GetUserByUsername(username)
+	reqUser.Followings = append(reqUser.Followings, username)
+	user.Followers = append(user.Followers, _reqUserName)
+	database.UpdateUser(user)
+	database.UpdateUser(reqUser)
+}
+
+func HandelUnfollow(_reqUserName string, username string) {
+	reqUser := *database.GetUserByUsername(_reqUserName)
+	user := *database.GetUserByUsername(username)
+	reqUser.Followings = removeFromArray(reqUser.Followings, username)
+	user.Followers = removeFromArray(user.Followers, _reqUserName)
+	database.UpdateUser(user)
+	database.UpdateUser(reqUser)
+}
+
+func removeFromArray(slice []string, username string) []string {
+	var newReqUserFollowings []string
+	for _, following := range slice {
+		if following != username {
+			newReqUserFollowings = append(newReqUserFollowings, following)
+		}
+	}
+	return newReqUserFollowings
+}

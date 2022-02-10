@@ -33,6 +33,7 @@ func ConnectDB() {
 	}
 
 	loadIngredients()
+	loadTags()
 	//test
 
 }
@@ -52,7 +53,9 @@ func CreateUser(user Entities.User) {
 		print(e.Error())
 	}
 }
-
+func UpdateUser(user Entities.User) {
+	_ = mgm.Coll(&user).Update(&user)
+}
 func AddRecipe(recipe Entities.Recipe) {
 	e := mgm.Coll(&Entities.Recipe{}).Create(&recipe)
 	if e != nil {
