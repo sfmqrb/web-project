@@ -48,13 +48,15 @@ class StepMaker extends React.Component {
                     type="text"
                     name={el || ""}
                     onChange={this.handleChange.bind(this, i)}
+                    cols="30"
+                    rows="4"
                   />
                 </div>
-                <div className="col-2 align-middle centered">
+                <div className="col-2 margin-auto centered">
                   <input
                     className="btn align-middle delete-textarea"
                     type="button"
-                    value="X"
+                    value="X "
                     onClick={this.removeClick.bind(this, i)}
                   />
                 </div>

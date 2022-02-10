@@ -10,7 +10,7 @@ const isLoginState = () => {
   }
 };
 
-const NavBar = ({ user, onChange, searchQuery }) => {
+const NavBar = ({ user, onChange, searchQuery, searchEnabled }) => {
   const isLoggedIn = isLoginState();
   return (
     <header className="p-3 mb-3 border-bottom " style={{ fontSize: "1rem" }}>
@@ -47,9 +47,13 @@ const NavBar = ({ user, onChange, searchQuery }) => {
               </>
             )}
           </ul>
-          <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <SearchBox onChange={onChange} searchQuery={searchQuery} />
-          </form>
+          {searchEnabled ? (
+            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+              <SearchBox onChange={onChange} searchQuery={searchQuery} />
+            </form>
+          ) : (
+            <></>
+          )}
           {getIsLoggedInHtml(isLoggedIn)}
         </div>
       </div>

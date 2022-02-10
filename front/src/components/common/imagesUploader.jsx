@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./imageUploader.css";
 
 function ImageUploader({ onChange: setImagesParent }) {
   const [images, setImages] = useState([]);
@@ -23,12 +24,44 @@ function ImageUploader({ onChange: setImagesParent }) {
 
   return (
     <>
-      <input type="file" multiple onChange={handleChange} multiple />
+      <label for="file-upload" class="custom-file-upload btn margin-auto">
+        Image Upload
+      </label>
+      <div class="container ">
+        <div className="row centered">
+          <input
+            id="file-upload"
+            className="uploader "
+            type="file"
+            multiple
+            onChange={handleChange}
+            multiple
+          />
+        </div>
+      </div>
       {imageURLs.map((imageSrc) => (
-        <img src={imageSrc} alt="uploaded" style={{ width: 300 }} />
+        <div className="container">
+          <div className="row">
+            <img src={imageSrc} alt="uploaded" className="img-thumbnail" />
+          </div>
+          <div className="row">
+            <button
+              className="btn mb-3 delete-image "
+              onClick={handleDeleteImage(imageSrc)}>
+              X
+            </button>
+          </div>
+        </div>
       ))}
     </>
   );
+
+  function handleDeleteImage(imageSrc) {
+    return () => {
+      setImageURLs(imageURLs.filter((image) => image !== imageSrc));
+      setImages(images.filter((image) => image !== imageSrc));
+    };
+  }
 }
 
 export default ImageUploader;

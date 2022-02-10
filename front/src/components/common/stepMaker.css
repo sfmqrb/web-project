@@ -12,7 +12,7 @@ textarea {
     box-sizing: border-box;
     border-radius: 7px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px!important;
+    margin: 3px!important;
 }
 
 .lead {
@@ -29,4 +29,8 @@ textarea {
     color: rgb(180, 15, 15);
     transition: 0.3s;
     border: 1px solid rgb(180, 15, 15);
+}
+
+.margin-auto {
+    margin: auto!important;
 }

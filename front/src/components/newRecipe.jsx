@@ -3,10 +3,11 @@ import TagMaker from "./common/tagMaker";
 import StepMaker from "./common/stepMaker";
 import ImageUploader from "./common/imagesUploader";
 import "bootstrap/dist/css/bootstrap.min.css";
+import NavBar from "./navBar";
+import history from "../history";
 
 const handleClick = (tags) => {
-  console.log("The button was clicked");
-  console.log(tags, "button tags");
+  window.location = "/";
 };
 
 function NewRecipe() {
@@ -22,6 +23,7 @@ function NewRecipe() {
 
   return (
     <>
+      <NavBar searchEnabled={false} />
       <div className="container">
         <div className="row">
           <div className="col-3">
@@ -30,7 +32,7 @@ function NewRecipe() {
           <div className="col">
             <StepMaker onChange={updateSteps} />
           </div>
-          <div className="col">
+          <div className="col-3">
             <ImageUploader onChange={updateImages} />
           </div>
         </div>
@@ -39,7 +41,11 @@ function NewRecipe() {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col centered">
-            <button onClick={() => handleClick(tags)}>Submit</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => handleClick(tags)}>
+              Submit
+            </button>
           </div>
 
           <div className="col"></div>
