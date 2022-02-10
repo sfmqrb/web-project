@@ -12,6 +12,11 @@ input[type="file"] {
 .margin-auto {
     margin: auto!important;
 }
+.padding-auto {
+    padding: auto!important;
+}
+
+
 
 .img-upload {
     /* object-fit: cover!important; */

@@ -54,9 +54,9 @@ class StepMaker extends React.Component {
                 </div>
                 <div className="col-2 margin-auto centered">
                   <input
-                    className="btn align-middle delete-textarea"
+                    className="btn delete-textarea centered"
                     type="button"
-                    value="X "
+                    value="X"
                     onClick={this.removeClick.bind(this, i)}
                   />
                 </div>

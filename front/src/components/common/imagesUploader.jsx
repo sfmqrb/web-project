@@ -39,15 +39,15 @@ function ImageUploader({ onChange: setImagesParent }) {
           />
         </div>
       </div>
-      {imageURLs.map((imageSrc) => (
-        <div className="container">
+      {imageURLs.map((imageSrc, idx) => (
+        <div key={idx} className="container">
           <div className="row">
             <img src={imageSrc} alt="uploaded" className="img-thumbnail" />
           </div>
           <div className="row">
             <button
-              className="btn mb-3 delete-image "
-              onClick={handleDeleteImage(imageSrc)}>
+              className="btn mb-3 delete-image  padding-auto centered"
+              onClick={handleDeleteImage(imageSrc, idx)}>
               X
             </button>
           </div>
@@ -56,10 +56,11 @@ function ImageUploader({ onChange: setImagesParent }) {
     </>
   );
 
-  function handleDeleteImage(imageSrc) {
+  function handleDeleteImage(imageSrc, idx) {
     return () => {
-      setImageURLs(imageURLs.filter((image) => image !== imageSrc));
-      setImages(images.filter((image) => image !== imageSrc));
+      console.log(`Deleting image ${imageSrc}`);
+      const nImages = [...images.filter((_, idxThis) => idx !== idxThis)];
+      setImages(nImages);
     };
   }
 }
