@@ -71,7 +71,7 @@ function NewRecipe(props) {
         </div>
       </div>
       <div className="container">
-        <footer className="row footer-bottom">
+        <footer className="row footer-bottom footer-recipe">
           <button
             className="btn btn-primary"
             style={{
