@@ -40,7 +40,14 @@ function App() {
             <Logout />
           </Route>
           <Route path="/new-recipe">
-            <NewRecipe />
+            <NewRecipe
+              isAdmin={true}
+              title={"new Recipe"}
+              tags={[
+                { id: "ab", text: "ab" },
+                { id: "ba", text: "ba" },
+              ]}
+            />
           </Route>
           <Redirect from="/" to="/recipes" />
           <Route>

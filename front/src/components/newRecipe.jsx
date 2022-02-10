@@ -11,16 +11,18 @@ const handleClick = (tags) => {
   window.location = "/";
 };
 
-function NewRecipe() {
-  const [tags, updateTags] = useState([]);
-  const [steps, updateSteps] = useState([]);
-  const [images, updateImages] = useState([]);
-  const [title, updateTitle] = useState("");
+function NewRecipe(props) {
+  const isAdmin = props.isAdmin;
+
+  const [tags, updateTags] = useState(props.tags || []);
+  const [steps, updateSteps] = useState(props.steps || []);
+  const [images, updateImages] = useState(props.images || []);
+  const [title, updateTitle] = useState(props.title || "");
 
   useEffect(() => {
-    // console.log("Running useEffect", tags);
-    // console.log(steps, "In newRecipe :: steps");
-    // console.log(images, "useEffect images");
+    console.log(tags, "useEffect tags");
+    console.log(steps, "useEffect steps");
+    console.log(images, "useEffect images");
     console.log(title, "useEffect title");
   }, [tags, steps, images, title]);
 
@@ -30,14 +32,22 @@ function NewRecipe() {
       <div className="container">
         <div className="row">
           <div className="col centered">
-            <TitleMaker onChange={updateTitle} />
+            <TitleMaker
+              onChange={updateTitle}
+              isAdmin={isAdmin}
+              title={props.title || ""}
+            />
           </div>
         </div>
       </div>
       <div className="container">
         <div className="row">
           <div className="col-3">
-            <TagMaker onChange={updateTags} />
+            <TagMaker
+              onChange={updateTags}
+              isAdmin={isAdmin}
+              tags={props.tags || []}
+            />
           </div>
           <div className="col">
             <StepMaker onChange={updateSteps} />
