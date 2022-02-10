@@ -28,7 +28,8 @@
     margin: 0;
     font-size: 12px;
     border: 1px solid #eee;
-    min-width: 150px;
+    min-width: 150px !important;
+
   }
   
   .ReactTags__editInput {

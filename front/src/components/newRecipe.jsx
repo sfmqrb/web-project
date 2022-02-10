@@ -4,7 +4,7 @@ import StepMaker from "./common/stepMaker";
 import ImageUploader from "./common/imagesUploader";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./navBar";
-import history from "../history";
+import "./newRecipe.css";
 
 const handleClick = (tags) => {
   window.location = "/";
@@ -36,21 +36,30 @@ function NewRecipe() {
             <ImageUploader onChange={updateImages} />
           </div>
         </div>
-
-        <div className="row">
-          <div className="col"></div>
-          <div className="col"></div>
-          <div className="col centered">
-            <button
-              className="btn btn-primary"
-              onClick={() => handleClick(tags)}>
-              Submit
-            </button>
-          </div>
-
-          <div className="col"></div>
-          <div className="col"></div>
-        </div>
+      </div>
+      <div className="container">
+        <footer className="row footer-bottom">
+          <button
+            className="btn btn-primary"
+            style={{
+              display: "inline-block",
+              textAlign: "center",
+              width: "fit-content",
+            }}
+            onClick={() => handleClick(tags)}>
+            Submit
+          </button>
+          <button
+            className="btn btn-danger"
+            style={{
+              display: "inline-block",
+              textAlign: "center",
+              width: "fit-content",
+            }}
+            onClick={() => handleClick(tags)}>
+            Discard
+          </button>
+        </footer>
       </div>
     </>
   );
