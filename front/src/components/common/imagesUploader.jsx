@@ -43,7 +43,7 @@ function ImageUploader({ onChange: setImagesParent }) {
       <label
         onClick={reset}
         for="file-upload"
-        class="custom-file-upload btn margin-auto">
+        class="custom-file-upload btn margin-side-auto centered mb-3">
         Image Upload
       </label>
       <div class="container img-upload">

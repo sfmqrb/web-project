@@ -16,7 +16,7 @@ textarea {
 }
 
 .lead {
-    margin-bottom: 10px!important;
+    margin: 1px!important;
 }
 
 .lead:hover {
@@ -33,4 +33,9 @@ textarea {
 
 .margin-auto {
     margin: auto!important;
+}
+
+.add-step:hover {
+    background-color: #f2f2f2;
+
 }

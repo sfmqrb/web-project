@@ -53,7 +53,7 @@ function StepMaker({ onChange }) {
             </div>
           );
         })}{" "}
-        <a className="btn" onClick={handleAddition}>
+        <a className="btn add-step" onClick={handleAddition}>
           <p className="lead">Add Step</p>
         </a>
       </form>
