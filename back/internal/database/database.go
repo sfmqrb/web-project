@@ -33,6 +33,7 @@ func ConnectDB() {
 	}
 
 	loadIngredients()
+	loadTags()
 	//test
 
 }
@@ -52,16 +53,14 @@ func CreateUser(user Entities.User) {
 		print(e.Error())
 	}
 }
-
-func CreateRecipe(recipe Entities.Recipe) {
+func UpdateUser(user Entities.User) {
+	_ = mgm.Coll(&user).Update(&user)
+}
+func AddRecipe(recipe Entities.Recipe) {
 	e := mgm.Coll(&Entities.Recipe{}).Create(&recipe)
 	if e != nil {
 		print(e.Error())
 	}
-}
-func EditRecipe(recipe Entities.Recipe) {
-	//r := Entities.Recipe{}
-	//r.ID
 }
 func GetRecipeById(_id string) Entities.Recipe {
 	var recipe Entities.Recipe
@@ -73,6 +72,10 @@ func GetRecipeById(_id string) Entities.Recipe {
 	for _, recipeIngredient := range recipe.Ingredients {
 		recipeIngredient.Ingredient = GetIngredientById(recipeIngredient.IngredientKey)
 	}
+	// fill tags
+	for _, recipeTag := range recipe.Tags {
+		recipeTag.Tag = GetTagById(recipeTag.TagId)
+	}
 	return recipe
 }
 func GetAllRecipe() []Entities.Recipe {
@@ -83,11 +86,29 @@ func GetAllRecipe() []Entities.Recipe {
 	}
 	return recipes
 }
-
+func DelRecipe(recipe Entities.Recipe) bool {
+	err := mgm.Coll(&recipe).Delete(&recipe)
+	if err != nil {
+		return false
+	}
+	return true
+}
+func EditRecipe(recipe Entities.Recipe) bool {
+	err := mgm.Coll(&recipe).Update(&recipe)
+	if err != nil {
+		return true
+	}
+	return false
+}
 func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient
 	ingredient = Entities.Ingredients[_id]
 	return ingredient
+}
+func GetTagById(_id string) Entities.Tag {
+	var tag Entities.Tag
+	tag = Entities.Tags[_id]
+	return tag
 }
 func GetProfileRecipes(_id string) []Entities.MiniRecipe {
 	var user Entities.User
@@ -115,5 +136,15 @@ func loadIngredients() {
 	}
 	for _, ingredient := range ingredients {
 		Entities.Ingredients[ingredient.ID.Hex()] = ingredient
+	}
+}
+func loadTags() {
+	var tags []Entities.Tag
+	err := mgm.Coll(&Entities.Tag{}).SimpleFind(&tags, bson.M{})
+	if err != nil {
+		print(err.Error())
+	}
+	for _, tag := range tags {
+		Entities.Tags[tag.ID.Hex()] = tag
 	}
 }

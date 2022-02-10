@@ -1,6 +1,7 @@
 package Entities
 
 import (
+	"encoding/json"
 	"github.com/kamva/mgm/v3"
 )
 
@@ -30,16 +31,20 @@ type Tag struct {
 	Type             string `json:"type" bson:"type"`
 	Details          string `bson:"details" json:"details"`
 }
+
+var Tags = make(map[string]Tag)
+
 type User struct {
 	mgm.DefaultModel `bson:",inline" json:"model"`
 	Username         string `json:"username" bson:"username"`
-	Password         string `json:"password" bson:"password"`
-	Name             string `json:"name" bson:"name"`
-	PicturePath      string `json:"picturePath" bson:"picturePath"`
-	Bio              string `json:"bio" bson:"bio"`
-	Email            string `json:"email" bson:"email"`
-	PhoneNumber      string `json:"phoneNumber" bson:"phoneNumber"`
-	Links            []Link `json:"links" bson:"links"`
+	// todo hash password
+	Password    string `json:"password" bson:"password"`
+	Name        string `json:"name" bson:"name"`
+	PicturePath string `json:"picturePath" bson:"picturePath"`
+	Bio         string `json:"bio" bson:"bio"`
+	Email       string `json:"email" bson:"email"`
+	PhoneNumber string `json:"phoneNumber" bson:"phoneNumber"`
+	Links       []Link `json:"links" bson:"links"`
 	//todo is right?
 	//list of hex as User Id
 	Followers        []string     `json:"followers" bson:"followers"`
@@ -67,7 +72,7 @@ type Recipe struct {
 	Nationality    string             `bson:"nationality" json:"nationality"`
 	CookingTime    int                `json:"cookingTime" bson:"cookingTime"`
 	Ingredients    []RecipeIngredient `json:"ingredients" bson:"ingredients"`
-	Tags           []string           `json:"tags" bson:"tags"`
+	Tags           []RecipeTag        `json:"tags" bson:"tags"`
 	Writer         string             `bson:"writer" json:"writer"`
 	Comments       []Comment          `json:"comments" bson:"comments"`
 	HasMoreComment bool               `json:"hasMoreComment" bson:"hasMoreComment"`
@@ -86,7 +91,11 @@ type Step struct {
 type RecipeIngredient struct {
 	IngredientKey string     `json:"ingredientKey" bson:"ingredientKey"`
 	Volume        float64    `json:"volume" bson:"volume"`
-	Ingredient    Ingredient `bson:"ingredient" json:"ingredient"`
+	Ingredient    Ingredient `json:"ingredient"`
+}
+type RecipeTag struct {
+	TagId string `json:"tagId" bson:"tagId"`
+	Tag   Tag    `json:"tag"`
 }
 type Comment struct {
 	User MiniUser `json:"user" bson:"user"`
@@ -101,4 +110,68 @@ func RecipeToMiniRecipe(recipe Recipe) MiniRecipe {
 		ImagePath:   recipe.ImagePath,
 		CookingTime: recipe.CookingTime,
 	}
+}
+
+func test() {
+	recipe := Recipe{
+		Name:        "omelet",
+		ImagePath:   "",
+		Steps:       []Step{{Text: "put oil in pan"}, {Text: "lfakjfl"}},
+		Type:        "breakfast",
+		Nationality: "iran",
+		CookingTime: 5,
+		Ingredients: []RecipeIngredient{{
+			IngredientKey: "egg",
+			Volume:        100,
+		}},
+		Tags: []RecipeTag{{
+			TagId: "id",
+		}},
+		Writer: "username",
+		Comments: []Comment{{
+			User: MiniUser{
+				Username:    "moNamdar",
+				Name:        "mohammad namdar",
+				PicturePath: "",
+			},
+			Text: "fsa;lfk",
+			Star: 3,
+		}},
+		HasMoreComment: false,
+		Stars:          3,
+		Views:          2,
+	}
+	user := User{
+		Username:    "amm",
+		Password:    "Xamm2666",
+		Name:        "amir",
+		PicturePath: "",
+		Bio:         "a good guy",
+		Email:       "a.m.mohammadi266@gmail.com",
+		PhoneNumber: "09031595318",
+		Links: []Link{{
+			Title: "Telegram",
+			URL:   "https://t.me/amm266",
+		}},
+		Followers:        []string{"amir", "hassan"},
+		Followings:       []string{},
+		HasMoreFollowers: false,
+		Recipes: []MiniRecipe{{
+			MainId:      "omelet",
+			Name:        "omelet",
+			ImagePath:   "",
+			CookingTime: 5,
+		}},
+	}
+	bytes, err := json.Marshal(user)
+	if err != nil {
+		return
+	}
+	jsonString := string(bytes)
+	print(jsonString)
+	bytes, err = json.Marshal(recipe)
+	if err != nil {
+		return
+	}
+	jsonString = string(bytes)
 }

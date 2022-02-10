@@ -1,0 +1,23 @@
+{
+    "model":{   "id":"000000000000000000000000",
+                "created_at":"0001-01-01T00:00:00Z",
+                "updated_at":"0001-01-01T00:00:00Z"},
+    "username":"amm",
+    "password":"Xamm2666",
+    "name":"amir",
+    "picturePath":"",
+    "bio":"a good boy",
+    "email":"a.m.mohammadi266@gmail.com",
+    "phoneNumber":"09031595318",
+    "links":[{  "title":"Telegram",
+                "url":"https://t.me/amm266"},
+            {   "title":"LinkIn",
+                "url":"https://www.linkedin.com"}],
+    "followers":["amir","hassan"],
+    "followings":["jafar"],
+    "hasMoreFollowers":false,
+    "recipes":[{"mainId":"omelet",
+                "name":"omeletID",
+                "imagePath":"",
+                "cookingTime":5}]
+}

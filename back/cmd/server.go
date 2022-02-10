@@ -65,10 +65,10 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 		ingredient := queryHandeler.HandelGetIngredient(urlList[2])
 		sendResponseJson(responseWriter, ingredient)
 	case "recipe":
-		if urlList[2] == "all" {
-			sendResponseJson(responseWriter, queryHandeler.HandleGetAllRecipe())
-		} else {
-			if urlList[3] == "comment" {
+		switch request.Method {
+		case http.MethodPost:
+			if len(urlList) > 3 && urlList[3] == "comment" {
+				// comment in recipe
 				jwt := request.Header.Get("jwt")
 				_username, done := digestJwt(responseWriter, jwt)
 				if done {
@@ -88,15 +88,83 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 					return
 				}
 			} else {
+				// send recipe
+				jwt := request.Header.Get("jwt")
+				_username, done := digestJwt(responseWriter, jwt)
+				if done {
+					return
+				}
+				var recipe Entities.Recipe
+				err := json.Unmarshal([]byte(getRequestBody(request)), &recipe)
+				if err != nil {
+					responseWriter.WriteHeader(http.StatusBadRequest)
+					return
+				}
+				queryHandeler.HandelSendRecipe(recipe, _username)
+			}
+		case http.MethodDelete:
+			// delete recipe
+			jwt := request.Header.Get("jwt")
+			_username, done := digestJwt(responseWriter, jwt)
+			if done {
+				return
+			}
+			if queryHandeler.HandelDelRecipe(urlList[2], _username) {
+				responseWriter.WriteHeader(http.StatusOK)
+			} else {
+				responseWriter.WriteHeader(http.StatusNotAcceptable)
+			}
+			return
+		case http.MethodGet:
+			if urlList[2] == "all" {
+				sendResponseJson(responseWriter, queryHandeler.HandleGetAllRecipe())
+			} else {
 				recipe := queryHandeler.HandelGetRecipe(urlList[2])
 				sendResponseJson(responseWriter, recipe)
 			}
+		case http.MethodPut:
+			//edit recipe
+			jwt := request.Header.Get("jwt")
+			_username, done := digestJwt(responseWriter, jwt)
+			if done {
+				return
+			}
+			if queryHandeler.HandelUpdateRecipe(urlList[2], _username) {
+				responseWriter.WriteHeader(http.StatusOK)
+			} else {
+				responseWriter.WriteHeader(http.StatusNotAcceptable)
+			}
+			return
 		}
 	case "users":
-		switch urlList[3] {
-		case "recipes":
-			recipes := queryHandeler.HandleGetUserRecipes(urlList[2])
-			sendResponseJson(responseWriter, recipes)
+		if len(urlList) > 3 {
+			switch urlList[3] {
+			case "recipes":
+				recipes := queryHandeler.HandleGetUserRecipes(urlList[2])
+				sendResponseJson(responseWriter, recipes)
+			}
+		}
+		jwt := request.Header.Get("jwt")
+		_username, done := digestJwt(responseWriter, jwt)
+		if done {
+			return
+		}
+		switch request.Method {
+		case http.MethodGet:
+			//get profile
+			user, found := queryHandeler.HandelGetProfile(_username, urlList[2])
+			if !found {
+				responseWriter.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			sendResponseJson(responseWriter, user)
+		case http.MethodPut:
+			//follow
+			queryHandeler.HandelFollow(_username, urlList[2])
+		case http.MethodDelete:
+			//unfollow
+			queryHandeler.HandelUnfollow(_username, urlList[2])
+
 		}
 	case "image":
 		switch request.Method {
@@ -106,6 +174,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				responseWriter.WriteHeader(http.StatusNotFound)
 			} else {
 				_, err := responseWriter.Write(imageBytes)
+				responseWriter.WriteHeader(http.StatusFound)
 				if err != nil {
 					return
 				}
@@ -123,6 +192,15 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				sendResponseJson(responseWriter, image.UploadResponse{FileName: saveName})
 			}
 		}
+	case "tag":
+		tag := queryHandeler.HandleGetTag(urlList[2])
+		if tag.Name == "" {
+			responseWriter.WriteHeader(http.StatusNoContent)
+			return
+		}
+		sendResponseJson(responseWriter, tag)
+		responseWriter.WriteHeader(http.StatusFound)
+
 	}
 }
 
