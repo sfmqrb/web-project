@@ -5,7 +5,7 @@ import Follower from "common/follower";
 
 class FollowersList extends React.Component {
     renderFollower(user) {
-        return (<Following 
+        return (<Follower 
             userProfile={user.profile}
             picture={user.picture}
             name={user.name}
@@ -14,9 +14,7 @@ class FollowersList extends React.Component {
     }
 
     render() {
-        const followers = this.props.users.map((user, index) => {
-            {this.renderFollower(user)}
-        });
+        const followers = this.props.users.map((user) => this.renderFollower(user));
 
         return (
             <div className="followersList">

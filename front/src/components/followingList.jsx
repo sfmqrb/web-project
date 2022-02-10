@@ -17,9 +17,7 @@ class FollowingList extends React.Component {
     }
 // TODO can I do the mapping with only one element?
     render() {
-        const followings = this.props.users.map((user, index) => {
-            {this.renderFollowing(user)}
-        });
+        const followings = this.props.users.map((user) => this.renderFollowing(user));
 
         return (
             <div className="followingList">
