@@ -1,0 +1,34 @@
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.margin-auto {
+    margin: auto!important;
+}
+
+.img-upload {
+    /* object-fit: cover!important; */
+    display: none;
+}
+
+.delete-image {
+    margin-top: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+}
+
+.delete-image:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+    color: rgb(180, 15, 15);
+    transition: 0.3s;
+    border: 1px solid rgb(180, 15, 15);
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import SearchBox from "./searchBox";
+import { Link } from "react-router-dom";
 
 const isLoginState = () => {
   if (localStorage.getItem("user")) {
@@ -9,7 +10,7 @@ const isLoginState = () => {
   }
 };
 
-const NavBar = ({ user, onChange, searchQuery }) => {
+const NavBar = ({ user, onChange, searchQuery, searchEnabled }) => {
   const isLoggedIn = isLoginState();
   return (
     <header className="p-3 mb-3 border-bottom " style={{ fontSize: "1rem" }}>
@@ -17,36 +18,42 @@ const NavBar = ({ user, onChange, searchQuery }) => {
         <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li>
-              <a href="/" className="nav-link px-2 link-dark navlinks">
+              <Link to="/" className="nav-link px-2 link-dark navlinks">
                 Home
-              </a>
+              </Link>
             </li>
             {isLoggedIn ? (
               <li>
-                <a href="#" className="nav-link px-2 link-dark navlinks">
+                <Link to="#" className="nav-link px-2 link-dark navlinks">
                   My Recipes
-                </a>
+                </Link>
               </li>
             ) : (
               <>
                 <li>
-                  <a
-                    href="/register"
+                  <Link
+                    to="/register"
                     className="nav-link px-2 link-dark navlinks">
                     Register
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/login" className="nav-link px-2 link-dark navlinks">
+                  <Link
+                    to="/login"
+                    className="nav-link px-2 link-dark navlinks">
                     Login
-                  </a>
+                  </Link>
                 </li>
               </>
             )}
           </ul>
-          <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-            <SearchBox onChange={onChange} searchQuery={searchQuery} />
-          </form>
+          {searchEnabled ? (
+            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+              <SearchBox onChange={onChange} searchQuery={searchQuery} />
+            </form>
+          ) : (
+            <></>
+          )}
           {getIsLoggedInHtml(isLoggedIn)}
         </div>
       </div>
@@ -57,9 +64,10 @@ const NavBar = ({ user, onChange, searchQuery }) => {
 const getIsLoggedInHtml = (isLoggedIn) => {
   return isLoggedIn ? (
     <div className="dropdown text-end">
-      <a
-        href="#"
-        className="d-block link-dark text-decoration-none dropdown-toggle"
+      <Link
+        to="#"
+        className="d-block link-dark text-decoration-none
+        dropdown-toggle"
         id="dropdownUser1"
         data-bs-toggle="dropdown"
         aria-expanded="false">
@@ -70,25 +78,28 @@ const getIsLoggedInHtml = (isLoggedIn) => {
           height="50"
           className="rounded-circle"
         />
-      </a>
+      </Link>
       <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
         <li>
-          <a className="dropdown-item" href="#">
+          <Link className="dropdown-item" to="#">
+            {" "}
             New recipe...
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="dropdown-item" href="#">
+          <Link className="dropdown-item" to="#">
+            {" "}
             Profile
-          </a>
+          </Link>
         </li>
         <li>
           <hr className="dropdown-divider" />
         </li>
         <li>
-          <a className="dropdown-item" href="/logout">
+          <Link className="dropdown-item" to="/logout">
+            {" "}
             Sign out
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

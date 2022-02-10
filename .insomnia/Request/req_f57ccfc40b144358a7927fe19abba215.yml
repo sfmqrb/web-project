@@ -1,0 +1,26 @@
+_id: req_f57ccfc40b144358a7927fe19abba215
+type: Request
+parentId: wrk_65012a5ff01942b996a42d79094183a2
+modified: 1644422620415
+created: 1644420208644
+url: http://localhost:8080/image/21a9049f-aec3-4a4c-962b-da56f6607d1d.png
+name: send_image
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_4842b7310c7743deafbf7529091d3b34
+authentication: {}
+metaSortKey: -1643692747438
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

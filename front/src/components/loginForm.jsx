@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import Form from "./common/form";
 import NavBar from "./navBar";
 import { login } from "../services/authService";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 class LoginForm extends Form {
@@ -42,18 +43,18 @@ class LoginForm extends Form {
         className=" col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 p-0"
         style={{ fontSize: "13px" }}>
         <li className="d-block">
-          <a href="/" className="    text-info ">
+          <Link to="/" className="    text-info ">
             Home
             <br></br>
-          </a>
+          </Link>
         </li>
         <p></p>
         <li className="d-block">
           Don't you have an account yet?
           {
-            <a href="/register" className=" px-2   text-info">
+            <Link to="/register" className=" px-2   text-info">
               Register
-            </a>
+            </Link>
           }
         </li>
       </ul>
