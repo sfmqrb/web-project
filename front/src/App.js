@@ -13,6 +13,7 @@ import RegisterForm from "./components/registerForm";
 import NewRecipe from "./components/newRecipe";
 import NotFound from "./components/notFound";
 import CardSet from "./components/cardSet";
+import Profile from "./components/profile";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -53,6 +54,9 @@ function App() {
           </Route>
           <Route path="/logout">
             <Logout />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
           <Route path="/new-recipe">
             <NewRecipe isAdmin={true} />
