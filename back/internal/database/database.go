@@ -59,10 +59,6 @@ func AddRecipe(recipe Entities.Recipe) {
 		print(e.Error())
 	}
 }
-func EditRecipe(recipe Entities.Recipe) {
-	//r := Entities.Recipe{}
-	//r.ID
-}
 func GetRecipeById(_id string) Entities.Recipe {
 	var recipe Entities.Recipe
 	err := mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
@@ -87,7 +83,20 @@ func GetAllRecipe() []Entities.Recipe {
 	}
 	return recipes
 }
-
+func DelRecipe(recipe Entities.Recipe) bool {
+	err := mgm.Coll(&recipe).Delete(&recipe)
+	if err != nil {
+		return false
+	}
+	return true
+}
+func EditRecipe(recipe Entities.Recipe) bool {
+	err := mgm.Coll(&recipe).Update(&recipe)
+	if err != nil {
+		return true
+	}
+	return false
+}
 func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient
 	ingredient = Entities.Ingredients[_id]

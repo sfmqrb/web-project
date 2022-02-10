@@ -59,6 +59,26 @@ func HandleCreateUserQuery(request CreateUserRequest, sessionLength int) LoginRe
 	}
 	return response
 }
+func HandelSendRecipe(recipe Entities.Recipe, username string) {
+	recipe.Writer = username
+	database.AddRecipe(recipe)
+}
+func HandelUpdateRecipe(recipeId string, username string) bool {
+	recipe := database.GetRecipeById(recipeId)
+	if recipe.Writer == username {
+		database.EditRecipe(recipe)
+		return true
+	}
+	return false
+}
+func HandelDelRecipe(recipeId string, username string) bool {
+	recipe := database.GetRecipeById(recipeId)
+	if recipe.Writer == username {
+		database.DelRecipe(recipe)
+		return true
+	}
+	return false
+}
 func HandelGetIngredient(_id string) Entities.Ingredient {
 	ingredient := database.GetIngredientById(_id)
 	return ingredient
@@ -80,6 +100,11 @@ func HandleRecipeComment(recipeId string, comment Entities.Comment, username str
 	comment.User = FillMiniUser(comment.User)
 	database.AddCommentToRecipe(recipeId, comment)
 	return nil
+}
+func HandleGetTag(_id string) Entities.Tag {
+	var tag Entities.Tag
+	tag = database.GetTagById(_id)
+	return tag
 }
 
 func FillMiniUser(miniUser Entities.MiniUser) Entities.MiniUser {
