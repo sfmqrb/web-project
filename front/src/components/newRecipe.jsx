@@ -50,10 +50,19 @@ function NewRecipe(props) {
             />
           </div>
           <div className="col">
-            <StepMaker onChange={updateSteps} />
+            <StepMaker
+              onChange={updateSteps}
+              isAdmin={isAdmin}
+              steps={props.steps || []}
+            />
           </div>
           <div className="col-3">
-            <ImageUploader onChange={updateImages} />
+            <ImageUploader
+              onChange={updateImages}
+              isAdmin={isAdmin}
+              images={props.images || []}
+              imageURLs={props.imageURLs || []}
+            />
           </div>
         </div>
       </div>

@@ -2,9 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./imageUploader.css";
 
-function ImageUploader({ onChange: setImagesParent }) {
-  const [images, setImages] = useState([]);
-  const [imageURLs, setImageURLs] = useState([]);
+function ImageUploader({
+  onChange: setImagesParent,
+  images: prImages,
+  imageURLs: prImageURLs,
+  isAdmin,
+}) {
+  const [images, setImages] = useState(prImages || []);
+  const [imageURLs, setImageURLs] = useState(prImageURLs || []);
+
+  const isNotAuthorizedToEdit = isAdmin;
 
   const myRef = useRef();
 
@@ -41,6 +48,7 @@ function ImageUploader({ onChange: setImagesParent }) {
   return (
     <>
       <label
+        style={{ display: isNotAuthorizedToEdit ? "none" : "block" }}
         onClick={reset}
         for="file-upload"
         class="custom-file-upload btn margin-side-auto centered mb-3">
@@ -65,6 +73,7 @@ function ImageUploader({ onChange: setImagesParent }) {
           </div>
           <div className="row">
             <button
+              style={{ display: isNotAuthorizedToEdit ? "none" : "block" }}
               className="btn mb-3 delete-image  padding-auto centered"
               onClick={() => handleDeleteImage(idx)}>
               X

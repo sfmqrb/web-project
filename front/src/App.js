@@ -47,6 +47,16 @@ function App() {
                 { id: "ab", text: "ab" },
                 { id: "ba", text: "ba" },
               ]}
+              steps={["step 1", "step 2", "step 3", "step 4"]}
+              images={[
+                // must be file but is not!!
+                "https://unsplash.it/400/600",
+                "https://unsplash.it/400/600",
+              ]}
+              imageURLs={[
+                "https://unsplash.it/400/600",
+                "https://unsplash.it/400/600",
+              ]}
             />
           </Route>
           <Redirect from="/" to="/recipes" />
