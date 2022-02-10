@@ -17,8 +17,8 @@ function NewRecipe() {
 
   useEffect(() => {
     // console.log("Running useEffect", tags);
-    console.log(steps, "In newRecipe :: steps");
-    // console.log(images, "useEffect images");
+    // console.log(steps, "In newRecipe :: steps");
+    console.log(images, "useEffect images");
   }, [tags, steps, images]);
 
   return (

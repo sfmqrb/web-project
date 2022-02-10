@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./imageUploader.css";
 
@@ -6,32 +6,51 @@ function ImageUploader({ onChange: setImagesParent }) {
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
 
+  const myRef = useRef();
+
+  const reset = () => {
+    myRef.current.value = "";
+  };
+
   useEffect(() => {
-    console.log(`Uploading images ${images.length}`);
     if (images.length < 0) {
       return;
     }
-    const imageURLs = images.map((image) => {
-      return URL.createObjectURL(image);
-    });
-    setImageURLs(imageURLs);
-  }, [images]);
+    setImagesParent(images);
+    console.log(imageURLs.length, images.length);
+  }, [images, imageURLs]);
 
   function handleChange(e) {
-    setImages([...e.target.files]);
-    setImagesParent([...e.target.files]);
+    console.log("imagesUploader :: handleChange");
+    const newImages = [...e.target.files];
+    const newImageURLs = newImages.map((image) => {
+      return URL.createObjectURL(image);
+    });
+    setImageURLs(newImageURLs);
+    setImages(newImages);
+  }
+
+  function handleDeleteImage(idx) {
+    console.log(`Deleting image ${idx}`);
+    const nImages = [...images.filter((_, idxThis) => idx !== idxThis)];
+    const nImageURLs = [...imageURLs.filter((_, idxThis) => idx !== idxThis)];
+    setImages(nImages);
+    setImageURLs(nImageURLs);
   }
 
   return (
     <>
-      <label for="file-upload" class="custom-file-upload btn margin-auto">
+      <label
+        onClick={reset}
+        for="file-upload"
+        class="custom-file-upload btn margin-auto">
         Image Upload
       </label>
-      <div class="container ">
+      <div class="container img-upload">
         <div className="row centered">
           <input
+            ref={myRef}
             id="file-upload"
-            className="uploader "
             type="file"
             multiple
             onChange={handleChange}
@@ -47,7 +66,7 @@ function ImageUploader({ onChange: setImagesParent }) {
           <div className="row">
             <button
               className="btn mb-3 delete-image  padding-auto centered"
-              onClick={handleDeleteImage(imageSrc, idx)}>
+              onClick={() => handleDeleteImage(idx)}>
               X
             </button>
           </div>
@@ -55,14 +74,6 @@ function ImageUploader({ onChange: setImagesParent }) {
       ))}
     </>
   );
-
-  function handleDeleteImage(imageSrc, idx) {
-    return () => {
-      console.log(`Deleting image ${imageSrc}`);
-      const nImages = [...images.filter((_, idxThis) => idx !== idxThis)];
-      setImages(nImages);
-    };
-  }
 }
 
 export default ImageUploader;
