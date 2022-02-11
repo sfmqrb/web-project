@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./stepMaker.css";
 
-function StepMaker({ onChange }) {
-  const [steps, setSteps] = React.useState([]);
-
+function StepMaker({ onChange, isAdmin, steps: prSteps }) {
+  const [steps, setSteps] = React.useState(prSteps || []);
+  const isNotAuthorizedToEdit = !isAdmin;
   useEffect(() => {
     onChange(steps);
   }, [steps]);
@@ -34,6 +34,7 @@ function StepMaker({ onChange }) {
             <div className="row" key={idx}>
               <div className="col-10">
                 <textarea
+                  disabled={isNotAuthorizedToEdit}
                   value={step}
                   placeholder={(idx + 1).toString() + ". "}
                   type="text"
@@ -44,6 +45,7 @@ function StepMaker({ onChange }) {
               </div>
               <div className="col-2 margin-auto centered">
                 <input
+                  style={{ display: isNotAuthorizedToEdit ? "none" : "block" }}
                   className="btn delete-textarea centered"
                   type="button"
                   value="X"
@@ -52,8 +54,12 @@ function StepMaker({ onChange }) {
               </div>
             </div>
           );
-        })}{" "}
-        <a className="btn add-step" onClick={handleAddition}>
+        })}
+
+        <a
+          className="btn add-step"
+          onClick={handleAddition}
+          style={{ display: isNotAuthorizedToEdit ? "none" : "block" }}>
           <p className="lead">Add Step</p>
         </a>
       </form>

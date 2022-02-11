@@ -13,13 +13,29 @@ import RegisterForm from "./components/registerForm";
 import NewRecipe from "./components/newRecipe";
 import NotFound from "./components/notFound";
 import CardSet from "./components/cardSet";
+import Profile from "./components/profile";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
   // const tags = ["ab", "ba", "cd", "de", "ge", "hi"];
-
+  //////////////// recipe example /////////////////////
+  // {title={"new Recipe"}
+  // tags={[
+  //   { id: "ab", text: "ab" },
+  //   { id: "ba", text: "ba" },
+  // ]}
+  // steps={["step 1", "step 2", "step 3", "step 4"]}
+  // images={[
+  //   // must be file but is not!!
+  //   "https://unsplash.it/400/600",
+  //   "https://unsplash.it/400/600",
+  // ]}
+  // imageURLs={[
+  //   "https://unsplash.it/400/600",
+  //   "https://unsplash.it/400/600",
+  // ]}}
   console.log("in App");
   return (
     <Router>
@@ -39,8 +55,11 @@ function App() {
           <Route path="/logout">
             <Logout />
           </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
           <Route path="/new-recipe">
-            <NewRecipe />
+            <NewRecipe isAdmin={true} />
           </Route>
           <Redirect from="/" to="/recipes" />
           <Route>

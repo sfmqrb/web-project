@@ -27,9 +27,9 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-const TagMaker = ({ onChange }) => {
-  const [tags, setTags] = React.useState([]);
-
+const TagMaker = ({ onChange, isAdmin, tags: prTags }) => {
+  const [tags, setTags] = React.useState(prTags || []);
+  const isNotAuthorizedToEdit = !isAdmin;
   useEffect(() => {
     console.log("in useEffect");
     onChange(tags);
@@ -59,11 +59,10 @@ const TagMaker = ({ onChange }) => {
 
   return (
     <div className="app">
-      <h1 className="display-6">
-        <p className="m-3">Add the tags here! </p>
-      </h1>
+      {getMessage(isNotAuthorizedToEdit)}
       <div>
         <ReactTags
+          readOnly={isNotAuthorizedToEdit}
           tags={tags}
           suggestions={suggestions}
           delimiters={delimiters}
@@ -80,3 +79,14 @@ const TagMaker = ({ onChange }) => {
 };
 
 export default TagMaker;
+function getMessage(isNotAuthorizedToEdit) {
+  return isNotAuthorizedToEdit ? (
+    <h1 className="display-6">
+      <p className="m-3"> Tags </p>
+    </h1>
+  ) : (
+    <h1 className="display-6">
+      <p className="m-3">Add the tags here! </p>
+    </h1>
+  );
+}

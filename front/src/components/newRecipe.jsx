@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import TagMaker from "./common/tagMaker";
 import StepMaker from "./common/stepMaker";
 import TitleMaker from "./common/titleMaker";
@@ -11,44 +12,66 @@ const handleClick = (tags) => {
   window.location = "/";
 };
 
-function NewRecipe() {
-  const [tags, updateTags] = useState([]);
-  const [steps, updateSteps] = useState([]);
-  const [images, updateImages] = useState([]);
-  const [title, updateTitle] = useState("");
+function NewRecipe(props) {
+  const isAdmin = props.isAdmin || false;
+
+  const [tags, updateTags] = useState(props.tags || []);
+  const [steps, updateSteps] = useState(props.steps || []);
+  const [images, updateImages] = useState(props.images || []);
+  const [title, updateTitle] = useState(props.title || "");
 
   useEffect(() => {
-    // console.log("Running useEffect", tags);
-    // console.log(steps, "In newRecipe :: steps");
-    // console.log(images, "useEffect images");
+    console.log(tags, "useEffect tags");
+    console.log(steps, "useEffect steps");
+    console.log(images, "useEffect images");
     console.log(title, "useEffect title");
   }, [tags, steps, images, title]);
 
+  if (!isAdmin) {
+    return <Redirect to="/" />;
+  }
   return (
     <>
       <NavBar searchEnabled={false} />
       <div className="container">
         <div className="row">
           <div className="col centered">
-            <TitleMaker onChange={updateTitle} />
+            <TitleMaker
+              onChange={updateTitle}
+              isAdmin={isAdmin}
+              title={props.title || ""}
+            />
           </div>
         </div>
       </div>
       <div className="container">
         <div className="row">
           <div className="col-3">
-            <TagMaker onChange={updateTags} />
+            <TagMaker
+              onChange={updateTags}
+              isAdmin={isAdmin}
+              tags={props.tags || []}
+            />
           </div>
           <div className="col">
-            <StepMaker onChange={updateSteps} />
+            <StepMaker
+              onChange={updateSteps}
+              isAdmin={isAdmin}
+              steps={props.steps || []}
+            />
           </div>
           <div className="col-3">
-            <ImageUploader onChange={updateImages} />
+            <ImageUploader
+              onChange={updateImages}
+              isAdmin={isAdmin}
+              images={props.images || []}
+              imageURLs={props.imageURLs || []}
+            />
           </div>
         </div>
       </div>
       <div className="container">
-        <footer className="row footer-bottom">
+        <footer className="row footer-bottom footer-recipe">
           <button
             className="btn btn-primary"
             style={{

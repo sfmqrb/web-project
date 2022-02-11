@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./titleMaker.css";
-const TitleMaker = ({ onChange }) => {
+const TitleMaker = ({ onChange, isAdmin, title: prTitle }) => {
   const [title, updateTitle] = useState("");
   useEffect(() => {
     onChange(title);
@@ -12,6 +12,8 @@ const TitleMaker = ({ onChange }) => {
 
   return (
     <input
+      disabled={!isAdmin}
+      defaultValue={prTitle || ""}
       className="input-title"
       type="text"
       placeholder="Title..."
