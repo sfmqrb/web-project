@@ -15,7 +15,7 @@ type LoginResponse struct {
 	Image string `json:"image"`
 }
 
-type CreateUserRequest struct {
+type RegisterRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Name     string `json:"name"`

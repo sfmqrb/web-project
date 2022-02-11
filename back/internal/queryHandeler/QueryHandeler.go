@@ -31,7 +31,7 @@ func fillLoginResponse(sessionLength int, response LoginResponse, user *Entities
 	response.Bio = user.Bio
 }
 
-func HandleCreateUserQuery(request CreateUserRequest, sessionLength int) LoginResponse {
+func HandleRegisterQuery(request RegisterRequest, sessionLength int) LoginResponse {
 	user := database.GetUserByUsername(request.Username)
 	response := LoginResponse{}
 	if user.Username == "" {
@@ -149,7 +149,15 @@ func HandelUnfollow(_reqUserName string, username string) {
 	database.UpdateUser(user)
 	database.UpdateUser(reqUser)
 }
+func HandelGetFollowers(_username string) []Entities.MiniUser {
+	user := database.GetUserByUsername(_username)
+	return fillUsernameSlice(user.Followers)
+}
 
+func HandelGetFollowings(_username string) []Entities.MiniUser {
+	user := database.GetUserByUsername(_username)
+	return fillUsernameSlice(user.Followings)
+}
 func removeFromArray(slice []string, username string) []string {
 	var newReqUserFollowings []string
 	for _, following := range slice {
@@ -158,4 +166,12 @@ func removeFromArray(slice []string, username string) []string {
 		}
 	}
 	return newReqUserFollowings
+}
+
+func fillUsernameSlice(usernames []string) []Entities.MiniUser {
+	miniUsers := []Entities.MiniUser{}
+	for _, username := range usernames {
+		miniUsers = append(miniUsers, Entities.UserToMiniUser(*database.GetUserByUsername(username)))
+	}
+	return miniUsers
 }

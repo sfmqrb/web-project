@@ -31,11 +31,9 @@ func ConnectDB() {
 	if err != nil {
 		print(err)
 	}
-
 	loadIngredients()
 	loadTags()
 	//test
-
 }
 
 func GetUserByUsername(username string) *Entities.User {
@@ -127,7 +125,6 @@ func AddCommentToRecipe(recipeId string, comment Entities.Comment) {
 		print(err.Error())
 	}
 }
-
 func loadIngredients() {
 	var ingredients []Entities.Ingredient
 	err := mgm.Coll(&Entities.Ingredient{}).SimpleFind(&ingredients, bson.M{})

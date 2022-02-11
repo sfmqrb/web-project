@@ -48,13 +48,13 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			responseWriter.WriteHeader(http.StatusOK)
 		}
 	case "create_user":
-		createUserRequest := queryHandeler.CreateUserRequest{}
+		createUserRequest := queryHandeler.RegisterRequest{}
 		err := json.Unmarshal([]byte(getRequestBody(request)), &createUserRequest)
 		if err != nil {
 			responseWriter.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		loginResponse := queryHandeler.HandleCreateUserQuery(createUserRequest, ConfigData.SessionLimit)
+		loginResponse := queryHandeler.HandleRegisterQuery(createUserRequest, ConfigData.SessionLimit)
 		sendResponseJson(responseWriter, loginResponse)
 		if loginResponse.NoUsername {
 			responseWriter.WriteHeader(http.StatusConflict)
@@ -142,7 +142,24 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			case "recipes":
 				recipes := queryHandeler.HandleGetUserRecipes(urlList[2])
 				sendResponseJson(responseWriter, recipes)
+			case "followers":
+				jwt := request.Header.Get("jwt")
+				_username, done := digestJwt(responseWriter, jwt)
+				if done {
+					return
+				}
+				followers := queryHandeler.HandelGetFollowers(_username)
+				sendResponseJson(responseWriter, followers)
+			case "followings":
+				jwt := request.Header.Get("jwt")
+				_username, done := digestJwt(responseWriter, jwt)
+				if done {
+					return
+				}
+				followings := queryHandeler.HandelGetFollowings(_username)
+				sendResponseJson(responseWriter, followings)
 			}
+
 		}
 		jwt := request.Header.Get("jwt")
 		_username, done := digestJwt(responseWriter, jwt)

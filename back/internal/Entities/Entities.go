@@ -111,6 +111,13 @@ func RecipeToMiniRecipe(recipe Recipe) MiniRecipe {
 		CookingTime: recipe.CookingTime,
 	}
 }
+func UserToMiniUser(user User) MiniUser {
+	return MiniUser{
+		Username:    user.Username,
+		Name:        user.Name,
+		PicturePath: user.PicturePath,
+	}
+}
 
 func test() {
 	recipe := Recipe{
