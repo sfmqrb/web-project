@@ -69,6 +69,14 @@ func AddRecipe(recipe Entities.Recipe) {
 	e := mgm.Coll(&Entities.Recipe{}).Create(&recipe)
 	if e != nil {
 		print(e.Error())
+		return
+	}
+	user := GetUserByUsername(recipe.Writer)
+	//todo add directly
+	user.Recipes = append(user.Recipes, Entities.RecipeToMiniRecipe(recipe))
+	err := mgm.Coll(user).Update(user)
+	if err != nil {
+		return
 	}
 }
 func GetRecipeById(_id string) Entities.Recipe {
