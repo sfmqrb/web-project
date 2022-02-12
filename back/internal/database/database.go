@@ -86,12 +86,12 @@ func GetRecipeById(_id string) Entities.Recipe {
 		print(err.Error())
 	}
 	// fill ingredients
-	for _, recipeIngredient := range recipe.Ingredients {
-		recipeIngredient.Ingredient = GetIngredientById(recipeIngredient.IngredientKey)
+	for i, _ := range recipe.Ingredients {
+		recipe.Ingredients[i].Ingredient = GetIngredientById(recipe.Ingredients[i].IngredientKey)
 	}
 	// fill tags
-	for _, recipeTag := range recipe.Tags {
-		recipeTag.Tag = GetTagById(recipeTag.TagId)
+	for i, _ := range recipe.Tags {
+		recipe.Tags[i].Tag = GetTagById(recipe.Tags[i].TagId)
 	}
 	return recipe
 }

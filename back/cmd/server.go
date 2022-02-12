@@ -131,6 +131,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				//get all
 				sendResponseJson(responseWriter, queryHandeler.HandleGetAllRecipe())
 			} else {
+				//get recipe
 				recipe := queryHandeler.HandelGetRecipe(urlList[2])
 				sendResponseJson(responseWriter, recipe)
 			}
