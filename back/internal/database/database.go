@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/kamva/mgm/v3"
+	"github.com/kamva/mgm/v3/operator"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"io/ioutil"
@@ -15,6 +16,10 @@ type config struct {
 	Uri            string `json:"uri"`
 	DbName         string `json:"dbName"`
 	TimeoutSeconds int    `json:"timeoutSeconds"`
+}
+type Test struct {
+	mgm.DefaultModel `bson:",inline" json:"model"`
+	F1               []string `bson:"f1" json:"f1"`
 }
 
 func ConnectDB() {
@@ -34,6 +39,12 @@ func ConnectDB() {
 	loadIngredients()
 	loadTags()
 	//test
+	//test := Test{F1: []string{"asd", "fas"}}
+	//err = mgm.Coll(&test).Create(&test)
+	//if err != nil {
+	//	return
+	//}
+
 }
 
 func GetUserByUsername(username string) *Entities.User {
@@ -97,6 +108,16 @@ func EditRecipe(recipe Entities.Recipe) bool {
 		return true
 	}
 	return false
+}
+func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []string) []Entities.Recipe {
+	var recipes []Entities.Recipe
+	x := bson.M{}
+	x = bson.M{"tags": bson.M{operator.Nin: tagsOut, operator.In: tagsIn}, "ingredients": bson.M{operator.Nin: ingsOut, operator.In: ingsIn}}
+	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, x)
+	if e != nil {
+		print(e.Error())
+	}
+	return recipes
 }
 func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient

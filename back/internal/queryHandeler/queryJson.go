@@ -35,3 +35,9 @@ type FillProfileRequest struct {
 	ImagePath string `json:"imagePath"`
 	Bio       string `json:"bio"`
 }
+type SearchRecipeRequest struct {
+	IngsIn  []string `json:"ingsIn"`
+	IngsOut []string `json:"ingsOut"`
+	TagsIn  []string `json:"tagsIn"`
+	TagsOut []string `json:"tagsOut"`
+}

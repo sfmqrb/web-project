@@ -87,6 +87,9 @@ func HandelGetRecipe(_id string) Entities.Recipe {
 	recipe := database.GetRecipeById(_id)
 	return recipe
 }
+func HandelSearchRecipe(req SearchRecipeRequest) []Entities.Recipe {
+	return database.SearchRecipe(req.IngsIn, req.IngsOut, req.TagsIn, req.TagsOut)
+}
 func HandleGetAllRecipe() []Entities.Recipe {
 	return database.GetAllRecipe()
 }

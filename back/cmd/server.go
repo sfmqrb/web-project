@@ -116,7 +116,19 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			}
 			return
 		case http.MethodGet:
-			if urlList[2] == "all" {
+			if urlList[2] == "find" {
+				// search for recipe
+				body := getRequestBody(request)
+				var searchRequest queryHandeler.SearchRecipeRequest
+				err := json.Unmarshal([]byte(body), &searchRequest)
+				if err != nil {
+					responseWriter.WriteHeader(http.StatusBadRequest)
+				}
+				var recipes []Entities.Recipe
+				recipes = queryHandeler.HandelSearchRecipe(searchRequest)
+				sendResponseJson(responseWriter, recipes)
+			} else if urlList[2] == "all" {
+				//get all
 				sendResponseJson(responseWriter, queryHandeler.HandleGetAllRecipe())
 			} else {
 				recipe := queryHandeler.HandelGetRecipe(urlList[2])
