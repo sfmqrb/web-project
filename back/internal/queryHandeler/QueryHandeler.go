@@ -18,23 +18,25 @@ func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
 		response.WrongPass = true
 	} else {
 		//successful login
-		fillLoginResponse(sessionLength, response, user)
+		return fillLoginResponse(sessionLength, user)
 	}
 	return response
 }
 
-func fillLoginResponse(sessionLength int, response LoginResponse, user *Entities.User) {
+func fillLoginResponse(sessionLength int, user *Entities.User) LoginResponse {
+	response := LoginResponse{}
 	jwt := authentication.CreateJWT(user.Username, sessionLength)
 	response.Jwt = jwt
 	response.Name = user.Name
 	response.Username = user.Username
 	response.Bio = user.Bio
+	return response
 }
 
 func HandleRegisterQuery(request RegisterRequest, sessionLength int) LoginResponse {
 	user := database.GetUserByUsername(request.Username)
 	response := LoginResponse{}
-	if user.Username == "" {
+	if user.Username != "" {
 		// no username
 		response.NoUsername = true
 	} else {
@@ -55,7 +57,7 @@ func HandleRegisterQuery(request RegisterRequest, sessionLength int) LoginRespon
 		}
 		//save id db
 		database.CreateUser(user)
-		fillLoginResponse(sessionLength, response, &user)
+		response = fillLoginResponse(sessionLength, &user)
 	}
 	return response
 }

@@ -41,13 +41,13 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			return
 		}
 		loginResponse := queryHandeler.HandelLoginQuery(loginRequest, ConfigData.SessionLimit)
-		sendResponseJson(responseWriter, loginResponse)
 		if loginResponse.NoUsername || loginResponse.WrongPass {
 			responseWriter.WriteHeader(http.StatusUnauthorized)
 		} else {
 			responseWriter.WriteHeader(http.StatusOK)
 		}
-	case "create_user":
+		sendResponseJson(responseWriter, loginResponse)
+	case "register":
 		createUserRequest := queryHandeler.RegisterRequest{}
 		err := json.Unmarshal([]byte(getRequestBody(request)), &createUserRequest)
 		if err != nil {
@@ -55,12 +55,12 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			return
 		}
 		loginResponse := queryHandeler.HandleRegisterQuery(createUserRequest, ConfigData.SessionLimit)
-		sendResponseJson(responseWriter, loginResponse)
 		if loginResponse.NoUsername {
 			responseWriter.WriteHeader(http.StatusConflict)
 		} else {
 			responseWriter.WriteHeader(http.StatusOK)
 		}
+		sendResponseJson(responseWriter, loginResponse)
 	case "ingredient":
 		ingredient := queryHandeler.HandelGetIngredient(urlList[2])
 		sendResponseJson(responseWriter, ingredient)
@@ -229,8 +229,8 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 		sendResponseJson(responseWriter, tag)
 		responseWriter.WriteHeader(http.StatusFound)
-
 	}
+	return
 }
 
 func digestJwt(responseWriter http.ResponseWriter, jwt string) (string, bool) {
