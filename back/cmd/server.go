@@ -234,6 +234,14 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 }
 
 func digestJwt(responseWriter http.ResponseWriter, jwt string) (string, bool) {
+	//TODO Warning cheat jwt
+	if jwt == "cheat-amm" {
+		return "amm", false
+	}
+	if jwt == "cheat-namdar" {
+		return "moNamdar", false
+	}
+	//END cheat jwt
 	_username := authentication.VerifyJWT(jwt, ConfigData.MinuteTryLimit)
 	if _username == "l" {
 		// try limit reached

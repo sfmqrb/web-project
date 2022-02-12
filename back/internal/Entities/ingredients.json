@@ -66,7 +66,7 @@
     "model":{"id":"000000000000000000000000",
             "created_at":"0001-01-01T00:00:00Z",
             "updated_at":"0001-01-01T00:00:00Z"},
-            "name":"cheese",
+            "name":"chream-cheese",
             "imagePath":"",
             "type":"animal-based",
             "unit":"gram",
@@ -91,5 +91,5 @@
     "protein":6,
     "carbs":22,
     "fat":5,
-    "details":"it's made from tomato"
+    "details":"good green source of proten"
 }
