@@ -158,25 +158,18 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 	case "users":
 		if len(urlList) > 3 {
 			switch urlList[3] {
-			case "recipes":
-				recipes := queryHandeler.HandleGetUserRecipes(urlList[2])
-				sendResponseJson(responseWriter, recipes)
 			case "followers":
-				jwt := request.Header.Get("jwt")
-				_username, done := digestJwt(responseWriter, jwt)
-				if done {
-					return
-				}
-				followers := queryHandeler.HandelGetFollowers(_username)
+				followers := queryHandeler.HandelGetFollowers(urlList[2])
 				sendResponseJson(responseWriter, followers)
+				return
 			case "followings":
-				jwt := request.Header.Get("jwt")
-				_username, done := digestJwt(responseWriter, jwt)
-				if done {
-					return
-				}
-				followings := queryHandeler.HandelGetFollowings(_username)
+				followings := queryHandeler.HandelGetFollowings(urlList[2])
 				sendResponseJson(responseWriter, followings)
+				return
+			case "recipes":
+				recipes := queryHandeler.HandelGetUserRecipes(urlList[2])
+				sendResponseJson(responseWriter, recipes)
+				return
 			}
 
 		}

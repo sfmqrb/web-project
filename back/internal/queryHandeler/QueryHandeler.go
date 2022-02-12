@@ -130,12 +130,12 @@ func HandelGetProfile(_reqUserName string, username string) (Entities.User, bool
 	}
 	if _reqUserName == username {
 		// get my profile
-		// todo remove some information
-		user.Email = ""
-		user.PhoneNumber = ""
 		user.Password = ""
 	}
 	// get others profile
+	// todo remove some information
+	user.Email = ""
+	user.PhoneNumber = ""
 	user.Password = ""
 	return user, true
 }
@@ -144,6 +144,7 @@ func HandelGetProfile(_reqUserName string, username string) (Entities.User, bool
 func HandelFollow(_reqUserName string, username string) {
 	reqUser := *database.GetUserByUsername(_reqUserName)
 	user := *database.GetUserByUsername(username)
+	//todo duplicate follow and unfollow
 	reqUser.Followings = append(reqUser.Followings, username)
 	user.Followers = append(user.Followers, _reqUserName)
 	database.UpdateUser(user)
@@ -167,6 +168,14 @@ func HandelGetFollowings(_username string) []Entities.MiniUser {
 	user := database.GetUserByUsername(_username)
 	return fillUsernameSlice(user.Followings)
 }
+func HandelGetUserRecipes(_username string) []Entities.Recipe {
+	miniRecipes := database.GetUserByUsername(_username).Recipes
+	var recipes []Entities.Recipe
+	for i, _ := range miniRecipes {
+		recipes = append(recipes, MiniRecipeToRecipe(miniRecipes[i]))
+	}
+	return recipes
+}
 func removeFromArray(slice []string, username string) []string {
 	var newReqUserFollowings []string
 	for _, following := range slice {
@@ -183,4 +192,7 @@ func fillUsernameSlice(usernames []string) []Entities.MiniUser {
 		miniUsers = append(miniUsers, Entities.UserToMiniUser(*database.GetUserByUsername(username)))
 	}
 	return miniUsers
+}
+func MiniRecipeToRecipe(miniRecipe Entities.MiniRecipe) Entities.Recipe {
+	return database.GetRecipeById(miniRecipe.MainId)
 }

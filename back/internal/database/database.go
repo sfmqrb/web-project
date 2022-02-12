@@ -84,6 +84,7 @@ func GetRecipeById(_id string) Entities.Recipe {
 	err := mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
 	if err != nil {
 		print(err.Error())
+		//todo handel no recipe
 	}
 	// fill ingredients
 	for i, _ := range recipe.Ingredients {
