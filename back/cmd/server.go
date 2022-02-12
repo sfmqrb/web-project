@@ -142,7 +142,13 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			if done {
 				return
 			}
-			if queryHandeler.HandelUpdateRecipe(urlList[2], _username) {
+			var recipe Entities.Recipe
+			err := json.Unmarshal([]byte(getRequestBody(request)), &recipe)
+			if err != nil {
+				responseWriter.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			if queryHandeler.HandelUpdateRecipe(recipe, urlList[2], _username) {
 				responseWriter.WriteHeader(http.StatusOK)
 			} else {
 				responseWriter.WriteHeader(http.StatusNotAcceptable)

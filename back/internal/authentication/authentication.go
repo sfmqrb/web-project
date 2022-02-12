@@ -40,6 +40,10 @@ func VerifyJWT(tokenString string, minuteTryLimit int) string {
 		}
 		return hmacSampleSecret, nil
 	})
+	if token != nil {
+		//invalid jwt
+		return ""
+	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		if jwtTries[tokenString] <= minuteTryLimit {
 			jwtTries[tokenString] += 1
