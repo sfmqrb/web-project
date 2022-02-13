@@ -5,6 +5,7 @@ import (
 	"web/project/internal/Entities"
 	"web/project/internal/authentication"
 	"web/project/internal/database"
+	"web/project/internal/tools"
 )
 
 func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
@@ -151,9 +152,10 @@ func HandelGetProfile(_reqUserName string, username string) (Entities.User, bool
 func HandelFollow(_reqUserName string, username string) {
 	reqUser := *database.GetUserByUsername(_reqUserName)
 	user := *database.GetUserByUsername(username)
-	//todo duplicate follow and unfollow
 	reqUser.Followings = append(reqUser.Followings, username)
+	reqUser.Followings = tools.RemoveDuplicateStr(reqUser.Followings)
 	user.Followers = append(user.Followers, _reqUserName)
+	user.Followers = tools.RemoveDuplicateStr(user.Followers)
 	database.UpdateUser(user)
 	database.UpdateUser(reqUser)
 }
