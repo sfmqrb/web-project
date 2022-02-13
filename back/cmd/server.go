@@ -250,6 +250,7 @@ func digestJwt(responseWriter http.ResponseWriter, jwt string) (string, bool) {
 	} else if _username == "" {
 		// invalid jwt
 		responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
+		return "", true
 	}
 	return _username, false
 }

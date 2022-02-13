@@ -40,7 +40,7 @@ func VerifyJWT(tokenString string, minuteTryLimit int) string {
 		}
 		return hmacSampleSecret, nil
 	})
-	if token != nil {
+	if token == nil {
 		//invalid jwt
 		return ""
 	}
