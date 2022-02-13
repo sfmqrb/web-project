@@ -11,8 +11,7 @@ type LoginResponse struct {
 	Username   string `json:"username"`
 	Name       string `json:"name"`
 	Bio        string `json:"bio"`
-	//todo send image
-	Image string `json:"image"`
+	Image      string `json:"image"`
 }
 
 type RegisterRequest struct {
@@ -27,11 +26,10 @@ type CreateUserResponse struct {
 }
 
 type FillProfileRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	//todo
+	Username  string `json:"username"`
+	Password  string `json:"password"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
 	ImagePath string `json:"imagePath"`
 	Bio       string `json:"bio"`
 }

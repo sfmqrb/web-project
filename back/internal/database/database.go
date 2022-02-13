@@ -121,7 +121,17 @@ func EditRecipe(recipe Entities.Recipe) bool {
 func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []string) []Entities.Recipe {
 	var recipes []Entities.Recipe
 	x := bson.M{}
-	x = bson.M{"tags": bson.M{operator.Nin: tagsOut, operator.In: tagsIn}, "ingredients": bson.M{operator.Nin: ingsOut, operator.In: ingsIn}}
+	//x = bson.M{"tags": bson.M{operator.Nin: tagsOut, operator.In: tagsIn}, "ingredients": bson.M{"ingredientKey": bson.M{operator.Nin: ingsOut, operator.In: ingsIn}}}
+	//x = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}}
+	allIngsM := operator.All
+	if len(ingsIn) == 0 {
+		allIngsM = operator.Nin
+	}
+	allTagsM := operator.All
+	if len(tagsIn) == 0 {
+		allTagsM = operator.Nin
+	}
+	x = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut}}
 	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, x)
 	if e != nil {
 		print(e.Error())
