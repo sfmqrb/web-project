@@ -66,13 +66,20 @@ func HandelSendRecipe(recipe Entities.Recipe, username string) {
 	database.AddRecipe(recipe)
 }
 func HandelUpdateRecipe(recipe Entities.Recipe, recipeId string, username string) bool {
-	//todo security hole: edit recipe shouldn't change comments
-	//todo update MiniRecipe in user profile
 	recipeCheck := database.GetRecipeById(recipeId)
 	if recipeCheck.Writer == username {
 		recipe.Writer = recipeCheck.Writer
 		recipe.ID = recipeCheck.ID
+		recipe.Comments = nil
 		database.EditRecipe(recipe)
+		// update recipe in user
+		user := database.GetUserByUsername(username)
+		for i, miniRecipe := range user.Recipes {
+			if miniRecipe.MainId == recipeId {
+				user.Recipes[i] = Entities.RecipeToMiniRecipe(recipe)
+			}
+		}
+		database.UpdateUser(*user)
 		return true
 	}
 	return false

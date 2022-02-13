@@ -74,7 +74,7 @@ type Recipe struct {
 	Ingredients    []RecipeIngredient `json:"ingredients" bson:"ingredients"`
 	Tags           []RecipeTag        `json:"tags" bson:"tags"`
 	Writer         string             `bson:"writer" json:"writer"`
-	Comments       []Comment          `json:"comments" bson:"comments"`
+	Comments       []Comment          `json:"comments,omitempty" bson:"comments,omitempty"`
 	HasMoreComment bool               `json:"hasMoreComment" bson:"hasMoreComment"`
 	Stars          float64            `bson:"stars" json:"stars"`
 	Views          int                `json:"views" bson:"views"`
