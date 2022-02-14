@@ -105,7 +105,7 @@ func HandelSearchRecipe(req SearchRecipeRequest) []Entities.Recipe {
 	return database.SearchRecipe(req.IngsIn, req.IngsOut, req.TagsIn, req.TagsOut)
 }
 func HandleGetAllRecipe() []Entities.Recipe {
-	return database.GetAllRecipe()
+	return database.GetAllRecipe(10)
 }
 func HandleGetUserRecipes(_id string) []Entities.MiniRecipe {
 	return database.GetProfileRecipes(_id)

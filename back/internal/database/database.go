@@ -96,9 +96,9 @@ func GetRecipeById(_id string) Entities.Recipe {
 	}
 	return recipe
 }
-func GetAllRecipe() []Entities.Recipe {
+func GetAllRecipe(limitNumber int64) []Entities.Recipe {
 	var recipes []Entities.Recipe
-	err := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, bson.M{})
+	err := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, bson.M{}, &options.FindOptions{Limit: &limitNumber})
 	if err != nil {
 		print(err.Error())
 	}
@@ -121,8 +121,6 @@ func EditRecipe(recipe Entities.Recipe) bool {
 func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []string) []Entities.Recipe {
 	var recipes []Entities.Recipe
 	x := bson.M{}
-	//x = bson.M{"tags": bson.M{operator.Nin: tagsOut, operator.In: tagsIn}, "ingredients": bson.M{"ingredientKey": bson.M{operator.Nin: ingsOut, operator.In: ingsIn}}}
-	//x = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}}
 	allIngsM := operator.All
 	if len(ingsIn) == 0 {
 		allIngsM = operator.Nin

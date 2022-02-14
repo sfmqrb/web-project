@@ -127,7 +127,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				var recipes []Entities.Recipe
 				recipes = queryHandeler.HandelSearchRecipe(searchRequest)
 				sendResponseJson(responseWriter, recipes)
-			} else if urlList[2] == "all" {
+			} else if urlList[2] == "get_selected_recipes" {
 				//get all
 				sendResponseJson(responseWriter, queryHandeler.HandleGetAllRecipe())
 			} else {
