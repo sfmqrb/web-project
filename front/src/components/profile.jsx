@@ -9,7 +9,7 @@ class Profile extends Component {
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar searchEnabled={false} />
         <div className="container">
           <h1>Profile</h1>
           <div className="row">

@@ -1,13 +1,17 @@
 .footer-recipe {
     position: fixed;
     bottom: 0;
-    /* left: 2rem; */
     width: 100%;
     margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
     
 }
 
-
 button {
     margin : 5px;
+}
+
+.submit-discard-footer-center {
+    display: inline-block ;
+    text-align: center ;
+    width: fit-content ;
 }
