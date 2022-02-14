@@ -14,7 +14,7 @@ func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
 	if user.Username == "" {
 		// no username
 		response.NoUsername = true
-	} else if user.Password != request.Password {
+	} else if tools.ComparePassword(user.Password, request.Password) != nil {
 		//wrong password
 		response.WrongPass = true
 	} else {
@@ -44,7 +44,7 @@ func HandleRegisterQuery(request RegisterRequest, sessionLength int) LoginRespon
 		// create user in db
 		user := Entities.User{
 			Username:         request.Username,
-			Password:         request.Password,
+			Password:         tools.HashPassword(request.Password),
 			Name:             request.Name,
 			PicturePath:      "",
 			Bio:              "",

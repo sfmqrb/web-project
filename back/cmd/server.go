@@ -83,7 +83,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				err = queryHandeler.HandleRecipeComment(urlList[2], comment, _username)
 				if err != nil {
 					// in case writing comment for someone else
-					responseWriter.Write([]byte(err.Error()))
+					sendResponseJson(responseWriter, err)
 					responseWriter.WriteHeader(http.StatusNotAcceptable)
 					return
 				}
