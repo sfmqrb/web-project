@@ -32,7 +32,6 @@ function doIngredients(ingredients) {
       <TitleMellow title="Ingredients" />
       {ingredients.map((ingredient) => {
         const { name, quantity, unit } = ingredient;
-        console.log(name, quantity, unit);
         return (
           <Tag>
             <span>{name + " "}</span>
@@ -44,55 +43,53 @@ function doIngredients(ingredients) {
   );
 }
 
-class _Card_ extends React.Component {
-  render() {
-    const clr = GetRandomColor();
+const clr = "dark";
 
-    return (
-      <Card
-        className="m-5"
-        sx={{
-          maxWidth: 500,
-          marginRight: "2px!important",
-          marginLeft: "2px!important",
-        }}>
-        <div>
-          <CardMedia
-            className="pic-overlay "
-            component="img"
-            image={this.props.image}
-            alt="dish"
-          />
-        </div>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
-              {this.props.name.charAt(0)}
-            </Avatar>
-          }
-          title={this.props.title}
-          subheader={this.props.subheader}
+const _Card_ = (props) => {
+  return (
+    <Card
+      className="m-5"
+      sx={{
+        maxWidth: 500,
+        marginRight: "2px!important",
+        marginLeft: "2px!important",
+      }}>
+      <div>
+        <CardMedia
+          className="pic-overlay "
+          component="img"
+          image={props.image}
+          alt="dish"
         />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {this.props.body}
-          </Typography>
-        </CardContent>
-        <CardHeader subheader={doTags(this.props.tags)} />
-        <CardHeader subheader={doIngredients(this.props.ingredients)} />
-        <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            onClick={() => {
-              this.props.onLike(this.props._id);
-            }}
-            color={this.props.liked ? "error" : "default"}>
-            <FavoriteIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
-    );
-  }
-}
+      </div>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
+            {props.name.charAt(0)}
+          </Avatar>
+        }
+        title={props.title}
+        subheader={props.subheader}
+      />
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          {props.body}
+        </Typography>
+      </CardContent>
+      <CardHeader subheader={doTags(props.tags)} />
+      <CardHeader subheader={doIngredients(props.ingredients)} />
+      <CardActions disableSpacing>
+        <IconButton
+          aria-label="add to favorites"
+          onClick={() => {
+            props.onLike(props._id);
+          }}
+          color={props.liked ? "error" : "default"}>
+          <FavoriteIcon />
+        </IconButton>
+      </CardActions>
+    </Card>
+  );
+};
 
 export default _Card_;

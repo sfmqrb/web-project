@@ -32,6 +32,17 @@ class CardSet extends Component {
     this.setState({ searchQuery: query, currentPage: 1 });
   };
 
+  handleLike = (_id) => {
+    const tmpCards = [...this.state.cards];
+    const newCards = tmpCards.map((card) => {
+      if (card._id === _id) {
+        card.liked = !card.liked;
+      }
+      return card;
+    });
+    this.setState({ cards: newCards });
+  };
+
   getPagedData = () => {
     const { pageSize, currentPage, searchQuery, cards: allCards } = this.state;
 

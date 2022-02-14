@@ -1,7 +1,6 @@
 import "./tag.css";
 
 const Tag = (props) => {
-  console.log("in Tag");
   const addedClass = props.active
     ? "badge primary-background"
     : "badge red-background focus";

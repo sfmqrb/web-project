@@ -13,9 +13,6 @@ const getFakeCard = () => {
         { id: 2, name: "nut", quantity: 10, unit: "" },
       ],
       liked: false,
-      onLike: () => {
-        console.log("like");
-      },
     },
     {
       _id: 2,
@@ -30,9 +27,6 @@ const getFakeCard = () => {
         { id: 2, name: "nut", quantity: 10, unit: "" },
       ],
       liked: false,
-      onLike: () => {
-        console.log("like");
-      },
     },
     {
       _id: 3,
@@ -47,9 +41,6 @@ const getFakeCard = () => {
         { id: 2, name: "nut", quantity: 10, unit: "" },
       ],
       liked: true,
-      onLike: () => {
-        console.log("like");
-      },
     },
     {
       _id: 4,
@@ -64,9 +55,6 @@ const getFakeCard = () => {
         { id: 2, name: "nut", quantity: 10, unit: "" },
       ],
       liked: true,
-      onLike: () => {
-        console.log("like");
-      },
     },
     {
       _id: 5,
@@ -81,9 +69,6 @@ const getFakeCard = () => {
         { id: 2, name: "nut", quantity: 10, unit: "" },
       ],
       liked: true,
-      onLike: () => {
-        console.log("like");
-      },
     },
     {
       _id: 6,
@@ -98,9 +83,6 @@ const getFakeCard = () => {
         { id: 2, name: "nut", quantity: 10, unit: "" },
       ],
       liked: false,
-      onLike: () => {
-        console.log("like");
-      },
     },
   ];
 };
