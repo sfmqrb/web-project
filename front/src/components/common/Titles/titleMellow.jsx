@@ -1,6 +1,6 @@
 const TitleMellow = (props) => {
   return (
-    <p style={{ color: "#ccc", fontSize: "16px", margin: "0px" }}>
+    <p style={{ color: "#aaa", fontSize: "16px", margin: "0px" }}>
       {props.title}
     </p>
   );
