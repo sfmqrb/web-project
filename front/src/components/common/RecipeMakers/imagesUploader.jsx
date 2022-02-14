@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./imageUploader.css";
+import "./imagesUploader.css";
 
 function ImageUploader({
   onChange: setImagesParent,

@@ -8,6 +8,10 @@ const getFakeCard = () => {
       image: "https://unsplash.it/400/300",
       body: "body :: Card 1",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      ingredients: [
+        { id: 1, name: "egg", quantity: 1, unit: "g" },
+        { id: 2, name: "nut", quantity: 10, unit: "" },
+      ],
       liked: false,
       onLike: () => {
         console.log("like");
@@ -21,6 +25,10 @@ const getFakeCard = () => {
       image: "https://unsplash.it/400/600",
       body: "body :: Card 2",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      ingredients: [
+        { id: 1, name: "egg", quantity: 1, unit: "g" },
+        { id: 2, name: "nut", quantity: 10, unit: "" },
+      ],
       liked: false,
       onLike: () => {
         console.log("like");
@@ -34,6 +42,10 @@ const getFakeCard = () => {
       image: "https://source.unsplash.com/random",
       body: "body :: Card 3",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      ingredients: [
+        { id: 1, name: "egg", quantity: 1, unit: "g" },
+        { id: 2, name: "nut", quantity: 10, unit: "" },
+      ],
       liked: true,
       onLike: () => {
         console.log("like");
@@ -47,6 +59,10 @@ const getFakeCard = () => {
       image: "https://unsplash.it/400/400",
       body: "body :: Card 4",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      ingredients: [
+        { id: 1, name: "egg", quantity: 1, unit: "g" },
+        { id: 2, name: "nut", quantity: 10, unit: "" },
+      ],
       liked: true,
       onLike: () => {
         console.log("like");
@@ -60,6 +76,10 @@ const getFakeCard = () => {
       image: "https://unsplash.it/410/400",
       body: "body :: Card 5",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      ingredients: [
+        { id: 1, name: "egg", quantity: 1, unit: "g" },
+        { id: 2, name: "nut", quantity: 10, unit: "" },
+      ],
       liked: true,
       onLike: () => {
         console.log("like");
@@ -73,6 +93,10 @@ const getFakeCard = () => {
       image: "https://unsplash.it/410/410",
       body: "body :: Card 6",
       tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      ingredients: [
+        { id: 1, name: "egg", quantity: 1, unit: "g" },
+        { id: 2, name: "nut", quantity: 10, unit: "" },
+      ],
       liked: false,
       onLike: () => {
         console.log("like");

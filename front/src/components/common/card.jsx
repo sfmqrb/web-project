@@ -9,15 +9,37 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import GetRandomColor from "./RandomColor";
-import Tag from "./tag";
+import Tag from "./Tag/tag";
+import TitleMellow from "./Titles/titleMellow";
 import _ from "lodash";
 
 function doTags(tags) {
   return (
     <>
+      <TitleMellow title="Tags" />
       {tags.map((tag) => (
-        <Tag key={tag} tagName={tag} />
+        <Tag key={tag} active={true}>
+          {tag}
+        </Tag>
       ))}
+    </>
+  );
+}
+
+function doIngredients(ingredients) {
+  return (
+    <>
+      <TitleMellow title="Ingredients" />
+      {ingredients.map((ingredient) => {
+        const { name, quantity, unit } = ingredient;
+        console.log(name, quantity, unit);
+        return (
+          <Tag>
+            <span>{name + " "}</span>
+            <span style={{ fontSize: "12px" }}>{quantity + unit}</span>
+          </Tag>
+        );
+      })}
     </>
   );
 }
@@ -57,6 +79,7 @@ class _Card_ extends React.Component {
           </Typography>
         </CardContent>
         <CardHeader subheader={doTags(this.props.tags)} />
+        <CardHeader subheader={doIngredients(this.props.ingredients)} />
         <CardActions disableSpacing>
           <IconButton
             aria-label="add to favorites"

@@ -1,0 +1,11 @@
+.red-background {
+    background-color: red;
+}
+
+.primary-background {
+    background-color: blue;
+}
+
+.focus {
+    cursor: pointer;
+}
