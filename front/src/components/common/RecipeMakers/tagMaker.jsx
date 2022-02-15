@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { WithContext as ReactTags } from "react-tag-input";
 import "./tagMaker.css";
-
+import TitleMellow from "../Titles/titleMellow";
 const KeyCodes = {
   comma: 188,
   enter: 13,
@@ -77,8 +77,8 @@ const TagMaker = ({ onChange, isAdmin, tags: prTags }) => {
 export default TagMaker;
 function getMessage(isNotAuthorizedToEdit) {
   return isNotAuthorizedToEdit ? (
-    <p className="m-3"> Tags </p>
+    <TitleMellow title="Tags" />
   ) : (
-    <p className="m-3">Add the tags here! </p>
+    <TitleMellow title="Add Tags here!!" />
   );
 }

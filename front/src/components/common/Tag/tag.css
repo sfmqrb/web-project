@@ -9,3 +9,9 @@
 .focus {
     cursor: pointer;
 }
+
+.tag-base {
+    display: inline-block;
+    width: fit-content;
+    cursor: pointer;
+}

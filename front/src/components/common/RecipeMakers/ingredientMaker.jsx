@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import doIngredients from "../commonUtils/doIngredients";
 
 export default function IngredientMaker(props) {
   const [ingredients, setIngredients] = useState(props.ingredients);
@@ -6,9 +7,5 @@ export default function IngredientMaker(props) {
     console.log(ingredients);
   }, []);
 
-  return (
-    <>
-      <div>ingredient maker</div>
-    </>
-  );
+  return <>{doIngredients(ingredients)}</>;
 }
