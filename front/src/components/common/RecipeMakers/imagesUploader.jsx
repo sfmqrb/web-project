@@ -50,7 +50,7 @@ function ImageUploader({
       <label
         style={{ display: isNotAuthorizedToEdit ? "none" : "block" }}
         onClick={reset}
-        for="file-upload"
+        htmlFor="file-upload"
         className="custom-file-upload btn margin-side-auto centered mb-3">
         Image Upload
       </label>
