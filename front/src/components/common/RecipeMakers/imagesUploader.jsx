@@ -25,11 +25,9 @@ function ImageUploader({
       return;
     }
     setImagesParent(images);
-    console.log(imageURLs.length, images.length);
   }, [images, imageURLs]);
 
   function handleChange(e) {
-    console.log("imagesUploader :: handleChange");
     const newImages = [...e.target.files];
     const newImageURLs = newImages.map((image) => {
       return URL.createObjectURL(image);
@@ -39,7 +37,6 @@ function ImageUploader({
   }
 
   function handleDeleteImage(idx) {
-    console.log(`Deleting image ${idx}`);
     const nImages = [...images.filter((_, idxThis) => idx !== idxThis)];
     const nImageURLs = [...imageURLs.filter((_, idxThis) => idx !== idxThis)];
     setImages(nImages);

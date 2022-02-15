@@ -31,11 +31,8 @@ function NewRecipe(props) {
   const [imageURLs, updateImageURLs] = useState([]);
 
   useEffect(() => {
-    console.log(tags);
-    console.log(steps);
-    console.log(images);
-    console.log(title);
-  }, [tags, steps, images, title]);
+    console.log(ingredients);
+  }, [tags, steps, images, title, ingredients]);
 
   // if (!isAdmin) {
   //   return <Redirect to="/" />;

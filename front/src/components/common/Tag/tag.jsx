@@ -1,9 +1,10 @@
 import "./tag.css";
 
 const Tag = (props) => {
-  const addedClass = props.active
+  const isAuthorizedToEdit = props.isAuthorizedToEdit;
+  const addedClass = props.blue
     ? "tag-base badge primary-background"
-    : "tag-base badge red-background focus";
+    : "tag-base badge red-background";
   return (
     <span className={"p-1 m-1 " + addedClass} onClick={props.onClick}>
       {props.children}

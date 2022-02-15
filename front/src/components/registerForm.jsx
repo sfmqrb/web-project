@@ -22,21 +22,18 @@ class RegisterForm extends Form {
 
   doSubmit = async () => {
     // backend
-    console.log("register");
-    console.log(this.state.data);
+
     const output = await userService.register(this.state.data);
-    // console.log(output);
+    //
     // console.log(output.data)
     if (output.data === "") {
       output.data = [];
-      console.log(output.data);
     }
     localStorage.setItem("jwt", output.data["jwt"]);
     localStorage.setItem("notes", JSON.stringify(output.data["notes"]));
     localStorage.setItem("name", output.data["name"]);
     window.location = "/"; // navigate to homepage
     // above line in try catch 400 (bad request) to re-register
-    console.log("Submitted");
   };
 
   render() {

@@ -30,7 +30,6 @@ function StepMaker({ onChange, isAdmin, steps: prSteps }) {
     <div className="App">
       <form>
         {steps.map((step, idx) => {
-          console.log(step, `step at ${idx}`);
           return (
             <div className="row" key={idx}>
               <div className="col-10">

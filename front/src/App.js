@@ -22,14 +22,10 @@ function App() {
   return (
     <Router>
       <div>
-        {/* A <Switch> looks through its children <Route>s and
-          renders the first one that matches the current URL. */}
         <Routes>
           <Route exact path="/recipes" element={<CardSet />} />
-
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/register" element={<RegisterForm />} />
-
           <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route

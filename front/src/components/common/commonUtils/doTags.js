@@ -6,7 +6,7 @@ function doTags(tags) {
     <>
       <TitleMellow title="Tags" />
       {tags.map((tag) => (
-        <Tag key={tag.id} active={true}>
+        <Tag key={tag.id} blue={true}>
           {tag.text}
         </Tag>
       ))}
