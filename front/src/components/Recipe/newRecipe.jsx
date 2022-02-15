@@ -34,9 +34,6 @@ function NewRecipe(props) {
     console.log(ingredients);
   }, [tags, steps, images, title, ingredients]);
 
-  // if (!isAdmin) {
-  //   return <Redirect to="/" />;
-  // }
   return (
     <>
       <NavBar searchEnabled={false} />

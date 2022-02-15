@@ -19,11 +19,30 @@ export default function IngredientMaker(props) {
     props.onChange(ingredients);
   }, [ingredients]);
 
+  const handleDeleteIngredient = (key) => {
+    console.log(`deleting ${key}`);
+    const newIngredients = ingredients.filter((ingredient) => {
+      const tmpKey =
+        ingredient.name + " " + ingredient.quantity + ingredient.unit;
+
+      return tmpKey !== key;
+    });
+    setIngredients(newIngredients);
+  };
+
   const handleClick = () => {
+    if (inputNameRef.current.value === "") {
+      alert("Please enter an ingredient name");
+      return;
+    }
+    if (inputQuantityRef.current.value === "") {
+      alert("Please enter an ingredient quantity");
+      return;
+    }
     const newIngredients = [
       ...ingredients,
       {
-        _id: Math.random().toString(36),
+        id: Math.random(),
         name: newIng.name,
         quantity: newIng.quantity,
         unit: newIng.unit,
@@ -45,10 +64,25 @@ export default function IngredientMaker(props) {
 
   return (
     <>
-      {doIngredients(ingredients, props.isAdmin)}
-      {addNewIngredient(newIng, inputNameRef, inputQuantityRef, inputUnitRef)}
-
-      <button onClick={handleClick}>Add Ingredient</button>
+      {doIngredients(ingredients, props.isAdmin, handleDeleteIngredient)}
+      <div className="row">
+        <div className="col-md-6">
+          {addNewIngredient(
+            newIng,
+            inputNameRef,
+            inputQuantityRef,
+            inputUnitRef
+          )}
+        </div>
+        <div className="col-md-6">
+          <button
+            className="btn btn-info inline-button"
+            style={{ width: "fit-content" }}
+            onClick={handleClick}>
+            Add Ingredient
+          </button>
+        </div>
+      </div>
     </>
   );
 }
@@ -63,6 +97,7 @@ function addNewIngredient(
     <div className="ingredient-maker">
       <div className="ingredient-maker-input">
         <input
+          className="form-control ingredient-input"
           ref={inputNameRef}
           type="text"
           placeholder="Ingredient name"
@@ -71,6 +106,7 @@ function addNewIngredient(
           }}
         />
         <input
+          className="form-control ingredient-input"
           ref={inputQuantityRef}
           type="text"
           placeholder="Quantity"
@@ -79,6 +115,7 @@ function addNewIngredient(
           }}
         />
         <input
+          className="form-control ingredient-input"
           ref={inputUnitRef}
           type="text"
           placeholder="Unit"
