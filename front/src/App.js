@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import {
   BrowserRouter as Router,
-  Switch,
+  Navigate,
   Route,
-  Redirect,
+  Routes,
 } from "react-router-dom";
 
 import LoginForm from "./components/loginForm";
@@ -24,33 +24,23 @@ function App() {
       <div>
         {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/recipes">
-            <CardSet />
-          </Route>
-          <Route path="/login">
-            <LoginForm />
-          </Route>
-          <Route path="/register">
-            <RegisterForm />
-          </Route>
-          <Route path="/logout">
-            <Logout />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/new-recipe">
-            <NewRecipe isAdmin={true} />
-          </Route>
-          <Route path="/recipe/:id">
-            <MoreInfoRecipe />
-          </Route>
-          <Redirect from="/" to="/recipes" />
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route exact path="/recipes" element={<CardSet />} />
+
+          <Route exact path="/login" element={<LoginForm />} />
+          <Route exact path="/register" element={<RegisterForm />} />
+
+          <Route exact path="/logout" element={<Logout />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route
+            exact
+            path="/new-recipe"
+            element={<NewRecipe isAdmin={true} />}
+          />
+          <Route exact path="/recipe/:id" element={<MoreInfoRecipe />} />
+          <Route path="/" element={<Navigate to="/recipes" />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </Router>
   );
