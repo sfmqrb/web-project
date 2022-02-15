@@ -2,11 +2,24 @@ import React, { useState, useEffect, useRef } from "react";
 import doIngredients from "../commonUtils/doIngredients";
 import "./ingredientMaker.css";
 
+const emptyIng = {
+  _id: "",
+  name: "",
+  quantity: "",
+  unit: "",
+};
+
 export default function IngredientMaker(props) {
   const [ingredients, setIngredients] = useState(props.ingredients);
   const inputNameRef = useRef(null);
   const inputQuantityRef = useRef(null);
   const inputUnitRef = useRef(null);
+
+  function emptyInputs() {
+    inputNameRef.current.value = "";
+    inputQuantityRef.current.value = "";
+    inputUnitRef.current.value = "";
+  }
 
   let newIng = {
     _id: "",
@@ -48,41 +61,34 @@ export default function IngredientMaker(props) {
         unit: newIng.unit,
       },
     ];
-    newIng = {
-      _id: "",
-      name: "",
-      quantity: "",
-      unit: "",
-    };
-
-    inputNameRef.current.value = "";
-    inputQuantityRef.current.value = "";
-    inputUnitRef.current.value = "";
-
+    newIng = emptyIng;
+    emptyInputs();
     setIngredients(newIngredients);
   };
 
   return (
     <>
       {doIngredients(ingredients, props.isAdmin, handleDeleteIngredient)}
-      <div className="row">
-        <div className="col-md-6">
-          {addNewIngredient(
-            newIng,
-            inputNameRef,
-            inputQuantityRef,
-            inputUnitRef
-          )}
+      {props.isAdmin ? (
+        <div className="row">
+          <div className="col-md-6">
+            {addNewIngredient(
+              newIng,
+              inputNameRef,
+              inputQuantityRef,
+              inputUnitRef
+            )}
+          </div>
+          <div className="col-md-6">
+            <button
+              className="btn btn-info inline-button"
+              style={{ width: "fit-content" }}
+              onClick={handleClick}>
+              Add Ingredient
+            </button>
+          </div>
         </div>
-        <div className="col-md-6">
-          <button
-            className="btn btn-info inline-button"
-            style={{ width: "fit-content" }}
-            onClick={handleClick}>
-            Add Ingredient
-          </button>
-        </div>
-      </div>
+      ) : null}
     </>
   );
 }
