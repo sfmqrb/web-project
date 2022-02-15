@@ -25,6 +25,7 @@ function NewRecipe(props) {
   const [steps, updateSteps] = useState(props.steps || []);
   const [images, updateImages] = useState(props.images || []);
   const [title, updateTitle] = useState(props.title || "");
+  const [imageURLs, updateImageURLs] = useState([]);
 
   useEffect(() => {
     console.log(tags);
@@ -40,33 +41,26 @@ function NewRecipe(props) {
     <>
       <NavBar searchEnabled={false} />
       <div className="container row">
-        <TitleMaker
-          onChange={updateTitle}
-          isAdmin={isAdmin}
-          title={props.title || ""}
-        />
+        <TitleMaker onChange={updateTitle} isAdmin={isAdmin} title={title} />
       </div>
+
       <div className="container row">
         <div className="col-3">
-          <TagMaker
-            onChange={updateTags}
-            isAdmin={isAdmin}
-            tags={props.tags || []}
-          />
+          <TagMaker onChange={updateTags} isAdmin={isAdmin} tags={tags || []} />
         </div>
         <div className="col">
           <StepMaker
             onChange={updateSteps}
             isAdmin={isAdmin}
-            steps={props.steps || []}
+            steps={steps || []}
           />
         </div>
         <div className="col-3">
           <ImageUploader
             onChange={updateImages}
             isAdmin={isAdmin}
-            images={props.images || []}
-            imageURLs={props.imageURLs || []}
+            images={images || []}
+            imageURLs={imageURLs || []}
           />
         </div>
       </div>

@@ -25,6 +25,7 @@ const TagMaker = ({ onChange, isAdmin, tags: prTags }) => {
     });
   }, []);
 
+  // console.log("in tagMaker", prTags);
   const [tags, setTags] = React.useState(prTags || []);
   const isNotAuthorizedToEdit = !isAdmin;
   useEffect(() => {
@@ -52,7 +53,6 @@ const TagMaker = ({ onChange, isAdmin, tags: prTags }) => {
   const handleTagClick = (index) => {
     console.log("The tag at index " + index + " was clicked");
   };
-
   return (
     <div className="app">
       {getMessage(isNotAuthorizedToEdit)}

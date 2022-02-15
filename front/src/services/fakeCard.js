@@ -9,7 +9,16 @@ const getFakeCard = () => {
       subheader: "subheader Card 1",
       image: "https://unsplash.it/400/300",
       body: "body :: Card 1",
-      tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      tags: [
+        {
+          id: "tag1",
+          text: "tag1",
+        },
+        {
+          id: "tag2",
+          text: "tag2",
+        },
+      ],
       ingredients: [
         { id: 1, name: "egg", quantity: 1, unit: "g" },
         { id: 2, name: "nut", quantity: 10, unit: "" },
@@ -25,7 +34,16 @@ const getFakeCard = () => {
       subheader: "subheader Card 2",
       image: "https://unsplash.it/400/600",
       body: "body :: Card 2",
-      tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      tags: [
+        {
+          id: "tag1",
+          text: "tag1",
+        },
+        {
+          id: "tag2",
+          text: "tag2",
+        },
+      ],
       ingredients: [
         { id: 1, name: "egg", quantity: 1, unit: "g" },
         { id: 2, name: "nut", quantity: 10, unit: "" },
@@ -41,7 +59,16 @@ const getFakeCard = () => {
       subheader: "subheader Card 3",
       image: "https://source.unsplash.com/random",
       body: "body :: Card 3",
-      tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      tags: [
+        {
+          id: "tag1",
+          text: "tag1",
+        },
+        {
+          id: "tag2",
+          text: "tag2",
+        },
+      ],
       ingredients: [
         { id: 1, name: "egg", quantity: 1, unit: "g" },
         { id: 2, name: "nut", quantity: 10, unit: "" },
@@ -58,7 +85,16 @@ const getFakeCard = () => {
       subheader: "subheader Card 4",
       image: "https://unsplash.it/400/400",
       body: "body :: Card 4",
-      tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      tags: [
+        {
+          id: "tag1",
+          text: "tag1",
+        },
+        {
+          id: "tag2",
+          text: "tag2",
+        },
+      ],
       ingredients: [
         { id: 1, name: "egg", quantity: 1, unit: "g" },
         { id: 2, name: "nut", quantity: 10, unit: "" },
@@ -74,7 +110,16 @@ const getFakeCard = () => {
       subheader: "subheader Card 5",
       image: "https://unsplash.it/410/400",
       body: "body :: Card 5",
-      tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      tags: [
+        {
+          id: "tag1",
+          text: "tag1",
+        },
+        {
+          id: "tag2",
+          text: "tag2",
+        },
+      ],
       ingredients: [
         { id: 1, name: "egg", quantity: 1, unit: "g" },
         { id: 2, name: "nut", quantity: 10, unit: "" },
@@ -90,7 +135,16 @@ const getFakeCard = () => {
       subheader: "subheader Card 6",
       image: "https://unsplash.it/410/410",
       body: "body :: Card 6",
-      tags: ["ab", "ba", "cd", "de", "ge", "hi"],
+      tags: [
+        {
+          id: "tag1",
+          text: "tag1",
+        },
+        {
+          id: "tag2",
+          text: "tag2",
+        },
+      ],
       ingredients: [
         { id: 1, name: "egg", quantity: 1, unit: "g" },
         { id: 2, name: "nut", quantity: 10, unit: "" },

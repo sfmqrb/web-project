@@ -18,8 +18,6 @@ const MoreInfoRecipe = () => {
 
   return (
     <>
-      <div>Hello</div>
-
       {input ? <NewRecipe {...input} /> : "processing"}
       {/* <NewRecipe isAdmin={false} {...recipe} /> */}
     </>
