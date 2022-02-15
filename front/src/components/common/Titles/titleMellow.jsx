@@ -5,7 +5,8 @@ const TitleMellow = (props) => {
         color: "#aaa",
         fontSize: "16px",
         margin: "0px",
-        marginTop: "20px",
+        verticalAlign: "middle",
+        marginTop: "5px",
       }}>
       {props.title}
     </p>

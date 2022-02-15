@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./imagesUploader.css";
+import TitleMellow from "../Titles/titleMellow";
 
 function ImageUploader({
   onChange: setImagesParent,
@@ -52,7 +53,7 @@ function ImageUploader({
         onClick={reset}
         htmlFor="file-upload"
         className="custom-file-upload btn margin-side-auto centered mb-3">
-        Image Upload
+        <TitleMellow title="Upload Images" />
       </label>
       <div className="container img-upload">
         <div className="row centered">
