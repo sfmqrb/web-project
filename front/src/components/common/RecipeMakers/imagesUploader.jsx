@@ -51,10 +51,10 @@ function ImageUploader({
         style={{ display: isNotAuthorizedToEdit ? "none" : "block" }}
         onClick={reset}
         for="file-upload"
-        class="custom-file-upload btn margin-side-auto centered mb-3">
+        className="custom-file-upload btn margin-side-auto centered mb-3">
         Image Upload
       </label>
-      <div class="container img-upload">
+      <div className="container img-upload">
         <div className="row centered">
           <input
             ref={myRef}

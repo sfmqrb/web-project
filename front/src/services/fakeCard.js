@@ -1,9 +1,11 @@
 const getFakeCard = () => {
   return [
     {
+      images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
+      steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
+      name: "John Doe",
       _id: 1,
       title: "title :: Card 1",
-      name: "name :: Card 1",
       subheader: "subheader Card 1",
       image: "https://unsplash.it/400/300",
       body: "body :: Card 1",
@@ -15,9 +17,11 @@ const getFakeCard = () => {
       liked: false,
     },
     {
+      name: "John Doe",
+      images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
+      steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
       _id: 2,
       title: "title :: Card 2",
-      name: "name :: Card 2",
       subheader: "subheader Card 2",
       image: "https://unsplash.it/400/600",
       body: "body :: Card 2",
@@ -29,9 +33,11 @@ const getFakeCard = () => {
       liked: false,
     },
     {
+      name: "Bond Doe",
+      images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
+      steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
       _id: 3,
       title: "title :: Card 3",
-      name: "name :: Card 3",
       subheader: "subheader Card 3",
       image: "https://source.unsplash.com/random",
       body: "body :: Card 3",
@@ -43,9 +49,12 @@ const getFakeCard = () => {
       liked: true,
     },
     {
+      name: "Doe",
+
+      images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
+      steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
       _id: 4,
       title: "title :: Card 4",
-      name: "name :: Card 4",
       subheader: "subheader Card 4",
       image: "https://unsplash.it/400/400",
       body: "body :: Card 4",
@@ -57,9 +66,11 @@ const getFakeCard = () => {
       liked: true,
     },
     {
+      name: "John Doe",
+      images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
+      steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
       _id: 5,
       title: "title :: Card 5",
-      name: "name :: Card 5",
       subheader: "subheader Card 5",
       image: "https://unsplash.it/410/400",
       body: "body :: Card 5",
@@ -71,9 +82,11 @@ const getFakeCard = () => {
       liked: true,
     },
     {
+      name: "Doe",
+      images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
+      steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
       _id: 6,
       title: "title :: Card 6",
-      name: "name :: Card 6",
       subheader: "subheader Card 6",
       image: "https://unsplash.it/410/410",
       body: "body :: Card 6",

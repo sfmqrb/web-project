@@ -26,11 +26,16 @@ function NewRecipe(props) {
   const [images, updateImages] = useState(props.images || []);
   const [title, updateTitle] = useState(props.title || "");
 
-  useEffect(() => {}, [tags, steps, images, title]);
+  useEffect(() => {
+    console.log(tags);
+    console.log(steps);
+    console.log(images);
+    console.log(title);
+  }, [tags, steps, images, title]);
 
-  if (!isAdmin) {
-    return <Redirect to="/" />;
-  }
+  // if (!isAdmin) {
+  //   return <Redirect to="/" />;
+  // }
   return (
     <>
       <NavBar searchEnabled={false} />
@@ -66,12 +71,14 @@ function NewRecipe(props) {
         </div>
       </div>
       <div className="container">
-        <SubmitDiscardFooter
-          onSubmit={handleSubmit}
-          onDiscard={handleDiscard}
-          submitTitle="Submit"
-          discardTitle="Discard"
-        />
+        {isAdmin ? (
+          <SubmitDiscardFooter
+            onSubmit={handleSubmit}
+            onDiscard={handleDiscard}
+            submitTitle="Submit"
+            discardTitle="Discard"
+          />
+        ) : null}
       </div>
     </>
   );

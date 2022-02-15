@@ -5,6 +5,7 @@ import Footer from "./footer";
 import { paginate } from "../utils/paginate";
 import Pagination from "./common/pagination";
 import getFakeCard from "../services/fakeCard";
+import { Redirect } from "react-router-dom";
 
 class CardSet extends Component {
   // state

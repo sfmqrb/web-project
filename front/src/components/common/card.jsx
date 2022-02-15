@@ -8,10 +8,11 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import GetRandomColor from "./RandomColor";
+import MoreIcon from "@mui/icons-material/More";
 import Tag from "./Tag/tag";
 import TitleMellow from "./Titles/titleMellow";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 function doTags(tags) {
   return (
@@ -46,6 +47,18 @@ function doIngredients(ingredients) {
 const clr = "dark";
 
 const _Card_ = (props) => {
+  const {
+    _id,
+    name: userName,
+    title,
+    subheader,
+    image,
+    body,
+    liked,
+    onLike,
+    tags,
+    ingredients,
+  } = props;
   return (
     <Card
       className="m-5"
@@ -56,37 +69,42 @@ const _Card_ = (props) => {
       }}>
       <div>
         <CardMedia
-          className="pic-overlay "
+          className="pic-overlay"
           component="img"
-          image={props.image}
+          image={image}
           alt="dish"
         />
       </div>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
-            {props.name.charAt(0)}
+            {userName.charAt(0)}
           </Avatar>
         }
-        title={props.title}
-        subheader={props.subheader}
+        title={title}
+        subheader={subheader}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {props.body}
+          {body}
         </Typography>
       </CardContent>
-      <CardHeader subheader={doTags(props.tags)} />
-      <CardHeader subheader={doIngredients(props.ingredients)} />
+      <CardHeader subheader={doTags(tags)} />
+      <CardHeader subheader={doIngredients(ingredients)} />
       <CardActions disableSpacing>
         <IconButton
           aria-label="add to favorites"
           onClick={() => {
-            props.onLike(props._id);
+            onLike(_id);
           }}
-          color={props.liked ? "error" : "default"}>
+          color={liked ? "error" : "default"}>
           <FavoriteIcon />
         </IconButton>
+        <Link to={`/recipe/${_id}`}>
+          <IconButton aria-label="More Info" color="primary">
+            <MoreIcon />
+          </IconButton>
+        </Link>
       </CardActions>
     </Card>
   );

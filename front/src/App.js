@@ -13,6 +13,7 @@ import NewRecipe from "./components/Recipe/newRecipe";
 import NotFound from "./components/notFound";
 import CardSet from "./components/cardSet";
 import Profile from "./components/profile";
+import MoreInfoRecipe from "./components/moreInfoRecipe";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <Route path="/new-recipe">
             <NewRecipe isAdmin={true} />
+          </Route>
+          <Route path="/recipe/:id">
+            <MoreInfoRecipe />
           </Route>
           <Redirect from="/" to="/recipes" />
           <Route>
