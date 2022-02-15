@@ -9,24 +9,10 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreIcon from "@mui/icons-material/More";
-import Tag from "./Tag/tag";
-import TitleMellow from "./Titles/titleMellow";
 import doIngredients from "./commonUtils/doIngredients";
+import doTags from "./commonUtils/doTags";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-
-function doTags(tags) {
-  return (
-    <>
-      <TitleMellow title="Tags" />
-      {tags.map((tag) => (
-        <Tag key={tag.id} active={true}>
-          {tag.text}
-        </Tag>
-      ))}
-    </>
-  );
-}
 
 const clr = "dark";
 
@@ -46,6 +32,7 @@ const _Card_ = (props) => {
   const image = images[0] || null;
   return (
     <Card
+      key={_id}
       className="m-5"
       sx={{
         maxWidth: 500,
