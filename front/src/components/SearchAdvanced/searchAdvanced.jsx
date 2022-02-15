@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../navBar";
 import Footer from "../footer";
-import TitleMellow from "../common/Titles/titleMellow";
 import "./searchAdvanced.css";
 
 const SearchAdvanced = (props) => {
@@ -17,7 +16,7 @@ const SearchAdvanced = (props) => {
   return (
     <>
       <NavBar searchEnabled={false} />
-      <div className="container">
+      <div className="container  accordion-body align-middle mt-4">
         <div className="row ">
           <span className="mt--4 font-awesome">
             Search by Text
