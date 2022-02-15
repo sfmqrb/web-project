@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 export default function IngredientMaker(props) {
-  return <></>;
+  const [ingredients, setIngredients] = useState(props.ingredients);
+  useEffect(() => {
+    console.log(ingredients);
+  }, []);
+
+  return (
+    <>
+      <div>ingredient maker</div>
+    </>
+  );
 }

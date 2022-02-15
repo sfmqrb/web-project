@@ -7,21 +7,13 @@ const MoreInfoRecipe = () => {
 
   useEffect(() => {
     const url = window.location.href;
-    console.log(url);
     const id = url.split("/")[4];
-    console.log(id);
     const tmpRecipe = getSpecificFakeCard(id);
     const tmpInput = { ...tmpRecipe, isAdmin: false };
     setInput(tmpInput);
-    // setInput(tmpRecipe);
   }, []);
 
-  return (
-    <>
-      {input ? <NewRecipe {...input} /> : "processing"}
-      {/* <NewRecipe isAdmin={false} {...recipe} /> */}
-    </>
-  );
+  return <>{input ? <NewRecipe {...input} /> : "processing"}</>;
 };
 
 export default MoreInfoRecipe;

@@ -5,6 +5,8 @@ import TagMaker from "../common/RecipeMakers/tagMaker";
 import StepMaker from "../common/RecipeMakers/stepMaker";
 import TitleMaker from "../common/RecipeMakers/titleMaker";
 import ImageUploader from "../common/RecipeMakers/imagesUploader";
+import IngredientMaker from "../common/RecipeMakers/ingredientMaker";
+
 import NavBar from "../navBar";
 import SubmitDiscardFooter from "../common/Buttons/submitDiscardFooter";
 
@@ -24,6 +26,7 @@ function NewRecipe(props) {
   const [tags, updateTags] = useState(props.tags || []);
   const [steps, updateSteps] = useState(props.steps || []);
   const [images, updateImages] = useState(props.images || []);
+  const [ingredients, updateIngredients] = useState(props.ingredients || []);
   const [title, updateTitle] = useState(props.title || "");
   const [imageURLs, updateImageURLs] = useState([]);
 
@@ -43,7 +46,13 @@ function NewRecipe(props) {
       <div className="container row">
         <TitleMaker onChange={updateTitle} isAdmin={isAdmin} title={title} />
       </div>
-
+      <div className="container row">
+        <IngredientMaker
+          onChange={updateIngredients}
+          isAdmin={isAdmin}
+          ingredients={ingredients || []}
+        />
+      </div>
       <div className="container row">
         <div className="col-3">
           <TagMaker onChange={updateTags} isAdmin={isAdmin} tags={tags || []} />

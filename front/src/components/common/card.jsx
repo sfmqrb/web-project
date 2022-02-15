@@ -11,6 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreIcon from "@mui/icons-material/More";
 import Tag from "./Tag/tag";
 import TitleMellow from "./Titles/titleMellow";
+import doIngredients from "./commonUtils/doIngredients";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 
@@ -27,23 +28,6 @@ function doTags(tags) {
   );
 }
 
-function doIngredients(ingredients) {
-  return (
-    <>
-      <TitleMellow title="Ingredients" />
-      {ingredients.map((ingredient) => {
-        const { name, quantity, unit } = ingredient;
-        return (
-          <Tag>
-            <span>{name + " "}</span>
-            <span style={{ fontSize: "12px" }}>{quantity + unit}</span>
-          </Tag>
-        );
-      })}
-    </>
-  );
-}
-
 const clr = "dark";
 
 const _Card_ = (props) => {
@@ -52,13 +36,14 @@ const _Card_ = (props) => {
     name: userName,
     title,
     subheader,
-    image,
+    images,
     body,
     liked,
     onLike,
     tags,
     ingredients,
   } = props;
+  const image = images[0] || null;
   return (
     <Card
       className="m-5"
