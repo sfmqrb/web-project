@@ -8,7 +8,7 @@ function doIngredients(ingredients) {
       {ingredients.map((ingredient) => {
         const { name, quantity, unit } = ingredient;
         return (
-          <Tag key={ingredient.id} __id__={ingredient.id}>
+          <Tag key={ingredient.id}>
             <span>{name + " "}</span>
             <span style={{ fontSize: "12px" }}>{quantity + unit}</span>
           </Tag>
