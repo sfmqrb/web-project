@@ -14,6 +14,7 @@ import NotFound from "./components/notFound";
 import CardSet from "./components/cardSet";
 import Profile from "./components/profile";
 import MoreInfoRecipe from "./components/moreInfoRecipe";
+import SearchAdvanced from "./components/SearchAdvanced/searchAdvanced";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/register" element={<RegisterForm />} />
           <Route exact path="/logout" element={<Logout />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/search" element={<SearchAdvanced />} />
           <Route
             exact
             path="/new-recipe"

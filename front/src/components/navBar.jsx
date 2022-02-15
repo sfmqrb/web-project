@@ -22,6 +22,11 @@ const NavBar = ({ user, onChange, searchQuery, searchEnabled }) => {
                 Home
               </Link>
             </li>
+            <li>
+              <Link to="/search" className="nav-link px-2 link-dark navlinks">
+                Search
+              </Link>
+            </li>
             {isLoggedIn ? (
               <li>
                 <Link to="#" className="nav-link px-2 link-dark navlinks">
@@ -82,7 +87,6 @@ const getIsLoggedInHtml = (isLoggedIn) => {
       <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
         <li>
           <Link className="dropdown-item" to="/new-recipe">
-            {" "}
             New recipe...
           </Link>
         </li>
@@ -96,7 +100,6 @@ const getIsLoggedInHtml = (isLoggedIn) => {
         </li>
         <li>
           <Link className="dropdown-item" to="/logout">
-            {" "}
             Sign out
           </Link>
         </li>
