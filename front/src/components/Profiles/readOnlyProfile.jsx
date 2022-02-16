@@ -4,7 +4,12 @@ import Profile from "./profile";
 
 const ReadOnlyProfile = (props) => {
   const ReadOnlyProfile = true;
-  const [stt, setStt] = useState(null);
+  const [stt, setStt] = useState({
+    name: "",
+    email: "",
+    bio: "",
+    avatar: "",
+  });
   useEffect(() => {
     // backend function to get user data
     const userData = getFakeUser();

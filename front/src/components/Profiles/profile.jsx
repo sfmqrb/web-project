@@ -16,9 +16,7 @@ import { Link } from "react-router-dom";
 import getFakeUser from "../../services/fakeUser";
 
 const Profile = (props) => {
-  console.log(props);
   const ReadOnlyProfile = props.ReadOnlyProfile || false;
-  console.log(ReadOnlyProfile);
 
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -43,7 +41,7 @@ const Profile = (props) => {
       setPassword(userData.password);
       setBio(userData.bio);
     }
-  }, []);
+  }, [props]);
 
   const refPicture = useRef();
 
