@@ -7,7 +7,7 @@ import TitleMaker from "../common/RecipeMakers/titleMaker";
 import ImageUploader from "../common/RecipeMakers/imagesUploader";
 import IngredientMaker from "../common/RecipeMakers/ingredientMaker";
 
-import NavBar from "../navBar";
+import NavBar from "../DefaultPages/navBar";
 import SubmitDiscardFooter from "../common/Buttons/submitDiscardFooter";
 
 import "bootstrap/dist/css/bootstrap.min.css";

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import _Card_ from "./common/card";
-import NavBar from "./navBar";
-import Footer from "./footer";
+import NavBar from "./DefaultPages/navBar";
+import Footer from "./DefaultPages/footer";
 import { paginate } from "../utils/paginate";
 import Pagination from "./common/pagination";
 import getFakeCard from "../services/fakeCard";

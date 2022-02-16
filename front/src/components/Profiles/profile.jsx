@@ -8,8 +8,8 @@ import Input from "@material-ui/core/Input";
 import TitleOk from "../common/Titles/titleOk";
 
 import SubmitDiscardFooter from "../common/Buttons/submitDiscardFooter";
-import NavBar from "../navBar";
-import Footer from "../footer";
+import NavBar from "../DefaultPages/navBar";
+import Footer from "../DefaultPages/footer";
 import { Link } from "react-router-dom";
 
 import getFakeUser from "../../services/fakeUser";

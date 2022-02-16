@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/Forms/form";
-import NavBar from "./navBar";
+import NavBar from "./DefaultPages/navBar";
 import { login } from "../services/authService";
 import { Link } from "react-router-dom";
 import "../App.css";

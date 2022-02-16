@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import NavBar from "../navBar";
-import Footer from "../footer";
+import NavBar from "../DefaultPages/navBar";
+import Footer from "../DefaultPages/footer";
 import "./searchAdvanced.css";
 
 const SearchAdvanced = (props) => {

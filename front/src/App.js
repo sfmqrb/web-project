@@ -10,7 +10,7 @@ import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
 import NewRecipe from "./components/Recipe/newRecipe";
-import NotFound from "./components/notFound";
+import NotFound from "./components/DefaultPages/notFound";
 import CardSet from "./components/cardSet";
 import Profile from "./components/Profiles/profile";
 import ReadOnlyProfile from "./components/Profiles/readOnlyProfile";
