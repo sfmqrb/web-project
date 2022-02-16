@@ -15,6 +15,7 @@ let newTag = {
 export default function TagMaker(props) {
   const [tags, setTags] = useState(props.tags);
   const inputTagRef = useRef(null);
+  const widthModifier = props.widthModifier || "";
 
   function emptyInputs() {
     inputTagRef.current.value = "";
@@ -55,7 +56,7 @@ export default function TagMaker(props) {
       {doTagsEditable(tags, props.isAdmin, handleDeleteTag)}
       {props.isAdmin ? (
         <div>
-          {addNewTag(newTag, inputTagRef)}
+          {addNewTag(newTag, inputTagRef, widthModifier)}
           <button
             className="btn btn-info inline-button  hard-inline"
             style={{ width: "fit-content" }}
@@ -68,11 +69,12 @@ export default function TagMaker(props) {
   );
 }
 
-function addNewTag(newIng, inputTagRef) {
+function addNewTag(newIng, inputTagRef, widthModifier = "") {
   return (
     <div className="hard-inline input-vertical-align ">
       <input
         className="form-control tag-input input-vertical-align "
+        style={{ width: `${widthModifier}` }}
         ref={inputTagRef}
         type="text"
         placeholder="tag name"

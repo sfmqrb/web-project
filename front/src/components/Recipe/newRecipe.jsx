@@ -50,10 +50,11 @@ function NewRecipe(props) {
           />
         </div>
         <div className="container row">
-          <div className="container row mt-4">
+          <div className="container col">
             <TagMaker
               onChange={updateTags}
               isAdmin={isAdmin}
+              widthModifier="34%"
               tags={tags || []}
             />
           </div>
