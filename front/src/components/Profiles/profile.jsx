@@ -18,9 +18,8 @@ const Profile = (props) => {
   const ReadOnlyProfile = props.ReadOnlyProfile || false;
   // console.log(props.url || "no id");
   const locSplitted = window.location.pathname.split("/");
-  const id = window.location.pathname.split("/")[locSplitted.length - 1];
 
-  // const [id, setId] = useState(props.match.params.id || "");
+  const [id, setId] = useState("");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState(""); // must be empty
@@ -35,6 +34,7 @@ const Profile = (props) => {
       setEmail(props.email);
       setAvatar(props.avatar);
       setBio(props.bio);
+      setId(props.id);
     } else {
       // request from backend to get user related data
       const userData = getFakeUser();
@@ -43,6 +43,7 @@ const Profile = (props) => {
       setAvatar(userData.avatar);
       setPassword(userData.password);
       setBio(userData.bio);
+      setId(userData.id);
     }
   }, [props]);
 
@@ -95,14 +96,14 @@ const Profile = (props) => {
                 </Link>
               </>
             ) : null}
-            {ReadOnlyProfile ? (
+            {true ? (
               <Link
                 to={`/${id}/follower`}
                 className="badge text-black no-text-decoration">
                 Follower
               </Link>
             ) : null}
-            {ReadOnlyProfile ? (
+            {true ? (
               <Link
                 to={`/${id}/following`}
                 className="badge text-black no-text-decoration">
