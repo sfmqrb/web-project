@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../DefaultPages/navBar";
 import Footer from "../DefaultPages/footer";
+import TagMaker from "../common/RecipeMakers/tagMaker";
+import IngredientMaker from "../common/RecipeMakers/ingredientMaker";
 import "./searchAdvanced.css";
 
 const SearchAdvanced = (props) => {
@@ -34,30 +36,18 @@ const SearchAdvanced = (props) => {
         </div>
 
         <div className="row">
-          <span className="mt--4 font-awesome">
-            Search by Tags
-            <div className="font-small">place '-' between tags please!</div>
-          </span>
-          <input
-            type="text"
-            className="form-control input-search-advanced"
-            placeholder="Tags"
-            onChange={(e) => setTags(e.target.value)}
-          />
+          <div className="container row mt-4">
+            <TagMaker onChange={setTags} isAdmin={true} tags={[]} />
+          </div>
         </div>
         <div className="row ">
-          <span className="mt--4 font-awesome">
-            Search by Ingredients
-            <div className="font-small">
-              place '-' between Ingredients please!
-            </div>
-          </span>
-          <input
-            type="text"
-            className="form-control input-search-advanced"
-            placeholder="Ingredients"
-            onChange={(e) => setIngredients(e.target.value)}
-          />
+          <div className="mt-4">
+            <IngredientMaker
+              onChange={setIngredients}
+              isAdmin={true}
+              ingredients={[]}
+            />
+          </div>
         </div>
         <span className="mt--4 font-awesome">Choose sorting algorithm</span>
 

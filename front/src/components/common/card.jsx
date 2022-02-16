@@ -18,7 +18,7 @@ const clr = "dark";
 
 const _Card_ = (props) => {
   const {
-    _id,
+    id,
     name: userName,
     title,
     subheader,
@@ -32,7 +32,7 @@ const _Card_ = (props) => {
   const image = images[0] || null;
   return (
     <Card
-      key={_id}
+      key={id}
       className="m-5"
       sx={{
         maxWidth: 500,
@@ -69,12 +69,12 @@ const _Card_ = (props) => {
         <IconButton
           aria-label="add to favorites"
           onClick={() => {
-            onLike(_id);
+            onLike(id);
           }}
           color={liked ? "error" : "default"}>
           <FavoriteIcon />
         </IconButton>
-        <Link to={`/recipe/${_id}`}>
+        <Link to={`/recipe/${id}`}>
           <IconButton aria-label="More Info" color="primary">
             <MoreIcon />
           </IconButton>

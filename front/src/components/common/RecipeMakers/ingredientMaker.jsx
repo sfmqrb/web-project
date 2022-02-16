@@ -3,7 +3,6 @@ import doIngredients from "../commonUtils/doIngredients";
 import "./ingredientMaker.css";
 
 const emptyIng = {
-  _id: "",
   name: "",
   quantity: "",
   unit: "",
@@ -22,7 +21,6 @@ export default function IngredientMaker(props) {
   }
 
   let newIng = {
-    _id: "",
     name: "",
     quantity: "",
     unit: "",
@@ -35,8 +33,7 @@ export default function IngredientMaker(props) {
   const handleDeleteIngredient = (key) => {
     console.log(`deleting ${key}`);
     const newIngredients = ingredients.filter((ingredient) => {
-      const tmpKey =
-        ingredient.name + " " + ingredient.quantity + ingredient.unit;
+      const tmpKey = ingredient.id;
 
       return tmpKey !== key;
     });
@@ -70,23 +67,19 @@ export default function IngredientMaker(props) {
     <>
       {doIngredients(ingredients, props.isAdmin, handleDeleteIngredient)}
       {props.isAdmin ? (
-        <div className="row">
-          <div className="col-md-6">
-            {addNewIngredient(
-              newIng,
-              inputNameRef,
-              inputQuantityRef,
-              inputUnitRef
-            )}
-          </div>
-          <div className="col-md-6">
-            <button
-              className="btn btn-info inline-button"
-              style={{ width: "fit-content" }}
-              onClick={handleClick}>
-              Add Ingredient
-            </button>
-          </div>
+        <div>
+          {addNewIngredient(
+            newIng,
+            inputNameRef,
+            inputQuantityRef,
+            inputUnitRef
+          )}
+          <button
+            className="btn btn-info inline-button hard-inline"
+            style={{ width: "fit-content" }}
+            onClick={handleClick}>
+            Add Ingredient
+          </button>
         </div>
       ) : null}
     </>
@@ -100,36 +93,34 @@ function addNewIngredient(
   inputUnitRef
 ) {
   return (
-    <div className="ingredient-maker">
-      <div className="ingredient-maker-input">
-        <input
-          className="form-control ingredient-input"
-          ref={inputNameRef}
-          type="text"
-          placeholder="Ingredient name"
-          onChange={(e) => {
-            newIng.name = e.target.value;
-          }}
-        />
-        <input
-          className="form-control ingredient-input"
-          ref={inputQuantityRef}
-          type="text"
-          placeholder="Quantity"
-          onChange={(e) => {
-            newIng.quantity = e.target.value;
-          }}
-        />
-        <input
-          className="form-control ingredient-input"
-          ref={inputUnitRef}
-          type="text"
-          placeholder="Unit"
-          onChange={(e) => {
-            newIng.unit = e.target.value;
-          }}
-        />
-      </div>
+    <div className="hard-inline">
+      <input
+        className="form-control ingredient-input input-vertical-align "
+        ref={inputNameRef}
+        type="text"
+        placeholder="Ingredient name"
+        onChange={(e) => {
+          newIng.name = e.target.value;
+        }}
+      />
+      <input
+        className="form-control ingredient-input input-vertical-align"
+        ref={inputQuantityRef}
+        type="text"
+        placeholder="Quantity"
+        onChange={(e) => {
+          newIng.quantity = e.target.value;
+        }}
+      />
+      <input
+        className="form-control ingredient-input input-vertical-align"
+        ref={inputUnitRef}
+        type="text"
+        placeholder="Unit"
+        onChange={(e) => {
+          newIng.unit = e.target.value;
+        }}
+      />
     </div>
   );
 }

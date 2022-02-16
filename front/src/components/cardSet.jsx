@@ -33,10 +33,10 @@ class CardSet extends Component {
     this.setState({ searchQuery: query, currentPage: 1 });
   };
 
-  handleLike = (_id) => {
+  handleLike = (id) => {
     const tmpCards = [...this.state.cards];
     const newCards = tmpCards.map((card) => {
-      if (card._id === _id) {
+      if (card.id === id) {
         card.liked = !card.liked;
       }
       return card;
@@ -84,7 +84,7 @@ class CardSet extends Component {
         <div className="container">
           <div className="row m-0  justify-content-around">
             {cards.map((card) => (
-              <_Card_ key={card._id} {...card} onLike={this.handleLike} />
+              <_Card_ key={card.id} {...card} onLike={this.handleLike} />
             ))}
           </div>
         </div>
