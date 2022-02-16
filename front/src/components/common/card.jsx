@@ -49,9 +49,11 @@ const _Card_ = (props) => {
       </div>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
-            {userName.charAt(0)}
-          </Avatar>
+          <Link to={`/profile/${userName}`} className="no-text-decoration">
+            <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
+              {userName.charAt(0)}
+            </Avatar>
+          </Link>
         }
         title={title}
         subheader={subheader}

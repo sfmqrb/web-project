@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import IconButton from "@material-ui/core/IconButton";
-import InputLabel from "@material-ui/core/InputLabel";
 import Visibility from "@material-ui/icons/Visibility";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -17,7 +16,11 @@ import getFakeUser from "../../services/fakeUser";
 
 const Profile = (props) => {
   const ReadOnlyProfile = props.ReadOnlyProfile || false;
+  // console.log(props.url || "no id");
+  const locSplitted = window.location.pathname.split("/");
+  const id = window.location.pathname.split("/")[locSplitted.length - 1];
 
+  // const [id, setId] = useState(props.match.params.id || "");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState(""); // must be empty
@@ -60,7 +63,6 @@ const Profile = (props) => {
   return (
     <>
       <NavBar searchEnabled={false} />
-
       {!ReadOnlyProfile ? (
         <input
           type="file"
@@ -75,17 +77,39 @@ const Profile = (props) => {
           <div className="col-3" style={{ marginTop: "30px" }}>
             {!ReadOnlyProfile ? (
               <>
-                <Link to="/recipe-liked" className="badge text-black">
+                <Link
+                  to="/recipe-liked"
+                  className="badge text-black no-text-decoration">
                   Liked Recipes
                 </Link>
-                <Link to="/recipe-created" className="badge text-black">
+
+                <Link
+                  to="/recipe-created"
+                  className="badge text-black no-text-decoration">
                   Created Recipes
                 </Link>
-                <Link to="/recipe-saved" className="badge text-black">
+                <Link
+                  to="/recipe-saved"
+                  className="badge text-black no-text-decoration">
                   Saved Recipes
                 </Link>
               </>
             ) : null}
+            {ReadOnlyProfile ? (
+              <Link
+                to={`/${id}/follower`}
+                className="badge text-black no-text-decoration">
+                Follower
+              </Link>
+            ) : null}
+            {ReadOnlyProfile ? (
+              <Link
+                to={`/${id}/following`}
+                className="badge text-black no-text-decoration">
+                Following
+              </Link>
+            ) : null}
+
             {avatar ? (
               <img
                 alt="mdo"
@@ -165,14 +189,24 @@ const Profile = (props) => {
           <div className="col-5"></div>
         </div>
       </div>
-
       {!ReadOnlyProfile ? (
         <div className="container row">
           <SubmitDiscardFooter
             discardTitle="Discard"
             submitTitle="Submit"
-            onDiscard={() => props.history.push("/")}
-            onSubmit={() => props.history.push("/")} // change backend
+            onDiscard={() => (window.location.href = "/")}
+            onSubmit={() => (window.location.href = "/")} // change backend
+            bottom={80}
+          />
+        </div>
+      ) : null}{" "}
+      {ReadOnlyProfile ? (
+        <div className="container row">
+          <SubmitDiscardFooter
+            discardTitle="Follow"
+            submitTitle="Unfollow"
+            onDiscard={() => (window.location.href = "/")}
+            onSubmit={() => (window.location.href = "/")} // change backend
             bottom={80}
           />
         </div>
