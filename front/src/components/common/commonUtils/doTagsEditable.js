@@ -1,7 +1,12 @@
 import Tag from "../Tag/tag";
 import TitleMellow from "../Titles/titleMellow";
 
-function doTagsEditable(tags, isAuthorizedToEdit = false, onDeletion = null) {
+function doTagsEditable(
+  tags,
+  isAuthorizedToEdit = false,
+  onDeletion = null,
+  blue = false
+) {
   return (
     <>
       <TitleMellow title="Tags" />
@@ -9,6 +14,7 @@ function doTagsEditable(tags, isAuthorizedToEdit = false, onDeletion = null) {
         const { name } = tag;
         return (
           <Tag
+            blue={blue}
             key={tag.id}
             id={tag.id}
             isAuthorizedToEdit={isAuthorizedToEdit}

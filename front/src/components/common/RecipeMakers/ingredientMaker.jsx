@@ -67,7 +67,7 @@ export default function IngredientMaker(props) {
     <>
       {doIngredients(ingredients, props.isAdmin, handleDeleteIngredient)}
       {props.isAdmin ? (
-        <div>
+        <div className="p-0">
           {addNewIngredient(
             newIng,
             inputNameRef,
@@ -93,7 +93,7 @@ function addNewIngredient(
   inputUnitRef
 ) {
   return (
-    <div className="hard-inline">
+    <div className="hard-inline p-0">
       <input
         className="form-control ingredient-input input-vertical-align "
         ref={inputNameRef}

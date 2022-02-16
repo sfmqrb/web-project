@@ -53,7 +53,7 @@ export default function TagMaker(props) {
 
   return (
     <>
-      {doTagsEditable(tags, props.isAdmin, handleDeleteTag)}
+      {doTagsEditable(tags, props.isAdmin, handleDeleteTag, true)}
       {props.isAdmin ? (
         <div>
           {addNewTag(newTag, inputTagRef, widthModifier)}

@@ -42,19 +42,21 @@ function NewRecipe(props) {
         <div className="container row">
           <TitleMaker onChange={updateTitle} isAdmin={isAdmin} title={title} />
         </div>
-        <div className="container row">
-          <IngredientMaker
-            onChange={updateIngredients}
-            isAdmin={isAdmin}
-            ingredients={ingredients || []}
-          />
+        <div className="container">
+          <div className="container row">
+            <IngredientMaker
+              onChange={updateIngredients}
+              isAdmin={isAdmin}
+              ingredients={ingredients || []}
+            />
+          </div>
         </div>
         <div className="container row">
-          <div className="container col">
+          <div className="col-3">
             <TagMaker
               onChange={updateTags}
               isAdmin={isAdmin}
-              widthModifier="34%"
+              widthModifier="53%"
               tags={tags || []}
             />
           </div>
