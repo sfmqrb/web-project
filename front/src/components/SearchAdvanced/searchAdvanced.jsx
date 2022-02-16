@@ -92,7 +92,7 @@ const SearchAdvanced = (props) => {
           Search
         </button>
       </div>
-      <div style={{ bottom: "0", position: "fixed", width: "100%" }}>
+      <div className="footer-fixed-bottom">
         <Footer />
       </div>
     </>

@@ -25,3 +25,9 @@
     margin-right: 30px; 
     margin-left: 3px; 
 }
+
+.footer-fixed-bottom {
+    bottom: 0;
+    position: fixed;
+    width: 100%; 
+}
