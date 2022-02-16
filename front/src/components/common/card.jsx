@@ -8,68 +8,80 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import GetRandomColor from "./RandomColor";
-import Tag from "./tag";
+import MoreIcon from "@mui/icons-material/More";
+import doIngredients from "./commonUtils/doIngredients";
+import doTags from "./commonUtils/doTags";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
-function doTags(tags) {
+const clr = "dark";
+
+const _Card_ = (props) => {
+  const {
+    _id,
+    name: userName,
+    title,
+    subheader,
+    images,
+    body,
+    liked,
+    onLike,
+    tags,
+    ingredients,
+  } = props;
+  const image = images[0] || null;
   return (
-    <>
-      {tags.map((tag) => (
-        <Tag key={tag} tagName={tag} />
-      ))}
-    </>
-  );
-}
-
-class _Card_ extends React.Component {
-  render() {
-    const clr = GetRandomColor();
-
-    return (
-      <Card
-        className="m-5"
-        sx={{
-          maxWidth: 500,
-          marginRight: "2px!important",
-          marginLeft: "2px!important",
-        }}>
-        <div>
-          <CardMedia
-            className="pic-overlay "
-            component="img"
-            image={this.props.image}
-            alt="dish"
-          />
-        </div>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
-              {this.props.name.charAt(0)}
-            </Avatar>
-          }
-          title={this.props.title}
-          subheader={this.props.subheader}
+    <Card
+      key={_id}
+      className="m-5"
+      sx={{
+        maxWidth: 500,
+        marginRight: "2px!important",
+        marginLeft: "2px!important",
+      }}>
+      <div>
+        <CardMedia
+          className="pic-overlay"
+          component="img"
+          image={image}
+          alt="dish"
         />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {this.props.body}
-          </Typography>
-        </CardContent>
-        <CardHeader subheader={doTags(this.props.tags)} />
-        <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            onClick={() => {
-              this.props.onLike(this.props._id);
-            }}
-            color={this.props.liked ? "error" : "default"}>
-            <FavoriteIcon />
+      </div>
+      <CardHeader
+        avatar={
+          <Link to={`/profile/${userName}`} className="no-text-decoration">
+            <Avatar sx={{ bgcolor: clr }} aria-label="recipe">
+              {userName.charAt(0)}
+            </Avatar>
+          </Link>
+        }
+        title={title}
+        subheader={subheader}
+      />
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          {body}
+        </Typography>
+      </CardContent>
+      <CardHeader subheader={doTags(tags)} />
+      <CardHeader subheader={doIngredients(ingredients)} />
+      <CardActions disableSpacing>
+        <IconButton
+          aria-label="add to favorites"
+          onClick={() => {
+            onLike(_id);
+          }}
+          color={liked ? "error" : "default"}>
+          <FavoriteIcon />
+        </IconButton>
+        <Link to={`/recipe/${_id}`}>
+          <IconButton aria-label="More Info" color="primary">
+            <MoreIcon />
           </IconButton>
-        </CardActions>
-      </Card>
-    );
-  }
-}
+        </Link>
+      </CardActions>
+    </Card>
+  );
+};
 
 export default _Card_;

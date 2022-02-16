@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "./common/form";
-import NavBar from "./navBar";
+import Form from "./common/Forms/form";
+import NavBar from "./DefaultPages/navBar";
 import { login } from "../services/authService";
 import { Link } from "react-router-dom";
 import "../App.css";
@@ -24,17 +24,16 @@ class LoginForm extends Form {
 
   doSubmit = async () => {
     // backend
-    console.log("login");
+
     const { data } = this.state;
-    console.log(data);
+
     const output = await login(data.username, data.password);
-    console.log(output);
+
     localStorage.setItem("jwt", output.jwt);
     localStorage.setItem("notes", output.notes);
 
     window.location = "/"; // full reload of app
     // try catch 400 username not exists
-    console.log("Submitted");
   };
 
   render() {

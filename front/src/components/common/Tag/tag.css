@@ -1,0 +1,25 @@
+.red-background {
+    background-color: red;
+}
+
+.primary-background {
+    background-color: blue;
+}
+
+.focus {
+    cursor: pointer;
+}
+
+.tag-base {
+    display: inline-block;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.tag-delete {
+    height: fit-content;
+    font-size: 12px;
+    margin : auto 0;
+    padding-left: 0px;
+    color: black;
+}

@@ -1,37 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { WithContext as ReactTags } from "react-tag-input";
 import "./tagMaker.css";
-const SUGGESTIONS = [
-  { id: "vegetarian", text: "vegetarian" },
-  { id: "vegan", text: "vegan" },
-  { id: "paleo", text: "paleo" },
-  { id: "dairy-free", text: "dairy-free" },
-  { id: "gluten-free", text: "gluten-free" },
-  { id: "keto", text: "keto" },
-  { id: "pescatarian", text: "pescatarian" },
-  { id: "lacto-vegetarian", text: "lacto-vegetarian" },
-  { id: "ovo-vegetarian", text: "ovo-vegetarian" },
-];
-
-const suggestions = SUGGESTIONS.map((tag) => {
-  return {
-    id: tag.id,
-    text: tag.text,
-  };
-});
-
+import TitleMellow from "../Titles/titleMellow";
 const KeyCodes = {
   comma: 188,
   enter: 13,
 };
 
+let suggestions = [];
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 const TagMaker = ({ onChange, isAdmin, tags: prTags }) => {
+  useEffect(() => {
+    // backend call
+    const SUGGESTIONS = [
+      { id: "vegetarian", text: "vegetarian" },
+      { id: "vegan", text: "vegan" },
+    ];
+    suggestions = SUGGESTIONS.map((tag) => {
+      return {
+        id: tag.id,
+        text: tag.text,
+      };
+    });
+  }, []);
+
+  //
   const [tags, setTags] = React.useState(prTags || []);
   const isNotAuthorizedToEdit = !isAdmin;
   useEffect(() => {
-    console.log("in useEffect");
     onChange(tags);
   }, [tags]);
 
@@ -53,10 +50,7 @@ const TagMaker = ({ onChange, isAdmin, tags: prTags }) => {
     setTags(newTags);
   };
 
-  const handleTagClick = (index) => {
-    console.log("The tag at index " + index + " was clicked");
-  };
-
+  const handleTagClick = (index) => {};
   return (
     <div className="app">
       {getMessage(isNotAuthorizedToEdit)}
@@ -81,12 +75,8 @@ const TagMaker = ({ onChange, isAdmin, tags: prTags }) => {
 export default TagMaker;
 function getMessage(isNotAuthorizedToEdit) {
   return isNotAuthorizedToEdit ? (
-    <h1 className="display-6">
-      <p className="m-3"> Tags </p>
-    </h1>
+    <TitleMellow title="Tags" />
   ) : (
-    <h1 className="display-6">
-      <p className="m-3">Add the tags here! </p>
-    </h1>
+    <TitleMellow title="Add Tags here!!" />
   );
 }

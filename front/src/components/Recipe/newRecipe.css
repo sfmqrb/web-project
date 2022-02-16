@@ -1,0 +1,11 @@
+.footer-recipe {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+    
+}
+
+button {
+    margin : 5px;
+}

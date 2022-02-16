@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./imageUploader.css";
+import "./imagesUploader.css";
+import TitleMellow from "../Titles/titleMellow";
 
 function ImageUploader({
   onChange: setImagesParent,
@@ -24,11 +25,9 @@ function ImageUploader({
       return;
     }
     setImagesParent(images);
-    console.log(imageURLs.length, images.length);
   }, [images, imageURLs]);
 
   function handleChange(e) {
-    console.log("imagesUploader :: handleChange");
     const newImages = [...e.target.files];
     const newImageURLs = newImages.map((image) => {
       return URL.createObjectURL(image);
@@ -38,7 +37,6 @@ function ImageUploader({
   }
 
   function handleDeleteImage(idx) {
-    console.log(`Deleting image ${idx}`);
     const nImages = [...images.filter((_, idxThis) => idx !== idxThis)];
     const nImageURLs = [...imageURLs.filter((_, idxThis) => idx !== idxThis)];
     setImages(nImages);
@@ -50,11 +48,11 @@ function ImageUploader({
       <label
         style={{ display: isNotAuthorizedToEdit ? "none" : "block" }}
         onClick={reset}
-        for="file-upload"
-        class="custom-file-upload btn margin-side-auto centered mb-3">
-        Image Upload
+        htmlFor="file-upload"
+        className="custom-file-upload btn margin-side-auto centered mb-3">
+        <TitleMellow title="Upload Images" />
       </label>
-      <div class="container img-upload">
+      <div className="container img-upload">
         <div className="row centered">
           <input
             ref={myRef}

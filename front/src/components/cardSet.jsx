@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import _Card_ from "./common/card";
-import NavBar from "./navBar";
-import Footer from "./footer";
-import SearchBox from "./searchBox";
+import NavBar from "./DefaultPages/navBar";
+import Footer from "./DefaultPages/footer";
 import { paginate } from "../utils/paginate";
 import Pagination from "./common/pagination";
 import getFakeCard from "../services/fakeCard";
+import { Redirect } from "react-router-dom";
 
 class CardSet extends Component {
   // state
@@ -13,7 +13,7 @@ class CardSet extends Component {
     cards: [],
     types: [],
     currentPage: 1,
-    pageSize: 4,
+    pageSize: 6,
     searchQuery: "",
     sortColumn: { path: "title", order: "asc" },
   };
@@ -33,6 +33,17 @@ class CardSet extends Component {
     this.setState({ searchQuery: query, currentPage: 1 });
   };
 
+  handleLike = (_id) => {
+    const tmpCards = [...this.state.cards];
+    const newCards = tmpCards.map((card) => {
+      if (card._id === _id) {
+        card.liked = !card.liked;
+      }
+      return card;
+    });
+    this.setState({ cards: newCards });
+  };
+
   getPagedData = () => {
     const { pageSize, currentPage, searchQuery, cards: allCards } = this.state;
 
@@ -46,18 +57,14 @@ class CardSet extends Component {
     else {
       filtered = allCards;
     }
-
     const cards = paginate(filtered, currentPage, pageSize);
-
     return { totalCount: filtered.length, data: cards };
   };
 
   render() {
     const { length: count } = this.state.cards;
     const { pageSize, currentPage, searchQuery } = this.state;
-
     if (count === 0) return <p>There are no recipes in the database.</p>;
-
     const { totalCount, data: cards } = this.getPagedData();
 
     return (
@@ -68,20 +75,20 @@ class CardSet extends Component {
           onChange={this.handleSearch}
         />
         <div className="container center text-center text-black">
-          <p className="display-6" style={{ fontSize: "30px" }}>
+          <p
+            className="display-6"
+            style={{ fontSize: "25px", marginTop: "60px" }}>
             Found {totalCount} recipes in the database.
           </p>
         </div>
         <div className="container">
-          <div className="row m-0  justify-content-around ">
+          <div className="row m-0  justify-content-around">
             {cards.map((card) => (
               <_Card_ key={card._id} {...card} onLike={this.handleLike} />
             ))}
           </div>
         </div>
-        <div
-          className="container center-items centered"
-          style={{ justifyContent: "center", alignItems: "center" }}>
+        <div className="container center-items centered">
           <Pagination
             itemsCount={totalCount}
             pageSize={pageSize}

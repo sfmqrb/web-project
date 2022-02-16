@@ -1,71 +1,50 @@
 import React, { Component } from "react";
 import {
   BrowserRouter as Router,
-  Switch,
+  Navigate,
   Route,
-  Redirect,
+  Routes,
 } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
-import NewRecipe from "./components/newRecipe";
-import NotFound from "./components/notFound";
+import NewRecipe from "./components/Recipe/newRecipe";
+import NotFound from "./components/DefaultPages/notFound";
 import CardSet from "./components/cardSet";
-import Profile from "./components/profile";
+import Profile from "./components/Profiles/profile";
+import ReadOnlyProfile from "./components/Profiles/readOnlyProfile";
+import MoreInfoRecipe from "./components/moreInfoRecipe";
+import SearchAdvanced from "./components/SearchAdvanced/searchAdvanced";
+import UserInfoList from "./components/common/UserInfo/userInfoList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-  // const tags = ["ab", "ba", "cd", "de", "ge", "hi"];
-  //////////////// recipe example /////////////////////
-  // {title={"new Recipe"}
-  // tags={[
-  //   { id: "ab", text: "ab" },
-  //   { id: "ba", text: "ba" },
-  // ]}
-  // steps={["step 1", "step 2", "step 3", "step 4"]}
-  // images={[
-  //   // must be file but is not!!
-  //   "https://unsplash.it/400/600",
-  //   "https://unsplash.it/400/600",
-  // ]}
-  // imageURLs={[
-  //   "https://unsplash.it/400/600",
-  //   "https://unsplash.it/400/600",
-  // ]}}
-  console.log("in App");
   return (
     <Router>
       <div>
-        {/* A <Switch> looks through its children <Route>s and
-          renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/recipes">
-            <CardSet />
-          </Route>
-          <Route path="/login">
-            <LoginForm />
-          </Route>
-          <Route path="/register">
-            <RegisterForm />
-          </Route>
-          <Route path="/logout">
-            <Logout />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/new-recipe">
-            <NewRecipe isAdmin={true} />
-          </Route>
-          <Redirect from="/" to="/recipes" />
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route exact path="/recipes" element={<CardSet />} />
+          <Route exact path="/login" element={<LoginForm />} />
+          <Route exact path="/register" element={<RegisterForm />} />
+          <Route exact path="/logout" element={<Logout />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/search" element={<SearchAdvanced />} />
+          <Route exact path="/profile/:id" element={<ReadOnlyProfile />} />
+          <Route exact path="/:id/follower" element={<UserInfoList />} />
+          <Route exact path="/:id/follower" element={<UserInfoList />} />
+
+          <Route
+            exact
+            path="/new-recipe"
+            element={<NewRecipe isAdmin={true} />}
+          />
+          <Route exact path="/recipe/:id" element={<MoreInfoRecipe />} />
+          <Route path="/" element={<Navigate to="/recipes" />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </Router>
   );

@@ -1,0 +1,18 @@
+.ingredient-input {
+    width: 24%;
+    margin: 10px;
+    display: inline-block;
+}
+
+.inline-button {
+    display: inline-block !important;
+    margin: 10px;
+    color: #fff;
+    /* background-color: #000; */
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: -14%;
+    
+}

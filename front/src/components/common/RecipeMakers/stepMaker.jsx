@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./stepMaker.css";
+import TitleMellow from "../Titles/titleMellow";
 
 function StepMaker({ onChange, isAdmin, steps: prSteps }) {
   const [steps, setSteps] = React.useState(prSteps || []);
@@ -29,7 +30,6 @@ function StepMaker({ onChange, isAdmin, steps: prSteps }) {
     <div className="App">
       <form>
         {steps.map((step, idx) => {
-          console.log(step, `step at ${idx}`);
           return (
             <div className="row" key={idx}>
               <div className="col-10">
@@ -59,8 +59,11 @@ function StepMaker({ onChange, isAdmin, steps: prSteps }) {
         <a
           className="btn add-step"
           onClick={handleAddition}
-          style={{ display: isNotAuthorizedToEdit ? "none" : "block" }}>
-          <p className="lead">Add Step</p>
+          style={{
+            display: isNotAuthorizedToEdit ? "none" : "block",
+            width: "fit-content",
+          }}>
+          <TitleMellow title="Add Step" />
         </a>
       </form>
     </div>
