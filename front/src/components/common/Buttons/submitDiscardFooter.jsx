@@ -3,7 +3,9 @@ import "./submitDiscardFooter.css";
 
 export default function SubmitDiscardFooter(props) {
   return (
-    <footer className="row footer-bottom footer-recipe">
+    <footer
+      className="row footer-bottom footer-recipe"
+      style={{ bottom: `${props.bottom || 0}px` }}>
       <button
         className="btn btn-primary submit-discard-footer-center"
         onClick={props.onSubmit}>

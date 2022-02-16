@@ -8,6 +8,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Input from "@material-ui/core/Input";
 import TitleOk from "./common/Titles/titleOk";
 
+import SubmitDiscardFooter from "./common/Buttons/submitDiscardFooter";
 import NavBar from "./navBar";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
@@ -60,21 +61,21 @@ const Profile = (props) => {
             <Link to="/recipe-saved" className="badge text-black">
               Saved Recipes
             </Link>
-          </div>
-          <div className="col-3">
-            <img
-              alt="mdo"
-              width="150"
-              height="150"
-              className="rounded-circle text-center"
-              src={avatarURL}
-              alt=""
-            />
+            {avatar ? (
+              <img
+                alt="mdo"
+                width="150"
+                height="150"
+                className="rounded-circle text-center mt-4"
+                src={avatarURL}
+                alt=""
+              />
+            ) : null}
             <button
               onClick={handleUploadImage}
-              className="btn text-center"
+              className="badge text-black"
               style={{ fontSize: "13px", border: "none" }}>
-              Change Profile Picture
+              {avatar ? "Change Profile Picture" : "Upload Profile Picture"}
             </button>
           </div>
           <div className="col">
@@ -124,7 +125,16 @@ const Profile = (props) => {
               />
             </div>
           </div>
+          <div className="col-5"></div>
         </div>
+      </div>
+
+      <div className="container row">
+        <SubmitDiscardFooter
+          discardTitle="Discard"
+          submitTitle="Submit"
+          bottom={80}
+        />
       </div>
       <div className="footer-fixed-bottom">
         <Footer />
