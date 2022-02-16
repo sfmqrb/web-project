@@ -8,6 +8,8 @@ const getFakeCard = () => {
       title: "title :: Card 1",
       subheader: "subheader Card 1",
       body: "body :: Card 1",
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
@@ -32,6 +34,9 @@ const getFakeCard = () => {
       title: "title :: Card 2",
       subheader: "subheader Card 2",
       body: "body :: Card 2",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
@@ -56,6 +61,9 @@ const getFakeCard = () => {
       title: "title :: Card 3",
       subheader: "subheader Card 3",
       body: "body :: Card 3",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
@@ -81,6 +89,9 @@ const getFakeCard = () => {
       title: "title :: Card 4",
       subheader: "subheader Card 4",
       body: "body :: Card 4",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
@@ -105,6 +116,9 @@ const getFakeCard = () => {
       title: "title :: Card 5",
       subheader: "subheader Card 5",
       body: "body :: Card 5",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
@@ -129,6 +143,9 @@ const getFakeCard = () => {
       title: "title :: Card 6",
       subheader: "subheader Card 6",
       body: "body :: Card 6",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
