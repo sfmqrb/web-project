@@ -102,6 +102,7 @@ const Profile = (props) => {
               <TitleOk title="Password" />
               <Input
                 value={password}
+                placeholder="password"
                 type={showPassword ? "text" : "password"}
                 onChange={(e) => setPassword(e.target.value)}
                 endAdornment={
