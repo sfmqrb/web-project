@@ -1,9 +1,8 @@
 import React, { Component, useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 
 import TagMaker from "../common/RecipeMakers/tagMaker";
 import StepMaker from "../common/RecipeMakers/stepMaker";
-import TitleMaker from "../common/RecipeMakers/titleMaker";
+import AreaMaker from "../common/RecipeMakers/areaMaker";
 import ImageUploader from "../common/RecipeMakers/imagesUploader";
 import IngredientMaker from "../common/RecipeMakers/ingredientMaker";
 
@@ -44,7 +43,7 @@ function NewRecipe(props) {
       <NavBar searchEnabled={false} />
       <div className="container">
         <div className="container row">
-          <TitleMaker onChange={updateTitle} isAdmin={isAdmin} title={title} />
+          <AreaMaker onChange={updateTitle} isAdmin={isAdmin} title={title} />
         </div>
         <div className="container">
           <div className="container row">
@@ -78,7 +77,7 @@ function NewRecipe(props) {
               images={images || []}
               imageURLs={imageURLs || []}
             />{" "}
-            <TitleMaker
+            <AreaMaker
               onChange={updateBody}
               isAdmin={isAdmin}
               title={body}
@@ -87,14 +86,14 @@ function NewRecipe(props) {
               textarea={"textarea"}
             />
             <div className="d-flex justify-content-end">
-              <TitleMaker
+              <AreaMaker
                 onChange={updateNationality}
                 isAdmin={isAdmin}
                 title={nationality}
                 placeholder={"Dish Nationality..."}
                 isNotTitle={"1"}
               />
-              <TitleMaker
+              <AreaMaker
                 onChange={updateType}
                 isAdmin={isAdmin}
                 title={type}

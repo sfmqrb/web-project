@@ -59,7 +59,7 @@ const SearchAdvanced = (props) => {
               setSortBy("like");
             }}
           />
-          <label className="form-check-label" for="basedOnLikes">
+          <label className="form-check-label" htmlFor="basedOnLikes">
             Nearest in time
           </label>
           <input
@@ -69,7 +69,7 @@ const SearchAdvanced = (props) => {
             checked={sortBy === "time"}
             onChange={() => setSortBy("time")}
           />
-          <label className="form-check-label" for="basedOnTime">
+          <label className="form-check-label" htmlFor="basedOnTime">
             Liked the most
           </label>
         </div>

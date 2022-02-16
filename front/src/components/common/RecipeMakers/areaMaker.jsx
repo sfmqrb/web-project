@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./titleMaker.css";
-const TitleMaker = (props) => {
+import "./areaMaker.css";
+const AreaMaker = (props) => {
   const { onChange, isAdmin, title: prTitle } = props;
   const [title, updateTitle] = useState("");
   const placeHolder = props.placeholder || "Title...";
@@ -52,4 +52,4 @@ const TitleMaker = (props) => {
   return <>{props.textarea ? TextOutput : TitleOutput}</>;
 };
 
-export default TitleMaker;
+export default AreaMaker;
