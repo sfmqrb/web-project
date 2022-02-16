@@ -78,37 +78,51 @@ const Profile = (props) => {
           <div className="col-3" style={{ marginTop: "30px" }}>
             {!ReadOnlyProfile ? (
               <>
-                <Link
-                  to="/recipe-liked"
-                  className="badge text-black no-text-decoration">
-                  Liked Recipes
-                </Link>
-
-                <Link
-                  to="/recipe-created"
-                  className="badge text-black no-text-decoration">
-                  Created Recipes
-                </Link>
-                <Link
-                  to="/recipe-saved"
-                  className="badge text-black no-text-decoration">
-                  Saved Recipes
-                </Link>
+                <div>
+                  <Link
+                    style={{ display: "inline-block" }}
+                    to="/recipe-liked"
+                    className="badge text-black no-text-decoration">
+                    Liked Recipes
+                  </Link>
+                </div>
+                <div>
+                  <Link
+                    style={{ display: "inline-block" }}
+                    to="/recipe-created"
+                    className="badge text-black no-text-decoration ">
+                    Created Recipes
+                  </Link>
+                </div>
+                <div>
+                  <Link
+                    style={{ display: "inline-block" }}
+                    to="/recipe-saved"
+                    className="badge text-black no-text-decoration ">
+                    Saved Recipes
+                  </Link>
+                </div>
               </>
             ) : null}
             {true ? (
-              <Link
-                to={`/${id}/follower`}
-                className="badge text-black no-text-decoration">
-                Follower
-              </Link>
+              <div>
+                <Link
+                  to={`/${id}/follower`}
+                  style={{ display: "inline-block" }}
+                  className="badge text-black no-text-decoration">
+                  Follower
+                </Link>
+              </div>
             ) : null}
             {true ? (
-              <Link
-                to={`/${id}/following`}
-                className="badge text-black no-text-decoration">
-                Following
-              </Link>
+              <div>
+                <Link
+                  to={`/${id}/following`}
+                  style={{ display: "inline-block" }}
+                  className="badge text-black no-text-decoration ">
+                  Following
+                </Link>
+              </div>
             ) : null}
 
             {avatar ? (
@@ -124,7 +138,7 @@ const Profile = (props) => {
             {!ReadOnlyProfile ? (
               <button
                 onClick={handleUploadImage}
-                className="badge text-black"
+                className="badge text-black "
                 style={{ fontSize: "13px", border: "none" }}>
                 {avatar ? "Change Profile Picture" : "Upload Profile Picture"}
               </button>

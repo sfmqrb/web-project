@@ -17,8 +17,6 @@ import ReadOnlyProfile from "./components/Profiles/readOnlyProfile";
 import MoreInfoRecipe from "./components/moreInfoRecipe";
 import SearchAdvanced from "./components/SearchAdvanced/searchAdvanced";
 
-import getFakeUser from "./services/fakeUser";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
