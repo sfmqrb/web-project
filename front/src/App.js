@@ -16,6 +16,7 @@ import Profile from "./components/Profiles/profile";
 import ReadOnlyProfile from "./components/Profiles/readOnlyProfile";
 import MoreInfoRecipe from "./components/moreInfoRecipe";
 import SearchAdvanced from "./components/SearchAdvanced/searchAdvanced";
+import UserInfoList from "./components/common/UserInfo/userInfoList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -32,6 +33,9 @@ function App() {
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/search" element={<SearchAdvanced />} />
           <Route exact path="/profile/:id" element={<ReadOnlyProfile />} />
+          <Route exact path="/:id/follower" element={<UserInfoList />} />
+          <Route exact path="/:id/follower" element={<UserInfoList />} />
+
           <Route
             exact
             path="/new-recipe"
