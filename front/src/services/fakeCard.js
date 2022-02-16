@@ -11,11 +11,11 @@ const getFakeCard = () => {
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -35,11 +35,11 @@ const getFakeCard = () => {
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -59,11 +59,11 @@ const getFakeCard = () => {
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -84,11 +84,11 @@ const getFakeCard = () => {
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -108,11 +108,11 @@ const getFakeCard = () => {
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -132,11 +132,11 @@ const getFakeCard = () => {
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
