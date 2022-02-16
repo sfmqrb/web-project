@@ -1,6 +1,6 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "./common/form";
+import Form from "./common/Forms/form";
 import * as userService from "../services/userService";
 import { Link } from "react-router-dom";
 
