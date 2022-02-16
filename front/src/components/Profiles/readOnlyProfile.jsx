@@ -1,0 +1,16 @@
+import React, { useState, useEffect } from "react";
+import getFakeUser from "../../services/fakeUser";
+import Profile from "./profile";
+
+const ReadOnlyProfile = (props) => {
+  const ReadOnlyProfile = true;
+  const [stt, setStt] = useState(null);
+  useEffect(() => {
+    // backend function to get user data
+    const userData = getFakeUser();
+    setStt(userData);
+  }, []);
+  return <Profile {...stt} ReadOnlyProfile />;
+};
+
+export default ReadOnlyProfile;

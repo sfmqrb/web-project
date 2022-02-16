@@ -12,9 +12,12 @@ import RegisterForm from "./components/registerForm";
 import NewRecipe from "./components/Recipe/newRecipe";
 import NotFound from "./components/notFound";
 import CardSet from "./components/cardSet";
-import Profile from "./components/profile";
+import Profile from "./components/Profiles/profile";
+import ReadOnlyProfile from "./components/Profiles/readOnlyProfile";
 import MoreInfoRecipe from "./components/moreInfoRecipe";
 import SearchAdvanced from "./components/SearchAdvanced/searchAdvanced";
+
+import getFakeUser from "./services/fakeUser";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -28,8 +31,13 @@ function App() {
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/register" element={<RegisterForm />} />
           <Route exact path="/logout" element={<Logout />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route
+            exact
+            path="/profile"
+            element={<Profile {...getFakeUser()} />} // get from localstorage or get it from useEffect empty
+          />
           <Route exact path="/search" element={<SearchAdvanced />} />
+          <Route exact path="/profile/:id" element={<ReadOnlyProfile />} />
           <Route
             exact
             path="/new-recipe"
