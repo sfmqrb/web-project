@@ -1,17 +1,17 @@
 package main
 
 import (
+	"back/internal/Entities"
+	"back/internal/authentication"
+	"back/internal/database"
+	"back/internal/image"
+	"back/internal/queryHandeler"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
-	"web/project/internal/Entities"
-	"web/project/internal/authentication"
-	"web/project/internal/database"
-	"web/project/internal/image"
-	"web/project/internal/queryHandeler"
 )
 
 type Config struct {
@@ -257,7 +257,7 @@ func digestJwt(responseWriter http.ResponseWriter, jwt string) (string, bool) {
 
 func preLoad() {
 	database.ConnectDB()
-	file, _ := ioutil.ReadFile("back/cmd/config.json")
+	file, _ := ioutil.ReadFile("cmd/config.json")
 	err := json.Unmarshal(file, &ConfigData)
 	if err != nil {
 		fmt.Println(err)

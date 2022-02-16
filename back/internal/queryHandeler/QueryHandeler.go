@@ -1,11 +1,11 @@
 package queryHandeler
 
 import (
+	"back/internal/Entities"
+	"back/internal/authentication"
+	"back/internal/database"
+	"back/internal/tools"
 	"errors"
-	"web/project/internal/Entities"
-	"web/project/internal/authentication"
-	"web/project/internal/database"
-	"web/project/internal/tools"
 )
 
 func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
