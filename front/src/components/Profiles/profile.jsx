@@ -13,21 +13,38 @@ import NavBar from "../navBar";
 import Footer from "../footer";
 import { Link } from "react-router-dom";
 
+import getFakeUser from "../../services/fakeUser";
+
 const Profile = (props) => {
   console.log(props);
   const ReadOnlyProfile = props.ReadOnlyProfile || false;
   console.log(ReadOnlyProfile);
 
-  const [name, setName] = React.useState(props.name || "");
-  const [email, setEmail] = React.useState(props.email || "");
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState(""); // must be empty
   const [showPassword, setShowPassword] = React.useState(false);
-  const [avatar, setAvatar] = React.useState(props.avatar || "");
-  const [bio, setBio] = React.useState(props.bio || "");
+  const [avatar, setAvatar] = React.useState("");
+  const [bio, setBio] = React.useState("");
   const [avatarURL, setAvatarURL] = React.useState("");
 
-  // request from back to get user related data
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (ReadOnlyProfile) {
+      setName(props.name);
+      setEmail(props.email);
+      setAvatar(props.avatar);
+      setBio(props.bio);
+    } else {
+      // request from backend to get user related data
+      const userData = getFakeUser();
+      setName(userData.name);
+      setEmail(userData.email);
+      setAvatar(userData.avatar);
+      setPassword(userData.password);
+      setBio(userData.bio);
+    }
+  }, []);
+
   const refPicture = useRef();
 
   useEffect(() => {
@@ -98,13 +115,11 @@ const Profile = (props) => {
                 value={name}
                 type="text"
                 placeholder="name"
-                acti
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="row mt-4">
               <TitleOk title="Email" />
-
               <Input
                 disabled={ReadOnlyProfile}
                 value={email}
@@ -132,7 +147,9 @@ const Profile = (props) => {
                     }
                   />
                 </>
-              ) : null}
+              ) : (
+                <></>
+              )}
             </div>
 
             <div className="row mt-4">

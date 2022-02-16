@@ -1,6 +1,7 @@
 const getFakeUser = () => {
   return {
     id: "1",
+    password: "helloworld",
     email: "foo@example.com",
     name: "John Doe",
     bio: "Life is short and I like pizza",

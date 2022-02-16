@@ -31,11 +31,7 @@ function App() {
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/register" element={<RegisterForm />} />
           <Route exact path="/logout" element={<Logout />} />
-          <Route
-            exact
-            path="/profile"
-            element={<Profile {...getFakeUser()} />} // get from localstorage or get it from useEffect empty
-          />
+          <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/search" element={<SearchAdvanced />} />
           <Route exact path="/profile/:id" element={<ReadOnlyProfile />} />
           <Route
