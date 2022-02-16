@@ -1,6 +1,7 @@
 package database
 
 import (
+	"back/internal/Entities"
 	"encoding/json"
 	"fmt"
 	"github.com/kamva/mgm/v3"
@@ -9,7 +10,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"io/ioutil"
 	"time"
-	"web/project/internal/Entities"
 )
 
 type config struct {
@@ -25,7 +25,7 @@ type Test struct {
 func ConnectDB() {
 	// load DBconfig
 	var config config
-	file, _ := ioutil.ReadFile("back/internal/database/config.json")
+	file, _ := ioutil.ReadFile("internal/database/config.json")
 	err := json.Unmarshal(file, &config)
 	if err != nil {
 		fmt.Println(err)
