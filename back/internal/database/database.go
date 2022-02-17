@@ -107,7 +107,7 @@ func EditRecipe(recipe Entities.Recipe) bool {
 	}
 	return false
 }
-func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []string, orderBy string, ascending bool) []Entities.Recipe {
+func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []string, orderBy string, ascending bool, minCookingTime int, maxCookingTime int) []Entities.Recipe {
 	var recipes []Entities.Recipe
 	filter := bson.M{}
 	allIngsM := operator.All
@@ -118,7 +118,11 @@ func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []
 	if len(tagsIn) == 0 {
 		allTagsM = operator.Nin
 	}
-	filter = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut}}
+	if maxCookingTime == 0 {
+		maxCookingTime = 10000
+	}
+	filter = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut},
+		"cookingTime": bson.M{operator.Gt: minCookingTime, operator.Lt: maxCookingTime}}
 	var orderOption options.FindOptions
 	if ascending {
 		orderOption = options.FindOptions{Sort: bson.M{orderBy: 1}}
