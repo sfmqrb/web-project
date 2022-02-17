@@ -10,7 +10,11 @@ import EasyButton from "../common/Buttons/easyButton";
 import { Link } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 
+import { toast } from "react-toastify";
+import ax from "../../services/httpService";
+import cfg from "../../config";
 import getFakeUser from "../../services/fakeUser";
+import getHeader from "../../utils/getHeader";
 
 const Profile = (props) => {
   const ReadOnlyProfile = props.ReadOnlyProfile || false;
@@ -61,10 +65,32 @@ const Profile = (props) => {
   };
 
   const handleChangePassword = () => {
-    // backend
     console.log(password);
     console.log(passwordConfirm);
     console.log(newPassword);
+
+    if (password === passwordConfirm) {
+      // backend
+      console.log("Password changed");
+      const data = { oldPassword: password, newPassword: newPassword };
+      console.log(data);
+      console.log(getHeader());
+      ax.put(cfg.apiUrl + "/password", data, getHeader()).then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          toast.success("Password changed");
+        } else {
+          toast.warning("Password not changed");
+        }
+      });
+    } else {
+      toast.error("Passwords do not match");
+    }
+  };
+
+  const handleSubmitProfile = () => {
+    // backend
+    console.log("Submitting writable profile...");
   };
 
   return (
@@ -235,7 +261,7 @@ const Profile = (props) => {
               discardTitle="Discard"
               submitTitle="Submit"
               onDiscard={() => (window.location.href = "/")}
-              onSubmit={() => (window.location.href = "/")} // change backend
+              onSubmit={handleSubmitProfile} // change backend
               bottom={80}
             />
           </div>
