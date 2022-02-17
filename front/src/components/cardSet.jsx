@@ -19,6 +19,7 @@ class CardSet extends Component {
   };
 
   componentDidMount() {
+    //todo ger data from back or ls
     const cards = [...getFakeCard()];
     this.setState({
       cards,

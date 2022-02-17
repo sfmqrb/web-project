@@ -32,6 +32,7 @@ func ConnectDB() {
 	if err != nil {
 		print(err)
 	}
+
 	loadIngredients()
 	loadTags()
 }
@@ -51,9 +52,11 @@ func CreateUser(user Entities.User) {
 		print(e.Error())
 	}
 }
+
 func UpdateUser(user Entities.User) {
 	_ = mgm.Coll(&user).Update(&user)
 }
+
 func GetCommentedRecipes(user Entities.User) []Entities.Recipe {
 	var recipes []Entities.Recipe
 	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(recipes, bson.M{"comments.user.username": user.Username})

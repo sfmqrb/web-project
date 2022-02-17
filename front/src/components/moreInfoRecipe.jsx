@@ -8,6 +8,7 @@ const MoreInfoRecipe = () => {
   useEffect(() => {
     const url = window.location.href;
     const id = url.split("/")[4];
+    //todo get data from back
     const tmpRecipe = getSpecificFakeCard(id);
     const tmpInput = { ...tmpRecipe, isAdmin: false };
     setInput(tmpInput);

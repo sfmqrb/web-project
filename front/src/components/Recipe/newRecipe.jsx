@@ -14,9 +14,11 @@ import "./newRecipe.css";
 
 const handleSubmit = (tags) => {
   window.location = "/";
+  //todo send backend
 };
 const handleDiscard = (tags) => {
   window.location = "/";
+  //todo send backend
 };
 
 function NewRecipe(props) {

@@ -50,6 +50,7 @@ func GoogleUserToLoginResponse(googleUser goth.User, sessionLength int) LoginRes
 func fillLoginResponse(sessionLength int, user *Entities.User) LoginResponse {
 	response := LoginResponse{}
 	jwt := authentication.CreateJWT(user.Username, sessionLength)
+	response.Image = user.PicturePath
 	response.Jwt = jwt
 	response.Name = user.Name
 	response.Username = user.Username

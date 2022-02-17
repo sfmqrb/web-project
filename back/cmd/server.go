@@ -28,9 +28,9 @@ var ConfigData Config
 
 func main() {
 	// test
-	jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUwOTkyNTMsIm5iZiI6MTY0NTA5ODA1MywidXNlcm5hbWUiOiJoMzNAZy5jb200NCJ9.3OxgEGeSq8mf3p6rMPUppksezttXeqHUNRnU8s7Camk\n"
-	_username := authentication.VerifyJWT(jwt, ConfigData.MinuteTryLimit)
-	print(_username)
+	//jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUwOTkyNTMsIm5iZiI6MTY0NTA5ODA1MywidXNlcm5hbWUiOiJoMzNAZy5jb200NCJ9.3OxgEGeSq8mf3p6rMPUppksezttXeqHUNRnU8s7Camk\n"
+	//_username := authentication.VerifyJWT(jwt, ConfigData.MinuteTryLimit)
+	//print(_username)
 
 	preLoad()
 	http.HandleFunc("/", HandleRequest)
@@ -377,6 +377,7 @@ func getRequestBody(r *http.Request) string {
 }
 func sendResponseJson(writer http.ResponseWriter, res interface{}) {
 	resJson, _ := json.Marshal(res)
+	fmt.Println("response: " + string(resJson))
 	_, err := writer.Write(resJson)
 	if err != nil {
 		print(err.Error())

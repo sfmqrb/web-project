@@ -41,6 +41,7 @@ export default function IngredientMaker(props) {
   };
 
   const handleClick = () => {
+    //todo ingredient
     if (inputNameRef.current.value === "") {
       alert("Please enter an ingredient name");
       return;

@@ -13,6 +13,7 @@ const SearchAdvanced = (props) => {
   const [sortBy, setSortBy] = useState("like"); // also by time
 
   const handleSubmit = () => {
+    //todo post to back
     console.log(searchQuery);
   };
 
@@ -44,7 +45,7 @@ const SearchAdvanced = (props) => {
               isAdmin={true}
               ingredients={[]}
             />
-            <span className="mt-4"></span>
+            <span className="mt-4"/>
             <TitleMellow title={"Choose sorting algorithm"} />
           </div>
         </div>

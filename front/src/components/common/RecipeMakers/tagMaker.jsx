@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import doTagsEditable from "../commonUtils/doTagsEditable";
 import "./tagMaker.css";
 
+//todo validate tags
 const emptyTag = {
   id: "",
   name: "",
