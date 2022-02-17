@@ -107,9 +107,9 @@ func EditRecipe(recipe Entities.Recipe) bool {
 	}
 	return false
 }
-func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []string) []Entities.Recipe {
+func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []string, orderBy string, ascending bool) []Entities.Recipe {
 	var recipes []Entities.Recipe
-	x := bson.M{}
+	filter := bson.M{}
 	allIngsM := operator.All
 	if len(ingsIn) == 0 {
 		allIngsM = operator.Nin
@@ -118,8 +118,14 @@ func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []
 	if len(tagsIn) == 0 {
 		allTagsM = operator.Nin
 	}
-	x = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut}}
-	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, x, &options.FindOptions{Sort: bson.M{"cookingTime": 1}})
+	filter = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut}}
+	var orderOption options.FindOptions
+	if ascending {
+		orderOption = options.FindOptions{Sort: bson.M{orderBy: 1}}
+	} else {
+		orderOption = options.FindOptions{Sort: bson.M{orderBy: -1}}
+	}
+	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, filter, &orderOption)
 
 	if e != nil {
 		print(e.Error())

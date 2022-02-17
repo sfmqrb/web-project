@@ -34,8 +34,10 @@ type FillProfileRequest struct {
 	Bio       string `json:"bio"`
 }
 type SearchRecipeRequest struct {
-	IngsIn  []string `json:"ingsIn"`
-	IngsOut []string `json:"ingsOut"`
-	TagsIn  []string `json:"tagsIn"`
-	TagsOut []string `json:"tagsOut"`
+	IngsIn    []string `json:"ingsIn"`
+	IngsOut   []string `json:"ingsOut"`
+	TagsIn    []string `json:"tagsIn"`
+	TagsOut   []string `json:"tagsOut"`
+	OrderBy   string   `json:"orderBy"`
+	Ascending bool     `json:"ascending"`
 }
