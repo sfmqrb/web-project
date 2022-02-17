@@ -8,12 +8,12 @@ import NavBar from "../DefaultPages/navBar";
 import Footer from "../DefaultPages/footer";
 import EasyButton from "../common/Buttons/easyButton";
 import { Link } from "react-router-dom";
+import ListGroup from "react-bootstrap/ListGroup";
 
 import getFakeUser from "../../services/fakeUser";
 
 const Profile = (props) => {
   const ReadOnlyProfile = props.ReadOnlyProfile || false;
-  // console.log(props.url || "no id");
   const locSplitted = window.location.pathname.split("/");
 
   const [id, setId] = useState("");
@@ -22,7 +22,6 @@ const Profile = (props) => {
 
   const [password, setPassword] = React.useState(""); // must be empty
   const [passwordConfirm, setPasswordConfirm] = React.useState(""); // must be empty
-  const [showPassword, setShowPassword] = React.useState(false);
   const [newPassword, setNewPassword] = React.useState("");
 
   const [avatar, setAvatar] = React.useState("");
@@ -80,75 +79,93 @@ const Profile = (props) => {
         />
       ) : null}
       <div className="container">
-        <h1 className="display-5">Profile</h1>
         <div className="row">
+          <div className="centered mb-3">
+            <h1 className="display-5">Profile</h1>
+          </div>
           <div className="col-3" style={{ marginTop: "30px" }}>
             {!ReadOnlyProfile ? (
               <>
-                <div>
-                  <Link
-                    style={{ display: "inline-block" }}
-                    to="/recipe-liked"
-                    className="badge text-black no-text-decoration">
-                    Liked Recipes
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                    style={{ display: "inline-block" }}
-                    to="/recipe-created"
-                    className="badge text-black no-text-decoration ">
-                    Created Recipes
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                    style={{ display: "inline-block" }}
-                    to="/recipe-saved"
-                    className="badge text-black no-text-decoration ">
-                    Saved Recipes
-                  </Link>
-                </div>
+                <ListGroup
+                  className="text-center "
+                  as="ul"
+                  style={{ fontSize: "20px", margin: "40px" }}>
+                  <ListGroup.Item as="li">
+                    <Link to="/recipe-liked" className="no-text-decoration">
+                      Liked Recipes
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link to="/recipe-created" className="no-text-decoration">
+                      Created Recipes
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link to="/recipe-saved" className="no-text-decoration">
+                      Saved Recipes
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link to={`/${id}/follower`} className="no-text-decoration">
+                      Followers
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link
+                      to={`/${id}/following`}
+                      className="no-text-decoration">
+                      Following
+                    </Link>
+                  </ListGroup.Item>
+                </ListGroup>
               </>
             ) : null}
-            {true ? (
-              <div>
-                <Link
-                  to={`/${id}/follower`}
-                  style={{ display: "inline-block" }}
-                  className="badge text-black no-text-decoration">
-                  Follower
-                </Link>
-              </div>
-            ) : null}
-            {true ? (
-              <div>
-                <Link
-                  to={`/${id}/following`}
-                  style={{ display: "inline-block" }}
-                  className="badge text-black no-text-decoration ">
-                  Following
-                </Link>
-              </div>
+            {ReadOnlyProfile ? (
+              <>
+                <ListGroup
+                  className="text-center "
+                  as="ul"
+                  style={{
+                    fontSize: "20px",
+                    margin: "40px",
+                  }}>
+                  <ListGroup.Item as="li">
+                    <Link to={`/${id}/follower`} className="no-text-decoration">
+                      Followers
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link
+                      to={`/${id}/following`}
+                      className="no-text-decoration">
+                      Following
+                    </Link>
+                  </ListGroup.Item>
+                </ListGroup>
+              </>
             ) : null}
 
             {avatar ? (
-              <img
-                alt="mdo"
-                width="150"
-                height="150"
-                className="rounded-circle text-center mt-4"
-                src={avatarURL}
-                alt=""
-              />
+              <div className="center-text">
+                <img
+                  alt="mdo"
+                  width="150"
+                  height="150"
+                  className="rounded-circle text-center mt-4 "
+                  src={avatarURL}
+                  alt=""
+                />
+              </div>
             ) : null}
             {!ReadOnlyProfile ? (
-              <button
-                onClick={handleUploadImage}
-                className="badge text-black "
-                style={{ fontSize: "13px", border: "none" }}>
-                {avatar ? "Change Profile Picture" : "Upload Profile Picture"}
-              </button>
+              <div className="centered">
+                <EasyButton
+                  onClick={handleUploadImage}
+                  title={
+                    avatar ? "Change Profile Picture" : "Upload Profile Picture"
+                  }
+                />
+              </div>
             ) : null}
           </div>
           <div className="col">
