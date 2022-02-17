@@ -16,13 +16,10 @@ const RegisterForm = (props) => {
     console.log("in registerForm :: handleClick");
     const data = { username, password, name, email };
     ax.post(cfg.apiUrl + "/register", data).then((res) => {
-      console.log("res", res);
       localStorage.setItem("jwt", JSON.stringify(res.data.jwt));
       localStorage.setItem("user", JSON.stringify(res.data));
-      console.log("before toast");
-      // toast.success("User registered successfully!");
     });
-    // window.location = "/";
+    window.location = "/";
   };
 
   const registerMessage = (
