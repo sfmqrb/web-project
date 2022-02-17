@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Input from "@material-ui/core/Input";
 import TitleOk from "../common/Titles/titleOk";
-
+import PasswordField from "../common/passwordField";
 import SubmitDiscardFooter from "../common/Buttons/submitDiscardFooter";
 import NavBar from "../DefaultPages/navBar";
 import Footer from "../DefaultPages/footer";
+import EasyButton from "../common/Buttons/easyButton";
 import { Link } from "react-router-dom";
 
 import getFakeUser from "../../services/fakeUser";
@@ -22,8 +19,12 @@ const Profile = (props) => {
   const [id, setId] = useState("");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
+
   const [password, setPassword] = React.useState(""); // must be empty
+  const [passwordConfirm, setPasswordConfirm] = React.useState(""); // must be empty
   const [showPassword, setShowPassword] = React.useState(false);
+  const [newPassword, setNewPassword] = React.useState("");
+
   const [avatar, setAvatar] = React.useState("");
   const [bio, setBio] = React.useState("");
   const [avatarURL, setAvatarURL] = React.useState("");
@@ -41,7 +42,6 @@ const Profile = (props) => {
       setName(userData.name);
       setEmail(userData.email);
       setAvatar(userData.avatar);
-      setPassword(userData.password);
       setBio(userData.bio);
       setId(userData.id);
     }
@@ -59,6 +59,13 @@ const Profile = (props) => {
   const handleUploadImage = () => {
     console.log("Uploading image...");
     refPicture.current.click();
+  };
+
+  const handleChangePassword = () => {
+    // backend
+    console.log(password);
+    console.log(passwordConfirm);
+    console.log(newPassword);
   };
 
   return (
@@ -166,30 +173,6 @@ const Profile = (props) => {
               />
             </div>
             <div className="row mt-4">
-              {!ReadOnlyProfile ? (
-                <>
-                  <TitleOk title="Password" />
-                  <Input
-                    value={password}
-                    placeholder="password"
-                    type={showPassword ? "text" : "password"}
-                    onChange={(e) => setPassword(e.target.value)}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => setShowPassword(!showPassword)}>
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                </>
-              ) : (
-                <></>
-              )}
-            </div>
-
-            <div className="row mt-4">
               <TitleOk title="Bio" />
               <textarea
                 disabled={ReadOnlyProfile}
@@ -201,7 +184,31 @@ const Profile = (props) => {
               />
             </div>
           </div>
-          <div className="col-5"></div>
+
+          <div className="col-1"></div>
+          <div className="col ml-4">
+            <PasswordField
+              title="Password"
+              placeholder="password"
+              onChange={setPassword}
+            />
+            <PasswordField
+              title="Confirm Password"
+              placeholder="confirm password"
+              onChange={setPasswordConfirm}
+            />
+            <PasswordField
+              title="New Password"
+              placeholder="new password"
+              onChange={setNewPassword}
+            />
+            <div className="centered mt-4">
+              <EasyButton
+                title="Change Password"
+                onClick={handleChangePassword}
+              />
+            </div>
+          </div>
         </div>
       </div>
       {!ReadOnlyProfile ? (
