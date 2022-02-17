@@ -15,6 +15,7 @@ function doIngredients(
           <Tag
             key={ingredient.id}
             isAuthorizedToEdit={isAuthorizedToEdit}
+            id={ingredient.id}
             onDeletion={onDeletion}>
             <span>{name + " "}</span>
             <span style={{ fontSize: "12px" }}>{quantity + unit}</span>

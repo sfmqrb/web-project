@@ -1,29 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Input from "@material-ui/core/Input";
 import TitleOk from "../common/Titles/titleOk";
-
+import PasswordField from "../common/passwordField";
 import SubmitDiscardFooter from "../common/Buttons/submitDiscardFooter";
 import NavBar from "../DefaultPages/navBar";
 import Footer from "../DefaultPages/footer";
+import EasyButton from "../common/Buttons/easyButton";
 import { Link } from "react-router-dom";
+import ListGroup from "react-bootstrap/ListGroup";
 
 import getFakeUser from "../../services/fakeUser";
 
 const Profile = (props) => {
   const ReadOnlyProfile = props.ReadOnlyProfile || false;
-  // console.log(props.url || "no id");
   const locSplitted = window.location.pathname.split("/");
 
   const [id, setId] = useState("");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
+
   const [password, setPassword] = React.useState(""); // must be empty
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [passwordConfirm, setPasswordConfirm] = React.useState(""); // must be empty
+  const [newPassword, setNewPassword] = React.useState("");
+
   const [avatar, setAvatar] = React.useState("");
   const [bio, setBio] = React.useState("");
   const [avatarURL, setAvatarURL] = React.useState("");
@@ -41,7 +41,6 @@ const Profile = (props) => {
       setName(userData.name);
       setEmail(userData.email);
       setAvatar(userData.avatar);
-      setPassword(userData.password);
       setBio(userData.bio);
       setId(userData.id);
     }
@@ -61,6 +60,13 @@ const Profile = (props) => {
     refPicture.current.click();
   };
 
+  const handleChangePassword = () => {
+    // backend
+    console.log(password);
+    console.log(passwordConfirm);
+    console.log(newPassword);
+  };
+
   return (
     <>
       <NavBar searchEnabled={false} />
@@ -73,75 +79,93 @@ const Profile = (props) => {
         />
       ) : null}
       <div className="container">
-        <h1 className="display-5">Profile</h1>
         <div className="row">
+          <div className="centered mb-3">
+            <h1 className="display-5">Profile</h1>
+          </div>
           <div className="col-3" style={{ marginTop: "30px" }}>
             {!ReadOnlyProfile ? (
               <>
-                <div>
-                  <Link
-                    style={{ display: "inline-block" }}
-                    to="/recipe-liked"
-                    className="badge text-black no-text-decoration">
-                    Liked Recipes
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                    style={{ display: "inline-block" }}
-                    to="/recipe-created"
-                    className="badge text-black no-text-decoration ">
-                    Created Recipes
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                    style={{ display: "inline-block" }}
-                    to="/recipe-saved"
-                    className="badge text-black no-text-decoration ">
-                    Saved Recipes
-                  </Link>
-                </div>
+                <ListGroup
+                  className="text-center "
+                  as="ul"
+                  style={{ fontSize: "20px", margin: "40px" }}>
+                  <ListGroup.Item as="li">
+                    <Link to="/recipe-liked" className="no-text-decoration">
+                      Liked Recipes
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link to="/recipe-created" className="no-text-decoration">
+                      Created Recipes
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link to="/recipe-saved" className="no-text-decoration">
+                      Saved Recipes
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link to={`/${id}/follower`} className="no-text-decoration">
+                      Followers
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link
+                      to={`/${id}/following`}
+                      className="no-text-decoration">
+                      Following
+                    </Link>
+                  </ListGroup.Item>
+                </ListGroup>
               </>
             ) : null}
-            {true ? (
-              <div>
-                <Link
-                  to={`/${id}/follower`}
-                  style={{ display: "inline-block" }}
-                  className="badge text-black no-text-decoration">
-                  Follower
-                </Link>
-              </div>
-            ) : null}
-            {true ? (
-              <div>
-                <Link
-                  to={`/${id}/following`}
-                  style={{ display: "inline-block" }}
-                  className="badge text-black no-text-decoration ">
-                  Following
-                </Link>
-              </div>
+            {ReadOnlyProfile ? (
+              <>
+                <ListGroup
+                  className="text-center "
+                  as="ul"
+                  style={{
+                    fontSize: "20px",
+                    margin: "40px",
+                  }}>
+                  <ListGroup.Item as="li">
+                    <Link to={`/${id}/follower`} className="no-text-decoration">
+                      Followers
+                    </Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item as="li">
+                    <Link
+                      to={`/${id}/following`}
+                      className="no-text-decoration">
+                      Following
+                    </Link>
+                  </ListGroup.Item>
+                </ListGroup>
+              </>
             ) : null}
 
             {avatar ? (
-              <img
-                alt="mdo"
-                width="150"
-                height="150"
-                className="rounded-circle text-center mt-4"
-                src={avatarURL}
-                alt=""
-              />
+              <div className="center-text">
+                <img
+                  alt="mdo"
+                  width="150"
+                  height="150"
+                  className="rounded-circle text-center mt-4 "
+                  src={avatarURL}
+                  alt=""
+                />
+              </div>
             ) : null}
             {!ReadOnlyProfile ? (
-              <button
-                onClick={handleUploadImage}
-                className="badge text-black "
-                style={{ fontSize: "13px", border: "none" }}>
-                {avatar ? "Change Profile Picture" : "Upload Profile Picture"}
-              </button>
+              <div className="centered">
+                <EasyButton
+                  onClick={handleUploadImage}
+                  title={
+                    avatar ? "Change Profile Picture" : "Upload Profile Picture"
+                  }
+                />
+              </div>
             ) : null}
           </div>
           <div className="col">
@@ -166,30 +190,6 @@ const Profile = (props) => {
               />
             </div>
             <div className="row mt-4">
-              {!ReadOnlyProfile ? (
-                <>
-                  <TitleOk title="Password" />
-                  <Input
-                    value={password}
-                    placeholder="password"
-                    type={showPassword ? "text" : "password"}
-                    onChange={(e) => setPassword(e.target.value)}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => setShowPassword(!showPassword)}>
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                </>
-              ) : (
-                <></>
-              )}
-            </div>
-
-            <div className="row mt-4">
               <TitleOk title="Bio" />
               <textarea
                 disabled={ReadOnlyProfile}
@@ -201,31 +201,58 @@ const Profile = (props) => {
               />
             </div>
           </div>
-          <div className="col-5"></div>
+
+          <div className="col-1"></div>
+          {!ReadOnlyProfile ? (
+            <div className="col ml-4">
+              <PasswordField
+                title="Password"
+                placeholder="password"
+                onChange={setPassword}
+              />
+              <PasswordField
+                title="Confirm Password"
+                placeholder="confirm password"
+                onChange={setPasswordConfirm}
+              />
+              <PasswordField
+                title="New Password"
+                placeholder="new password"
+                onChange={setNewPassword}
+              />
+              <div className="centered mt-4">
+                <EasyButton
+                  title="Change Password"
+                  onClick={handleChangePassword}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
+        {!ReadOnlyProfile ? (
+          <div className="container row">
+            <SubmitDiscardFooter
+              discardTitle="Discard"
+              submitTitle="Submit"
+              onDiscard={() => (window.location.href = "/")}
+              onSubmit={() => (window.location.href = "/")} // change backend
+              bottom={80}
+            />
+          </div>
+        ) : null}{" "}
+        {ReadOnlyProfile ? (
+          <div className="container row">
+            <SubmitDiscardFooter
+              discardTitle="Follow"
+              submitTitle="Unfollow"
+              onDiscard={() => (window.location.href = "/")}
+              onSubmit={() => (window.location.href = "/")} // change backend
+              bottom={80}
+            />
+          </div>
+        ) : null}
       </div>
-      {!ReadOnlyProfile ? (
-        <div className="container row">
-          <SubmitDiscardFooter
-            discardTitle="Discard"
-            submitTitle="Submit"
-            onDiscard={() => (window.location.href = "/")}
-            onSubmit={() => (window.location.href = "/")} // change backend
-            bottom={80}
-          />
-        </div>
-      ) : null}{" "}
-      {ReadOnlyProfile ? (
-        <div className="container row">
-          <SubmitDiscardFooter
-            discardTitle="Follow"
-            submitTitle="Unfollow"
-            onDiscard={() => (window.location.href = "/")}
-            onSubmit={() => (window.location.href = "/")} // change backend
-            bottom={80}
-          />
-        </div>
-      ) : null}
+
       <div className="footer-fixed-bottom">
         <Footer />
       </div>

@@ -2,6 +2,7 @@ import "./tag.css";
 
 const Tag = (props) => {
   const isAuthorizedToEdit = props.isAuthorizedToEdit;
+  const tagId = props.id;
   const handleDeletion = props.onDeletion;
   const addedClass = props.blue
     ? "tag-base badge primary-background"
@@ -18,12 +19,7 @@ const Tag = (props) => {
       {isAuthorizedToEdit && handleDeletion && (
         <span
           className="tag-base badge tag-delete"
-          onClick={() =>
-            handleDeletion(
-              props.children[0].props.children +
-                props.children[1].props.children
-            )
-          }>
+          onClick={() => handleDeletion(tagId)}>
           X
         </span>
       )}

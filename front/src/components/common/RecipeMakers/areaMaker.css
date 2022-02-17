@@ -1,0 +1,38 @@
+.input-title {
+  font-size: 30px!important;
+  width: 100%;
+  border: 0px solid #ccc;
+  padding: 10px;
+
+}
+
+.input-text {
+  font-size: 14px!important;
+  width: 100%;
+  border: 0px solid #ccc;
+  padding: 10px;
+
+
+
+}
+
+.textarea-text-input {
+  
+  outline: none;
+  padding: 7px;
+  margin-top: 7px!important;
+  box-shadow: none;
+  border: 1px  solid #eee;
+
+  resize: none; /*remove the resize handle on the bottom right*/
+}
+.input-text:focus {
+  outline: none;
+}
+
+
+
+.input-title:focus {
+  outline: none;
+ 
+}

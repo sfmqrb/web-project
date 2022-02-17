@@ -4,18 +4,20 @@ const getFakeCard = () => {
       images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
       steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
       name: "John Doe",
-      _id: 1,
+      id: 1,
       title: "title :: Card 1",
       subheader: "subheader Card 1",
       body: "body :: Card 1",
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -28,18 +30,21 @@ const getFakeCard = () => {
       name: "John Doe",
       images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
       steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
-      _id: 2,
+      id: 2,
       title: "title :: Card 2",
       subheader: "subheader Card 2",
       body: "body :: Card 2",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -52,18 +57,21 @@ const getFakeCard = () => {
       name: "Bond Doe",
       images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
       steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
-      _id: 3,
+      id: 3,
       title: "title :: Card 3",
       subheader: "subheader Card 3",
       body: "body :: Card 3",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -77,18 +85,21 @@ const getFakeCard = () => {
 
       images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
       steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
-      _id: 4,
+      id: 4,
       title: "title :: Card 4",
       subheader: "subheader Card 4",
       body: "body :: Card 4",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -101,18 +112,21 @@ const getFakeCard = () => {
       name: "John Doe",
       images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
       steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
-      _id: 5,
+      id: 5,
       title: "title :: Card 5",
       subheader: "subheader Card 5",
       body: "body :: Card 5",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [
@@ -125,18 +139,21 @@ const getFakeCard = () => {
       name: "Doe",
       images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
       steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
-      _id: 6,
+      id: 6,
       title: "title :: Card 6",
       subheader: "subheader Card 6",
       body: "body :: Card 6",
+
+      type: "mediterranean",
+      nationality: "Iran",
       tags: [
         {
           id: "tag1",
-          text: "tag1",
+          name: "tag1",
         },
         {
           id: "tag2",
-          text: "tag2",
+          name: "tag2",
         },
       ],
       ingredients: [

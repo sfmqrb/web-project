@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../DefaultPages/navBar";
 import Footer from "../DefaultPages/footer";
+import TagMaker from "../common/RecipeMakers/tagMaker";
+import IngredientMaker from "../common/RecipeMakers/ingredientMaker";
+import TitleMellow from "../common/Titles/titleMellow";
 import "./searchAdvanced.css";
 
 const SearchAdvanced = (props) => {
@@ -16,72 +19,57 @@ const SearchAdvanced = (props) => {
   return (
     <>
       <NavBar searchEnabled={false} />
-      <div className="container  accordion-body align-middle mt-4">
-        <div className="row ">
-          <span className="mt--4 font-awesome">
-            Search by Text
-            <div className="font-small">
-              Get recipes if query is specified in it!
-            </div>
+      <div className="container">
+        <div className="row">
+          <TitleMellow title="Search" />
+          <span style={{ marginLeft: "-6px" }}>
+            <input
+              type="text"
+              className="form-control input-search-advanced m-0 mt-2 ml-4"
+              placeholder="Search"
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </span>
-
-          <input
-            type="text"
-            className="form-control input-search-advanced"
-            placeholder="Search"
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
         </div>
 
         <div className="row">
-          <span className="mt--4 font-awesome">
-            Search by Tags
-            <div className="font-small">place '-' between tags please!</div>
-          </span>
-          <input
-            type="text"
-            className="form-control input-search-advanced"
-            placeholder="Tags"
-            onChange={(e) => setTags(e.target.value)}
-          />
+          <div className="ml-0 p-0  mt-4">
+            <TagMaker onChange={setTags} isAdmin={true} tags={[]} />
+          </div>
         </div>
-        <div className="row ">
-          <span className="mt--4 font-awesome">
-            Search by Ingredients
-            <div className="font-small">
-              place '-' between Ingredients please!
-            </div>
-          </span>
-          <input
-            type="text"
-            className="form-control input-search-advanced"
-            placeholder="Ingredients"
-            onChange={(e) => setIngredients(e.target.value)}
-          />
+        <div className="row">
+          <div className="container row mt-4">
+            <IngredientMaker
+              onChange={setIngredients}
+              isAdmin={true}
+              ingredients={[]}
+            />
+            <span className="mt-4"></span>
+            <TitleMellow title={"Choose sorting algorithm"} />
+          </div>
         </div>
-        <span className="mt--4 font-awesome">Choose sorting algorithm</span>
 
-        <div style={{ fontSize: "13px" }}>
+        <div style={{ fontSize: "13px" }} className="mt-2">
           <input
             type="checkbox"
-            id="likesss"
-            name="likesss"
+            id="basedOnLikes"
+            name="basedOnLikes"
             checked={sortBy == "like"}
             onChange={() => {
               setSortBy("like");
             }}
           />
-          <label className="form-check-label" for="likesss">
+          <label className="form-check-label" htmlFor="basedOnLikes">
             Nearest in time
           </label>
           <input
             type="checkbox"
-            id="timeee"
-            name="timeee"
+            id="basedOnTime"
+            name="basedOnTime"
             checked={sortBy === "time"}
             onChange={() => setSortBy("time")}
           />
-          <label className="form-check-label" for="timeee">
+          <label className="form-check-label" htmlFor="basedOnTime">
             Liked the most
           </label>
         </div>
