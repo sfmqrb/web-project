@@ -3,9 +3,14 @@ import _Card_ from "./common/card";
 import NavBar from "./DefaultPages/navBar";
 import Footer from "./DefaultPages/footer";
 import { paginate } from "../utils/paginate";
+import ax from "../services/httpService";
 import Pagination from "./common/pagination";
 import getFakeCard from "../services/fakeCard";
 import { Redirect } from "react-router-dom";
+import cfg from "../config.json";
+import getHeader from "../utils/getHeader";
+import {toast} from "react-toastify";
+import {backFoodIngToFoodIngredient, backRecipeToFrontRecipe} from "./common/commonUtils/EntitieHandeler";
 
 class CardSet extends Component {
   // state
@@ -19,8 +24,23 @@ class CardSet extends Component {
   };
 
   componentDidMount() {
-    //todo ger data from back or ls
-    const cards = [...getFakeCard()];
+    //todo get data from back or ls
+    if (localStorage.getItem("HomeRecipes") === null) {
+      ax.get(cfg.apiUrl + "/recipe/get_selected_recipes",getHeader()).then((res)=>{
+        console.log(res);
+        if (res.status === 200) {
+          toast.success("Password changed");
+        } else {
+          toast.warning("Password not changed");
+        }
+        let recipes = []
+        res.data.forEach((item, index) => {
+          recipes.push(backRecipeToFrontRecipe(item))
+        })
+      localStorage.setItem("HomeRecipes",JSON.stringify(recipes))
+      });
+    }
+    const cards = [...JSON.parse(localStorage.getItem("HomeRecipes"))];
     this.setState({
       cards,
     });

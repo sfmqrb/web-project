@@ -292,7 +292,8 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				responseWriter.WriteHeader(http.StatusNotFound)
 			} else {
 				_, err := responseWriter.Write(imageBytes)
-				responseWriter.WriteHeader(http.StatusFound)
+				//todo
+				//responseWriter.WriteHeader(http.StatusFound)
 				if err != nil {
 					return
 				}

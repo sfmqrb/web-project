@@ -1,7 +1,7 @@
 const getFakeCard = () => {
   return [
     {
-      images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
+      images: ["https://unsplash.it/400/600"],
       steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
       name: "John Doe",
       id: 1,
@@ -82,7 +82,6 @@ const getFakeCard = () => {
     },
     {
       name: "Doe",
-
       images: ["https://unsplash.it/400/600", "https://unsplash.it/400/600"],
       steps: ["body :: Card 1", "body :: Card 1", "body :: Card 1"],
       id: 4,

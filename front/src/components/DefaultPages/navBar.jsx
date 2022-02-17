@@ -68,6 +68,7 @@ const NavBar = ({user, onChange, searchQuery, searchEnabled}) => {
 };
 
 const getIsLoggedInHtml = (isLoggedIn) => {
+    //todo erase log
     console.log(JSON.parse(localStorage.getItem('user')).image)
     console.log(JSON.parse(localStorage.getItem('user')).image === "" ? JSON.parse(localStorage.getItem('user')).username.charAt(0) : JSON.parse(localStorage.getItem('user')).image)
     // console.log(JSON.parse(localStorage.getItem('user')).image = "" ? "full image": "fake image")
