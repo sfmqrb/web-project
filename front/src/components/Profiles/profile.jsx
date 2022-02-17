@@ -186,29 +186,31 @@ const Profile = (props) => {
           </div>
 
           <div className="col-1"></div>
-          <div className="col ml-4">
-            <PasswordField
-              title="Password"
-              placeholder="password"
-              onChange={setPassword}
-            />
-            <PasswordField
-              title="Confirm Password"
-              placeholder="confirm password"
-              onChange={setPasswordConfirm}
-            />
-            <PasswordField
-              title="New Password"
-              placeholder="new password"
-              onChange={setNewPassword}
-            />
-            <div className="centered mt-4">
-              <EasyButton
-                title="Change Password"
-                onClick={handleChangePassword}
+          {!ReadOnlyProfile ? (
+            <div className="col ml-4">
+              <PasswordField
+                title="Password"
+                placeholder="password"
+                onChange={setPassword}
               />
+              <PasswordField
+                title="Confirm Password"
+                placeholder="confirm password"
+                onChange={setPasswordConfirm}
+              />
+              <PasswordField
+                title="New Password"
+                placeholder="new password"
+                onChange={setNewPassword}
+              />
+              <div className="centered mt-4">
+                <EasyButton
+                  title="Change Password"
+                  onClick={handleChangePassword}
+                />
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
         {!ReadOnlyProfile ? (
           <div className="container row">
