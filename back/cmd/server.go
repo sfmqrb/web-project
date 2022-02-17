@@ -26,11 +26,17 @@ func main() {
 	preLoad()
 	http.HandleFunc("/", HandleRequest)
 	log.Fatal(http.ListenAndServe(":"+ConfigData.Port, nil))
+
 }
 
 func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
-	// todo add cros headers
-	// todo add option passwordRequest OK handle
+	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
+	responseWriter.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	responseWriter.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Authorization, jwt")
+	if request.Method == http.MethodOptions {
+		responseWriter.WriteHeader(http.StatusOK)
+		return
+	}
 	urlList := strings.Split(request.URL.Path, "/")
 	switch urlList[1] {
 	case "login":
@@ -213,7 +219,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				sendResponseJson(responseWriter, miniRecipes)
 			} else if urlList[2] == "liked_recipes" {
 				// get liked recipes
-				recipes := queryHandeler.HandelGetSavedRecipes(_username)
+				recipes := queryHandeler.HandelGetLikedRecipes(_username)
 				responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, recipes)
 			} else {

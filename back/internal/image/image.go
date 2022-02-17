@@ -10,7 +10,7 @@ type UploadResponse struct {
 	FileName string `json:"fileName"`
 }
 
-const defaultImageDirPath = "back/images"
+const defaultImageDirPath = "images"
 
 func HandleUploadImage(fileByte []byte, fileName string) string {
 	uniqueId := uuid.New()
@@ -19,6 +19,7 @@ func HandleUploadImage(fileByte []byte, fileName string) string {
 	saveName := defaultImageDirPath + "/" + name
 	err := ioutil.WriteFile(saveName, fileByte, 0644)
 	if err != nil {
+		print(err.Error())
 		return ""
 	}
 	return name
