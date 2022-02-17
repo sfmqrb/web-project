@@ -65,6 +65,7 @@ type Link struct {
 type Recipe struct {
 	mgm.DefaultModel `bson:",inline" json:"model"`
 	Name             string `json:"name" bson:"name"`
+	Body             string `bson:"body" json:"body"`
 	ImagePath        string `json:"imagePath" bson:"imagePath"`
 	Steps            []Step `json:"steps" bson:"steps"`
 	// todo enum
@@ -82,6 +83,7 @@ type Recipe struct {
 type MiniRecipe struct {
 	MainId      string `json:"mainId" bson:"mainId"`
 	Name        string `json:"name" bson:"name"`
+	Body        string `bson:"body" json:"body"`
 	ImagePath   string `json:"imagePath" bson:"imagePath"`
 	CookingTime int    `json:"cookingTime" bson:"cookingTime"`
 }
@@ -107,6 +109,7 @@ func RecipeToMiniRecipe(recipe Recipe) MiniRecipe {
 	return MiniRecipe{
 		MainId:      recipe.ID.Hex(),
 		Name:        recipe.Name,
+		Body:        recipe.Body,
 		ImagePath:   recipe.ImagePath,
 		CookingTime: recipe.CookingTime,
 	}

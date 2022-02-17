@@ -115,7 +115,10 @@ func HandleRecipeComment(recipeId string, comment Entities.Comment, username str
 		return errors.New("userId and comment userId doesnt match")
 	}
 	comment.User = FillMiniUser(comment.User)
-	database.AddCommentToRecipe(recipeId, comment)
+	recipe := database.GetRecipeById(recipeId)
+	// recalculate recipe stars
+	recipe.Stars = ((float64(len(recipe.Comments)) * recipe.Stars) + comment.Star) / float64(len(recipe.Comments)+1)
+	database.AddCommentToRecipe(recipe, comment)
 	return nil
 }
 func HandleGetTag(_id string) Entities.Tag {

@@ -17,13 +17,9 @@ type config struct {
 	DbName         string `json:"dbName"`
 	TimeoutSeconds int    `json:"timeoutSeconds"`
 }
-type Test struct {
-	mgm.DefaultModel `bson:",inline" json:"model"`
-	F1               []string `bson:"f1" json:"f1"`
-}
 
 func ConnectDB() {
-	// load DBconfig
+	// load DBConfig
 	var config config
 	file, _ := ioutil.ReadFile("internal/database/config.json")
 	err := json.Unmarshal(file, &config)
@@ -38,13 +34,6 @@ func ConnectDB() {
 	}
 	loadIngredients()
 	loadTags()
-	//test
-	//test := Test{F1: []string{"asd", "fas"}}
-	//err = mgm.Coll(&test).Create(&test)
-	//if err != nil {
-	//	return
-	//}
-
 }
 
 func GetUserByUsername(username string) *Entities.User {
@@ -130,7 +119,8 @@ func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []
 		allTagsM = operator.Nin
 	}
 	x = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut}}
-	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, x)
+	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, x, &options.FindOptions{Sort: bson.M{"cookingTime": 1}})
+
 	if e != nil {
 		print(e.Error())
 	}
@@ -154,8 +144,7 @@ func GetProfileRecipes(_id string) []Entities.MiniRecipe {
 	}
 	return user.Recipes
 }
-func AddCommentToRecipe(recipeId string, comment Entities.Comment) {
-	recipe := GetRecipeById(recipeId)
+func AddCommentToRecipe(recipe Entities.Recipe, comment Entities.Comment) {
 	//todo is add directly to db faster or nah?
 	recipe.Comments = append(recipe.Comments, comment)
 	err := mgm.Coll(&recipe).Update(&recipe)
