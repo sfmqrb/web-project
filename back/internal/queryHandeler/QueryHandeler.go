@@ -134,6 +134,17 @@ func FillMiniUser(miniUser Entities.MiniUser) Entities.MiniUser {
 	miniUser.PicturePath = user.PicturePath
 	return miniUser
 }
+func HandelChangePassword(passwordRequest ChangePasswordRequest, _username string) bool {
+	user := database.GetUserByUsername(_username)
+	e := tools.ComparePassword(user.Password, passwordRequest.OldPassword)
+	if e != nil {
+		// wrong pass
+		return false
+	}
+	user.Password = tools.HashPassword(passwordRequest.NewPassword)
+	database.UpdateUser(*user)
+	return true
+}
 func HandelGetProfile(_reqUserName string, username string) (Entities.User, bool) {
 	user := *database.GetUserByUsername(username)
 	if user.Username == "" {
@@ -189,6 +200,41 @@ func HandelGetUserRecipes(_username string) []Entities.Recipe {
 	}
 	return recipes
 }
+func HandelSaveRecipe(_username string, recipeId string) bool {
+	recipe := database.GetRecipeById(recipeId)
+	if recipe.Name == "" {
+		//wrong recipeId
+		return false
+	}
+	user := database.GetUserByUsername(_username)
+	if user.Username == "" {
+		//no user
+		return false
+	}
+	user.SavedRecipes = append(user.SavedRecipes, Entities.RecipeToMiniRecipe(recipe))
+	database.UpdateUser(*user)
+	return true
+}
+func HandelForgotRecipe(_username string, recipeId string) bool {
+	recipe := database.GetRecipeById(recipeId)
+	if recipe.Name == "" {
+		//wrong recipeId
+		return false
+	}
+	user := database.GetUserByUsername(_username)
+	if user.Username == "" {
+		//no user
+		return false
+	}
+	user.SavedRecipes = tools.RemoveMiniRecipeFromSlice(user.SavedRecipes, Entities.RecipeToMiniRecipe(recipe))
+	database.UpdateUser(*user)
+	return true
+}
+func HandelGetSavedRecipes(_username string) []Entities.MiniRecipe {
+	user := database.GetUserByUsername(_username)
+	return user.Recipes
+}
+
 func removeFromArray(slice []string, username string) []string {
 	var newReqUserFollowings []string
 	for _, following := range slice {

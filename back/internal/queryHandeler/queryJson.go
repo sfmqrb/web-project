@@ -44,3 +44,7 @@ type SearchRecipeRequest struct {
 	MaxCookingTime int      `json:"maxCookingTime"`
 	SearchText     string   `json:"searchText"`
 }
+type ChangePasswordRequest struct {
+	OldPassword string `json:"oldPassword"`
+	NewPassword string `json:"newPassword"`
+}

@@ -30,7 +30,7 @@ func main() {
 
 func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 	// todo add cros headers
-	// todo add option request OK handle
+	// todo add option passwordRequest OK handle
 	urlList := strings.Split(request.URL.Path, "/")
 	switch urlList[1] {
 	case "login":
@@ -170,8 +170,32 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				recipes := queryHandeler.HandelGetUserRecipes(urlList[2])
 				sendResponseJson(responseWriter, recipes)
 				return
+			case "save":
+				jwt := request.Header.Get("jwt")
+				_username, done := digestJwt(responseWriter, jwt)
+				if done {
+					return
+				}
+				added := queryHandeler.HandelSaveRecipe(_username, urlList[2])
+				if added {
+					responseWriter.WriteHeader(http.StatusOK)
+				} else {
+					responseWriter.WriteHeader(http.StatusNotAcceptable)
+				}
+			case "forgot":
+				jwt := request.Header.Get("jwt")
+				_username, done := digestJwt(responseWriter, jwt)
+				if done {
+					return
+				}
+				added := queryHandeler.HandelForgotRecipe(_username, urlList[2])
+				if added {
+					responseWriter.WriteHeader(http.StatusOK)
+				} else {
+					responseWriter.WriteHeader(http.StatusNotAcceptable)
+				}
 			}
-
+			return
 		}
 		jwt := request.Header.Get("jwt")
 		_username, done := digestJwt(responseWriter, jwt)
@@ -180,13 +204,19 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 		switch request.Method {
 		case http.MethodGet:
-			//get profile
-			user, found := queryHandeler.HandelGetProfile(_username, urlList[2])
-			if !found {
-				responseWriter.WriteHeader(http.StatusBadRequest)
-				return
+			if urlList[2] == "saved_recipes" {
+				//get saved recipes
+				miniRecipes := queryHandeler.HandelGetSavedRecipes(_username)
+				sendResponseJson(responseWriter, miniRecipes)
+			} else {
+				//get profile
+				user, found := queryHandeler.HandelGetProfile(_username, urlList[2])
+				if !found {
+					responseWriter.WriteHeader(http.StatusBadRequest)
+					return
+				}
+				sendResponseJson(responseWriter, user)
 			}
-			sendResponseJson(responseWriter, user)
 		case http.MethodPut:
 			//follow
 			queryHandeler.HandelFollow(_username, urlList[2])
@@ -194,6 +224,24 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			//unfollow
 			queryHandeler.HandelUnfollow(_username, urlList[2])
 
+		}
+	case "password":
+		jwt := request.Header.Get("jwt")
+		_username, done := digestJwt(responseWriter, jwt)
+		if done {
+			return
+		}
+		var passwordRequest queryHandeler.ChangePasswordRequest
+		err := json.Unmarshal([]byte(getRequestBody(request)), &passwordRequest)
+		if err != nil {
+			responseWriter.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		changed := queryHandeler.HandelChangePassword(passwordRequest, _username)
+		if changed {
+			responseWriter.WriteHeader(http.StatusOK)
+		} else {
+			responseWriter.WriteHeader(http.StatusNotAcceptable)
 		}
 	case "image":
 		switch request.Method {

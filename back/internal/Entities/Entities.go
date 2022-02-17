@@ -51,6 +51,7 @@ type User struct {
 	Followings       []string     `json:"followings" bson:"followings"`
 	HasMoreFollowers bool         `bson:"hasMoreFollowers" json:"hasMoreFollowers"`
 	Recipes          []MiniRecipe `json:"recipes" bson:"recipes"`
+	SavedRecipes     []MiniRecipe `json:"savedRecipes" bson:"savedRecipes"`
 }
 type MiniUser struct {
 	Username    string `json:"username" bson:"username"`
