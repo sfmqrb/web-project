@@ -1,90 +1,83 @@
-import React from "react";
-import Joi from "joi-browser";
-import Form from "./common/Forms/form";
-import * as userService from "../services/userService";
+import React, { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
+import ax from "../services/httpService";
+import Input from "./common/Forms/input";
+import EasyButton from "./common/Buttons/easyButton";
 
-class RegisterForm extends Form {
-  state = {
-    data: { username: "", password: "", name: "" },
-    errors: {},
+const RegisterForm = (props) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleClick = () => {
+    console.log("in registerForm :: handleClick");
+    const data = { username, password, name, email };
+    ax.post("http://localhost:8080/register", data).then((res) => {
+      console.log("res", res);
+    });
+    // localStorage.setItem("user", true);
+    // window.location = "/";
   };
 
-  schema = {
-    username: Joi.string().required().email().label("Username"),
-    password: Joi.string().required().min(5).label("Password"),
-    name: Joi.string().required().label("Name"),
-  };
-  handleClick() {
-    localStorage.setItem("user", true);
-    window.location = "/";
-  }
-
-  doSubmit = async () => {
-    // backend
-
-    const output = await userService.register(this.state.data);
-    //
-    // console.log(output.data)
-    if (output.data === "") {
-      output.data = [];
-    }
-    localStorage.setItem("jwt", output.data["jwt"]);
-    localStorage.setItem("notes", JSON.stringify(output.data["notes"]));
-    localStorage.setItem("name", output.data["name"]);
-    window.location = "/"; // navigate to homepage
-    // above line in try catch 400 (bad request) to re-register
-  };
-
-  render() {
-    const registerMessage = (
-      <ul
-        className=" col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 p-0"
-        style={{ fontSize: "13px" }}>
-        <li className="d-block">
-          <Link to="/" className="    text-info ">
-            Home
-            <br></br>
+  const registerMessage = (
+    <ul
+      className=" col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 p-0"
+      style={{ fontSize: "13px" }}>
+      <li className="d-block">
+        <Link to="/" className="    text-info ">
+          Home
+          <br></br>
+        </Link>
+      </li>
+      <p></p>
+      <li className="d-block">
+        Do you have an account?
+        {
+          <Link to="/login" className=" px-2   text-info">
+            Login
           </Link>
-        </li>
-        <p></p>
-        <li className="d-block">
-          Do you have an account?
-          {
-            <Link to="/login" className=" px-2   text-info">
-              Login
-            </Link>
-          }
-        </li>
-      </ul>
-    );
-    return (
-      <div>
-        <div className="row p-5 takeAllHeight registerImage whiteColor center-text ">
-          <div className="col-3 center-text">
-            <h1 className=" m-4 ">Register</h1>
-            {registerMessage}
-            <form onSubmit={this.handleSubmit}>
-              <div className="p-2 m-1" style={{ fontSize: "13px" }}>
-                {this.renderInput("username", "Username")}
-              </div>
-              <div className="p-2 m-1" style={{ fontSize: "13px" }}>
-                {this.renderInput("password", "Password", "password")}
-              </div>
-              <div className="p-2 m-1" style={{ fontSize: "13px" }}>
-                {this.renderInput("name", "Name")}
-              </div>
-              <div className="p-2 m-1" style={{ fontSize: "13px" }}>
-                {this.renderButton("Register", this.handleClick)}
-              </div>
-            </form>
-          </div>
-          <div className="col"></div>
-          <h1 className="col"></h1>
+        }
+      </li>
+    </ul>
+  );
+  return (
+    <div>
+      <div className="row p-5 takeAllHeight registerImage whiteColor center-text ">
+        <div className="col-3 center-text">
+          <h1 className=" m-4 ">Register</h1>
+          {registerMessage}
+          <Input
+            name="username"
+            label="Username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            name="password"
+            label="Password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Input
+            name="name"
+            label="Name"
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            name="email"
+            label="Email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <EasyButton onClick={handleClick} title="Register" />
         </div>
+        <div className="col"></div>
+        <h1 className="col"></h1>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default RegisterForm;
