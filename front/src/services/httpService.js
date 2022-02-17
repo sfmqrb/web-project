@@ -22,6 +22,10 @@ axios.interceptors.response.use(null, (error) => {
     toast.error("Receiving no note ID");
   }
 
+  if (error.response && error.response.status === 409) {
+    toast.error("Conflict with another user");
+  }
+
   if (error.response && error.response.status === 400) {
     toast.error("Just got an bad request!");
   }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ax from "../services/httpService";
 import Input from "./common/Forms/input";
 import EasyButton from "./common/Buttons/easyButton";
+import cfg from "../config.json";
 
 const RegisterForm = (props) => {
   const [username, setUsername] = useState("");
@@ -14,10 +15,13 @@ const RegisterForm = (props) => {
   const handleClick = () => {
     console.log("in registerForm :: handleClick");
     const data = { username, password, name, email };
-    ax.post("http://localhost:8080/register", data).then((res) => {
+    ax.post(cfg.apiUrl + "/register", data).then((res) => {
       console.log("res", res);
+      localStorage.setItem("jwt", JSON.stringify(res.data.jwt));
+      localStorage.setItem("user", JSON.stringify(res.data));
+      console.log("before toast");
+      // toast.success("User registered successfully!");
     });
-    // localStorage.setItem("user", true);
     // window.location = "/";
   };
 
