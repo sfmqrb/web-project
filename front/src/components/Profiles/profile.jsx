@@ -210,29 +210,30 @@ const Profile = (props) => {
             </div>
           </div>
         </div>
+        {!ReadOnlyProfile ? (
+          <div className="container row">
+            <SubmitDiscardFooter
+              discardTitle="Discard"
+              submitTitle="Submit"
+              onDiscard={() => (window.location.href = "/")}
+              onSubmit={() => (window.location.href = "/")} // change backend
+              bottom={80}
+            />
+          </div>
+        ) : null}{" "}
+        {ReadOnlyProfile ? (
+          <div className="container row">
+            <SubmitDiscardFooter
+              discardTitle="Follow"
+              submitTitle="Unfollow"
+              onDiscard={() => (window.location.href = "/")}
+              onSubmit={() => (window.location.href = "/")} // change backend
+              bottom={80}
+            />
+          </div>
+        ) : null}
       </div>
-      {!ReadOnlyProfile ? (
-        <div className="container row">
-          <SubmitDiscardFooter
-            discardTitle="Discard"
-            submitTitle="Submit"
-            onDiscard={() => (window.location.href = "/")}
-            onSubmit={() => (window.location.href = "/")} // change backend
-            bottom={80}
-          />
-        </div>
-      ) : null}{" "}
-      {ReadOnlyProfile ? (
-        <div className="container row">
-          <SubmitDiscardFooter
-            discardTitle="Follow"
-            submitTitle="Unfollow"
-            onDiscard={() => (window.location.href = "/")}
-            onSubmit={() => (window.location.href = "/")} // change backend
-            bottom={80}
-          />
-        </div>
-      ) : null}
+
       <div className="footer-fixed-bottom">
         <Footer />
       </div>
