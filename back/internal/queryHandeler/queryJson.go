@@ -42,4 +42,5 @@ type SearchRecipeRequest struct {
 	Ascending      bool     `json:"ascending"`
 	MinCookingTime int      `json:"minCookingTime"`
 	MaxCookingTime int      `json:"maxCookingTime"`
+	SearchText     string   `json:"searchText"`
 }

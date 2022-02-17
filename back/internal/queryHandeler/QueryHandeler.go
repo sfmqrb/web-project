@@ -102,7 +102,8 @@ func HandelGetRecipe(_id string) Entities.Recipe {
 	return recipe
 }
 func HandelSearchRecipe(req SearchRecipeRequest) []Entities.Recipe {
-	return database.SearchRecipe(req.IngsIn, req.IngsOut, req.TagsIn, req.TagsOut, req.OrderBy, req.Ascending, req.MinCookingTime, req.MaxCookingTime)
+	return database.SearchRecipe(req.IngsIn, req.IngsOut, req.TagsIn, req.TagsOut, req.OrderBy, req.Ascending,
+		req.MinCookingTime, req.MaxCookingTime, req.SearchText)
 }
 func HandleGetAllRecipe() []Entities.Recipe {
 	return database.GetAllRecipe(10)
