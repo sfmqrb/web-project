@@ -160,10 +160,12 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			switch urlList[3] {
 			case "followers":
 				followers := queryHandeler.HandelGetFollowers(urlList[2])
+				responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, followers)
 				return
 			case "followings":
 				followings := queryHandeler.HandelGetFollowings(urlList[2])
+				responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, followings)
 				return
 			case "recipes":
@@ -207,7 +209,13 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			if urlList[2] == "saved_recipes" {
 				//get saved recipes
 				miniRecipes := queryHandeler.HandelGetSavedRecipes(_username)
+				responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, miniRecipes)
+			} else if urlList[2] == "liked_recipes" {
+				// get liked recipes
+				recipes := queryHandeler.HandelGetSavedRecipes(_username)
+				responseWriter.WriteHeader(http.StatusOK)
+				sendResponseJson(responseWriter, recipes)
 			} else {
 				//get profile
 				user, found := queryHandeler.HandelGetProfile(_username, urlList[2])

@@ -230,6 +230,9 @@ func HandelForgotRecipe(_username string, recipeId string) bool {
 	database.UpdateUser(*user)
 	return true
 }
+func HandelGetLikedRecipes(_username string) []Entities.Recipe {
+	return database.GetCommentedRecipes(*database.GetUserByUsername(_username))
+}
 func HandelGetSavedRecipes(_username string) []Entities.MiniRecipe {
 	user := database.GetUserByUsername(_username)
 	return user.Recipes
