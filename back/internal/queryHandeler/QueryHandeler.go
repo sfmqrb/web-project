@@ -6,6 +6,8 @@ import (
 	"back/internal/database"
 	"back/internal/tools"
 	"errors"
+	"github.com/markbates/goth"
+	"strings"
 )
 
 func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
@@ -24,6 +26,27 @@ func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
 	return response
 }
 
+func GoogleUserToLoginResponse(googleUser goth.User, sessionLength int) LoginResponse {
+	username := strings.Split(googleUser.Email, "@")[1]
+	pass := username + "googleLogin"
+	user := database.GetUserByUsername(username)
+	if user.Username == "" {
+		//register
+		//todo extra step
+		return HandleRegisterQuery(RegisterRequest{
+			Username: username,
+			Password: pass,
+			Name:     googleUser.Name,
+			Email:    googleUser.Email,
+		}, sessionLength)
+	} else {
+		//login
+		return HandelLoginQuery(LoginRequest{
+			Username: username,
+			Password: pass,
+		}, sessionLength)
+	}
+}
 func fillLoginResponse(sessionLength int, user *Entities.User) LoginResponse {
 	response := LoginResponse{}
 	jwt := authentication.CreateJWT(user.Username, sessionLength)

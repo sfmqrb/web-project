@@ -50,19 +50,36 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 	//handel google auth
 	switch urlList[1] {
 	case "login":
-		loginRequest := queryHandeler.LoginRequest{}
-		err := json.Unmarshal([]byte(getRequestBody(request)), &loginRequest)
-		if err != nil {
-			responseWriter.WriteHeader(http.StatusBadRequest)
-			return
-		}
-		loginResponse := queryHandeler.HandelLoginQuery(loginRequest, ConfigData.SessionLimit)
-		if loginResponse.NoUsername || loginResponse.WrongPass {
-			responseWriter.WriteHeader(http.StatusUnauthorized)
+		if request.URL.Path == "/login/google" {
+			gothic.BeginAuthHandler(responseWriter, request)
+		} else if request.URL.Path == "/login/google/callback" {
+			googleUser, err := gothic.CompleteUserAuth(responseWriter, request)
+			if err != nil {
+				fmt.Fprintln(responseWriter, err)
+				return
+			}
+			loginResponse := queryHandeler.GoogleUserToLoginResponse(googleUser, ConfigData.SessionLimit)
+			if loginResponse.NoUsername || loginResponse.WrongPass {
+				responseWriter.WriteHeader(http.StatusUnauthorized)
+			} else {
+				responseWriter.WriteHeader(http.StatusOK)
+			}
+			sendResponseJson(responseWriter, loginResponse)
 		} else {
-			responseWriter.WriteHeader(http.StatusOK)
+			loginRequest := queryHandeler.LoginRequest{}
+			err := json.Unmarshal([]byte(getRequestBody(request)), &loginRequest)
+			if err != nil {
+				responseWriter.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			loginResponse := queryHandeler.HandelLoginQuery(loginRequest, ConfigData.SessionLimit)
+			if loginResponse.NoUsername || loginResponse.WrongPass {
+				responseWriter.WriteHeader(http.StatusUnauthorized)
+			} else {
+				responseWriter.WriteHeader(http.StatusOK)
+			}
+			sendResponseJson(responseWriter, loginResponse)
 		}
-		sendResponseJson(responseWriter, loginResponse)
 	case "register":
 		createUserRequest := queryHandeler.RegisterRequest{}
 		err := json.Unmarshal([]byte(getRequestBody(request)), &createUserRequest)
