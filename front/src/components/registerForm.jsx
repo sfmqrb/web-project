@@ -16,7 +16,7 @@ const RegisterForm = (props) => {
     console.log("in registerForm :: handleClick");
     const data = { username, password, name, email };
     ax.post(cfg.apiUrl + "/register", data).then((res) => {
-      localStorage.setItem("jwt", JSON.stringify(res.data.jwt));
+      localStorage.setItem("jwt", res.data.jwt);
       localStorage.setItem("user", JSON.stringify(res.data));
     });
     window.location = "/";
