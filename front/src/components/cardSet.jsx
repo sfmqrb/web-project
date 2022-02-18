@@ -40,7 +40,13 @@ class CardSet extends Component {
       localStorage.setItem("HomeRecipes",JSON.stringify(recipes))
       });
     }
-    const cards = [...JSON.parse(localStorage.getItem("HomeRecipes"))];
+    let cards
+    try {
+    cards = [...JSON.parse(localStorage.getItem("HomeRecipes"))];
+    }catch (e){
+      //todo
+      cards = [...getFakeCard()]
+    }
     this.setState({
       cards,
     });

@@ -43,3 +43,38 @@ export function backFoodIngToFoodIngredient(backIng) {
         unit: backIng.ingredient.unit
     }
 }
+
+export function backProfileToProfile(backProfile) {
+    return {
+        id: backProfile.model.id,
+        password: "",
+        email: backProfile.email,
+        name: backProfile.username,
+        bio: backProfile.bio,
+        avatarUrl: backProfile.picturePath,
+    };
+    // return {
+    //     id: "1",
+    //     password: "helloworld",
+    //     email: "foo@example.com",
+    //     name: "John Doe",
+    //     bio: "Life is short and I like pizza",
+    //     avatarUrl: "http://www.fillmurray.com/200/200",
+    // };
+
+}
+
+export function backProfileToUserInfo(backProfile) {
+    return {
+        id: backProfile.model.id,
+        name: "ammir",
+        avatarURL: "https://unsplash.it/400/600",
+        bio: "My hand hurts",
+    }
+}
+export function backProfileToStt(backProfile) {
+    return {
+        name: backProfile.username
+        , email: backProfile.email, bio: backProfile.bio, avatar: backProfile.picturePath,
+    }
+}

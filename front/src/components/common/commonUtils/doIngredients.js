@@ -18,7 +18,7 @@ function doIngredients(
             id={ingredient.id}
             onDeletion={onDeletion}>
             <span>{name + " "}</span>
-            <span style={{ fontSize: "12px" }}>{quantity + unit}</span>
+            {/*<span style={{ fontSize: "12px" }}>{quantity + unit}</span>*/}
           </Tag>
         );
       })}

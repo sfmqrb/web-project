@@ -15,6 +15,7 @@ import ax from "../../services/httpService";
 import cfg from "../../config";
 import getFakeUser from "../../services/fakeUser";
 import getHeader from "../../utils/getHeader";
+import {backProfileToProfile} from "../common/commonUtils/EntitieHandeler";
 
 const Profile = (props) => {
     const ReadOnlyProfile = props.ReadOnlyProfile || false;
@@ -33,6 +34,8 @@ const Profile = (props) => {
     const [avatarURL, setAvatarURL] = React.useState("");
 
     useEffect(() => {
+        console.log(props)
+
         if (ReadOnlyProfile) {
             setName(props.name);
             setEmail(props.email);
@@ -40,18 +43,23 @@ const Profile = (props) => {
             setBio(props.bio);
             setId(props.id);
         } else {
+            console.log(props.name)
             // request from backend to get user related data
             //todo get data
-            ax.get(cfg.apiUrl + "/user/" + props.name, getHeader()).then((res) => {
+            const backUser = ax.get(cfg.apiUrl + "/users/" + props.name, getHeader()).then((res) => {
                 console.log(res);
                 console.log(res.data.name)
                 if (res.status === 200) {
-                    toast.success("Password changed");
+                    // toast.success("Password changed");
+                    return res.data
                 } else {
-                    toast.warning("Password not changed");
+                    console.log("error")
+                    toast.warning("error happened");
+                    window.location = "/login"
                 }
             })
-            const userData = getFakeUser();
+            // const userData = getFakeUser();
+            const userData = backProfileToProfile(backUser);
             setName(userData.name);
             setEmail(userData.email);
             setAvatar(userData.avatar);
@@ -65,7 +73,8 @@ const Profile = (props) => {
     useEffect(() => {
         setAvatar(avatar);
         if (avatar) {
-            setAvatarURL(URL.createObjectURL(avatar));
+            //todo
+            setAvatarURL(avatar);
         }
     }, [avatar]);
 

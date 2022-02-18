@@ -11,7 +11,6 @@ var hmacSampleSecret = []byte("toooooooooooo secret")
 
 // map for tracking tries of a JWT in a minute
 var jwtTries = map[string]int{}
-var jwtTime = map[string]time.Time{}
 
 func CreateJWT(username string, sessionLength int) string {
 	now := time.Now()

@@ -181,7 +181,7 @@ func HandelGetProfile(_reqUserName string, username string) (Entities.User, bool
 	}
 	// get others profile
 	// todo remove some information
-	user.Email = ""
+	//user.Email = ""
 	user.PhoneNumber = ""
 	user.Password = ""
 	return user, true

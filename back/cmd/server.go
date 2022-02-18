@@ -28,9 +28,9 @@ var ConfigData Config
 
 func main() {
 	// test
-	//jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUwOTkyNTMsIm5iZiI6MTY0NTA5ODA1MywidXNlcm5hbWUiOiJoMzNAZy5jb200NCJ9.3OxgEGeSq8mf3p6rMPUppksezttXeqHUNRnU8s7Camk\n"
-	//_username := authentication.VerifyJWT(jwt, ConfigData.MinuteTryLimit)
-	//print(_username)
+	jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUxMzQyNTQsIm5iZiI6MTY0NTEzMzA1NCwidXNlcm5hbWUiOiJhbW0yNjYifQ.Nk-UPJYsRY5gRLo7CGgqidJeGwkFBdMaI6MVQenBpEM"
+	_username := authentication.VerifyJWT(jwt, ConfigData.MinuteTryLimit)
+	print(_username)
 
 	preLoad()
 	http.HandleFunc("/", HandleRequest)
@@ -327,6 +327,9 @@ func digestJwt(responseWriter http.ResponseWriter, jwt string) (string, bool) {
 	//TODO Warning cheat jwt
 	if jwt == "cheat-amm" {
 		return "amm", false
+	}
+	if jwt == "cheat-amm266" {
+		return "amm266", false
 	}
 	if jwt == "cheat-namdar" {
 		return "moNamdar", false

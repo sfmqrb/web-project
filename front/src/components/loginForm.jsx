@@ -16,7 +16,7 @@ const LoginForm = () => {
     console.log("in loginForm :: handleClick");
     const data = { username, password };
     ax.post(cfg.apiUrl + "/login", data).then((res) => {
-      console.log(res);
+      console.log(res.data.jwt);
       localStorage.setItem("jwt", JSON.stringify(res.data.jwt));
       localStorage.setItem("user", JSON.stringify(res.data));
       window.location = "/";
