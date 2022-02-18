@@ -30,7 +30,9 @@ const Profile = (props) => {
     const [avatar, setAvatar] = React.useState("");
     const [bio, setBio] = React.useState("");
     const [avatarURL, setAvatarURL] = React.useState("");
+    function handelLikedRecipes(){
 
+    }
     useEffect(() => {
         console.log(props)
         console.log(ReadOnlyProfile)
@@ -153,7 +155,7 @@ const Profile = (props) => {
                                     as="ul"
                                     style={{fontSize: "20px", margin: "40px"}}>
                                     <ListGroup.Item as="li">
-                                        <Link to="/recipe-liked" className="no-text-decoration">
+                                        <Link to="/recipes/liked" onClick={handelLikedRecipes} className="no-text-decoration">
                                             Liked Recipes
                                         </Link>
                                     </ListGroup.Item>

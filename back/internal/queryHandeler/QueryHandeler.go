@@ -88,6 +88,12 @@ func HandleRegisterQuery(request RegisterRequest, sessionLength int) LoginRespon
 }
 func HandelSendRecipe(recipe Entities.Recipe, username string) {
 	recipe.Writer = username
+	for i, ingredient := range recipe.Ingredients {
+		recipe.Ingredients[i].Ingredient = Entities.Ingredients[ingredient.IngredientKey]
+	}
+	for i, tag := range recipe.Tags {
+		recipe.Tags[i].Tag = Entities.Tags[tag.TagId]
+	}
 	database.AddRecipe(recipe)
 }
 func HandelUpdateRecipe(recipe Entities.Recipe, recipeId string, username string) bool {
@@ -248,7 +254,10 @@ func HandelGetUserRecipes(_username string) []Entities.Recipe {
 	miniRecipes := database.GetUserByUsername(_username).Recipes
 	var recipes []Entities.Recipe
 	for i, _ := range miniRecipes {
-		recipes = append(recipes, MiniRecipeToRecipe(miniRecipes[i]))
+		r := MiniRecipeToRecipe(miniRecipes[i])
+		if r.Name != "" {
+			recipes = append(recipes, r)
+		}
 	}
 	return recipes
 }

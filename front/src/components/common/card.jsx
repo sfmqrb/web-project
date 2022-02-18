@@ -76,7 +76,7 @@ const _Card_ = (props) => {
         </IconButton>
         <Link to={`/recipe/${id}`}>
           <IconButton aria-label="More Info" color="primary">
-            <MoreIcon />
+            <MoreIcon  />
           </IconButton>
         </Link>
       </CardActions>

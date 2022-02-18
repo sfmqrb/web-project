@@ -58,8 +58,8 @@ func UpdateUser(user Entities.User) {
 }
 
 func GetCommentedRecipes(user Entities.User) []Entities.Recipe {
-	var recipes []Entities.Recipe
-	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(recipes, bson.M{"comments.user.username": user.Username})
+	var recipes = []Entities.Recipe{}
+	e := mgm.Coll(&Entities.Recipe{}).SimpleFind(&recipes, bson.M{"comments.user.username": user.Username})
 	if e != nil {
 		print(e.Error())
 	}

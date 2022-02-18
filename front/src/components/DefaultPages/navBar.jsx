@@ -30,9 +30,9 @@ const NavBar = ({user, onChange, searchQuery, searchEnabled}) => {
                         </li>
                         {isLoggedIn ? (
                             <li>
-                                <Link to="#" className="nav-link px-2 link-dark navlinks">
+                                <a href="/recipes/my" className="nav-link px-2 link-dark navlinks">
                                     My Recipes
-                                </Link>
+                                </a>
                             </li>
                         ) : (
                             <>

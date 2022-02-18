@@ -269,7 +269,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 					return
 				}
 				recipes := queryHandeler.HandelGetLikedRecipes(_username)
-				responseWriter.WriteHeader(http.StatusOK)
+				//responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, recipes)
 			} else {
 				//get profile

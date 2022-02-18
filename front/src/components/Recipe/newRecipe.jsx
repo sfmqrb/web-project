@@ -17,8 +17,10 @@ import getHeader from "../../utils/getHeader";
 
 
 function NewRecipe(props) {
+    const isEdit = props.id !== ""
+    const username = JSON.parse(localStorage.getItem('user')).username
     const isAdmin = props.isAdmin || false;
-
+    console.log(props.isAdmin)
     const [tags, updateTags] = useState(props.tags || []);
     const [steps, updateSteps] = useState(props.steps || []);
     const [images, updateImages] = useState(props.images || []);
@@ -30,6 +32,7 @@ function NewRecipe(props) {
     const [nationality, updateNationality] = useState(props.nationality || "");
 
     const [imageURLs, updateImageURLs] = useState([]);
+    console.log("isEdit    " + isEdit)
     const handleSubmit = (props) => {
         console.log(images)
         let recipe =
@@ -38,6 +41,7 @@ function NewRecipe(props) {
                 //todo
                 imagePath: imageUrl,
                 steps: StringArrayToBackSteps(steps),
+                body: body,
                 type: type,
                 nationality: nationality,
                 //todo
@@ -46,14 +50,18 @@ function NewRecipe(props) {
                 tags: tags,
                 writer: JSON.parse(localStorage.getItem("user")).username
             }
-            // if(isAdmin)
+        // if(isAdmin)
         window.location = "/";
-        ax.post(cfg.apiUrl + "/recipe", recipe,getHeader()).then((res) => {
+        ax.post(cfg.apiUrl + "/recipe", recipe, getHeader()).then((res) => {
             console.log(res.status)
         });
         console.log((recipe))
         // //todo send backend
     };
+    const handleEdit = (props) => {
+        console.log("edit")
+    };
+
     const handleDiscard = (tags) => {
         window.location = "/";
         //todo send backend
@@ -139,14 +147,21 @@ function NewRecipe(props) {
                     </div>
                 </div>
                 <div className="container">
-                    {isAdmin ? (
+                    {isAdmin ? (isEdit ?
                         <SubmitDiscardFooter
-                            onSubmit={handleSubmit}
+                            onSubmit={handleEdit}
                             onDiscard={handleDiscard}
-                            submitTitle="Submit"
+                            submitTitle="Edit"
                             discardTitle="Discard"
                         />
-                    ) : null}
+                        : (
+                            <SubmitDiscardFooter
+                                onSubmit={handleSubmit}
+                                onDiscard={handleDiscard}
+                                submitTitle="Submit"
+                                discardTitle="Discard"
+                            />
+                        )) : null}
                 </div>
             </div>
         </>

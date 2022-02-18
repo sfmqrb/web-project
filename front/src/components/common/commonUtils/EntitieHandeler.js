@@ -18,6 +18,7 @@ export function backRecipeToFrontRecipe(backRecipe) {
         id: backRecipe.model.id,
         title: backRecipe.name,
         //todo
+        writer: backRecipe.writer,
         subheader: "",
         body: backRecipe.body,
         type: backRecipe.type,

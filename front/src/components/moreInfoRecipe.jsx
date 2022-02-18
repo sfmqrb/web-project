@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from "react";
-import getSpecificFakeCard from "../services/specificFakeCard";
 import NewRecipe from "./Recipe/newRecipe";
 import ax from "../services/httpService"
 import cfg from "../config.json";
 import getHeader from "../utils/getHeader";
-import {toast} from "react-toastify";
 import {backRecipeToFrontRecipe} from "./common/commonUtils/EntitieHandeler";
 
 const MoreInfoRecipe = () => {
@@ -21,8 +19,14 @@ const MoreInfoRecipe = () => {
             setInput(tmpInput);
         });
     }, []);
-
-    return <>{input ? <NewRecipe {...input} /> : "processing"}</>;
+    let admin = false
+    if (input) {
+        console.log(input)
+        admin = JSON.parse(localStorage.getItem('user')).username === input.writer
+        console.log(JSON.parse(localStorage.getItem('user')).username + "    " + input.writer)
+    }
+    console.log("admin   " + admin)
+    return <>{input ? <NewRecipe {...input} isAdmin={admin}/> : "processing"}</>;
 };
 
 export default MoreInfoRecipe;
