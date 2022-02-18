@@ -191,6 +191,7 @@ func loadIngredients() {
 	for _, ingredient := range ingredients {
 		Entities.Ingredients[ingredient.ID.Hex()] = ingredient
 	}
+	print("1")
 }
 func loadTags() {
 	var tags []Entities.Tag
