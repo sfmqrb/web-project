@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import "./areaMaker.css";
 const AreaMaker = (props) => {
   const { onChange, isAdmin, title: prTitle } = props;
   const [title, updateTitle] = useState("");
   const placeHolder = props.placeholder || "Title...";
+  const myRef = useRef()
   useEffect(() => {
-    onChange(title);
-  }, [title]);
+
+    // console.log("use effect area maker  " + title)
+    // console.log(myRef.current);
+    onChange(myRef.current.value);
+  });
 
   const handleChange = (e) => {
     updateTitle(e.target.value);
@@ -23,6 +27,7 @@ const AreaMaker = (props) => {
     <div>
       {introducer}
       <input
+          ref = {myRef}
         disabled={!isAdmin}
         defaultValue={prTitle || ""}
         className={"input-" + (props.isNotTitle ? "text" : "title")}
@@ -37,6 +42,7 @@ const AreaMaker = (props) => {
     <div>
       {introducer}
       <textarea
+          ref = {myRef}
         disabled={!isAdmin}
         defaultValue={prTitle || ""}
         className="textarea-text-input"

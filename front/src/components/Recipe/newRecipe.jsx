@@ -29,9 +29,29 @@ function NewRecipe(props) {
     const [title, updateTitle] = useState(props.title || "");
     const [type, updateType] = useState(props.type || "");
     const [body, updateBody] = useState(props.body || "");
+    const [id, updateId] = useState(props.id || "");
     const [nationality, updateNationality] = useState(props.nationality || "");
-
     const [imageURLs, updateImageURLs] = useState([]);
+
+    function getRecipe() {
+        let recipe =
+            {
+                name: title,
+                imagePath: imageUrl,
+                steps: StringArrayToBackSteps(steps),
+                body: body,
+                type: type,
+                nationality: nationality,
+                //todo
+                cookingTime: 10,
+                ingredients: ingredients,
+                tags: tags,
+                writer: JSON.parse(localStorage.getItem("user")).username
+            }
+        console.log("recipe    " + JSON.stringify(recipe))
+        return recipe
+    }
+
     console.log("isEdit    " + isEdit)
     const handleSubmit = (props) => {
         console.log(images)
@@ -59,27 +79,43 @@ function NewRecipe(props) {
         // //todo send backend
     };
     const handleEdit = (props) => {
-        console.log("edit")
+        let recipe =
+            {
+                name: title,
+                imagePath: imageUrl,
+                steps: StringArrayToBackSteps(steps),
+                body: body,
+                type: type,
+                nationality: nationality,
+                //todo
+                cookingTime: 10,
+                ingredients: ingredients,
+                tags: tags,
+                writer: JSON.parse(localStorage.getItem("user")).username
+            }
+        console.log("recipeEdit   " + JSON.stringify(recipe))
+        // window.location = "/";
+        // ax.put(cfg.apiUrl + "/recipe/" + id, recipe, getHeader()).then((res) => {
+        //     console.log(res.status)
+        // });
     };
 
     const handleDiscard = (tags) => {
         window.location = "/";
         //todo send backend
     };
-    useEffect(() => {
-        console.log(ingredients);
-        console.log(tags);
-    }, [tags, steps, images, title, ingredients]);
+
     useEffect(() => {
         if (images.length > 0) {
             console.log(images)
-            console.log(images[0].name)
+            console.log("image   " + images[0].name)
             ax.post(cfg.apiUrl + "/image/" + images[0].name, images[0]).then((res) => {
                 console.log(res.status)
                 console.log(res.data.fileName)
                 updateImageUrl(res.data.fileName)
             });
         }
+        updateImageUrl("")
     }, [images])
     return (
         <>
@@ -118,7 +154,7 @@ function NewRecipe(props) {
                             onChange={updateImages}
                             isAdmin={isAdmin}
                             images={images || []}
-                            imageURLs={imageURLs || []}
+                            imageURLs={[imageUrl] || []}
                         />{" "}
                         <AreaMaker
                             onChange={updateBody}
