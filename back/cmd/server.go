@@ -283,7 +283,22 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				}
 				sendResponseJson(responseWriter, user)
 			}
-
+		case http.MethodPost:
+			//edit profile
+			jwt := request.Header.Get("jwt")
+			_username, done := digestJwt(responseWriter, jwt)
+			if done {
+				responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
+				return
+			}
+			user := Entities.User{}
+			e := json.Unmarshal([]byte(getRequestBody(request)), &user)
+			if e != nil {
+				responseWriter.WriteHeader(http.StatusBadRequest)
+				return
+			}
+			queryHandeler.HandelEditProfile(_username, user)
+			responseWriter.WriteHeader(http.StatusOK)
 		case http.MethodPut:
 			//follow
 			jwt := request.Header.Get("jwt")

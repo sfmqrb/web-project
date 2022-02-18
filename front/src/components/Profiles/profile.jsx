@@ -13,9 +13,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import {toast} from "react-toastify";
 import ax from "../../services/httpService";
 import cfg from "../../config";
-import getFakeUser from "../../services/fakeUser";
 import getHeader from "../../utils/getHeader";
-import readOnlyProfile from "./readOnlyProfile";
 
 const Profile = (props) => {
     const ReadOnlyProfile = props.ReadOnlyProfile || false;
@@ -73,8 +71,12 @@ const Profile = (props) => {
     useEffect(() => {
         setAvatar(avatar);
         if (avatar) {
-            //todo
-            setAvatarURL(avatar);
+            console.log(avatar)
+            ax.post(cfg.apiUrl + "/image/" + avatar.name, avatar).then((res) => {
+                console.log(res.status)
+                console.log(res.data.fileName)
+                setAvatarURL(res.data.fileName)
+            });
         }
     }, [avatar]);
 
@@ -110,8 +112,21 @@ const Profile = (props) => {
     };
 
     const handleSubmitProfile = () => {
-        // backend
+        // todo backend
         console.log("Submitting writable profile...");
+        let req = {
+            name: name,
+            picturePath: avatarURL,
+            bio: bio
+        }
+        console.log(req)
+        ax.post(cfg.apiUrl + "/users/" + JSON.parse(localStorage.getItem("user")).username, req, getHeader()).then((res) => {
+            console.log(res.status)
+            console.log(res.data)
+            // setAvatarURL(res.data.imagePath)
+            // setBio(res.data.bio)
+            // setName(res.data.name)
+        });
     };
 
     return (

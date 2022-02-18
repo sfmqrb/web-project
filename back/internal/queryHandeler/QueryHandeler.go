@@ -109,6 +109,19 @@ func HandelUpdateRecipe(recipe Entities.Recipe, recipeId string, username string
 	}
 	return false
 }
+func HandelEditProfile(_username string, editedUser Entities.User) {
+	user := database.GetUserByUsername(_username)
+	if editedUser.Name != "" {
+		user.Name = editedUser.Name
+	}
+	if editedUser.Bio != "" {
+		user.Bio = editedUser.Bio
+	}
+	if editedUser.PicturePath != "" {
+		user.PicturePath = editedUser.PicturePath
+	}
+	database.UpdateUser(*user)
+}
 func HandelDelRecipe(recipeId string, username string) bool {
 	recipe := database.GetRecipeById(recipeId)
 	if recipe.Writer == username {
