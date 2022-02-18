@@ -2,16 +2,26 @@ package database
 
 import (
 	"back/internal/Entities"
+	cache "back/internal/cache"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"time"
+
 	"github.com/kamva/mgm/v3"
 	"github.com/kamva/mgm/v3/operator"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"io/ioutil"
-	"time"
+	mgo "gopkg.in/mgo.v2"
 )
 
+var cache_session = initMongoCache()
+var mongoCache = cache.NewMongoCacheWithTTL(cache_session, cache.StartGC())
+
+///////			cache should be initialized properly
+//defer mongoCache.StopGC()
+///////////////////////////////////////////////////////////////////////////
 type config struct {
 	Uri            string `json:"uri"`
 	DbName         string `json:"dbName"`
@@ -37,10 +47,24 @@ func ConnectDB() {
 }
 
 func GetUserByUsername(username string) *Entities.User {
+	data, err := mongoCache.Get(username)
 	user := &Entities.User{}
-	e := mgm.Coll(&Entities.User{}).First(bson.M{"username": username}, user)
-	if e != nil {
-		print(e.Error())
+	if err != nil {
+		if err := json.Unmarshal(data.([]byte), user); err != nil {
+			print(err.Error())
+		}
+		mongoCache.Set(username, data)
+	} else {
+		e := mgm.Coll(&Entities.User{}).First(bson.M{"username": username}, user)
+		if e != nil {
+			print(e.Error())
+		}
+		key := username
+		value, err := json.Marshal(*user)
+		if err != nil {
+			print(err.Error())
+		}
+		mongoCache.Set(key, value)
 	}
 	return user
 }
@@ -52,6 +76,10 @@ func CreateUser(user Entities.User) {
 	}
 }
 func UpdateUser(user Entities.User) {
+	err := mongoCache.Set(user.Username, user)
+	if err != nil {
+		print(err.Error())
+	}
 	_ = mgm.Coll(&user).Update(&user)
 }
 func GetCommentedRecipes(user Entities.User) []Entities.Recipe {
@@ -198,4 +226,20 @@ func loadTags() {
 	for _, tag := range tags {
 		Entities.Tags[tag.ID.Hex()] = tag
 	}
+}
+
+func initMongoCache() *mgo.Session {
+	mongoURI := os.Getenv("MONGODB_URL")
+	if mongoURI == "" {
+		mongoURI = "127.0.0.1:27017/cache"
+	}
+
+	ses, err := mgo.Dial(mongoURI)
+	if err != nil {
+		panic(err)
+	}
+
+	ses.SetSafe(&mgo.Safe{})
+
+	return ses
 }
