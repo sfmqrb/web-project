@@ -8,12 +8,12 @@ import {CheckTag} from "../../../services/Tools";
 
 //todo validate tags
 const emptyTag = {
-    id: "",
+    tagId: "",
     name: "",
 };
 
 let newTag = {
-    id: "",
+    tagId: "",
     name: "",
 };
 
@@ -35,12 +35,14 @@ export default function TagMaker(props) {
 
     useEffect(() => {
         props.onChange(tags);
+        console.log("tags in tagMaker ", JSON.stringify(tags))
     }, [tags]);
 
     const handleDeleteTag = (key) => {
         console.log(`deleting ${key}`);
         const newTags = tags.filter((tag) => {
-            const tmpKey = tag.id;
+            console.log("tag in delete", tag)
+            const tmpKey = tag.tagId;
             return tmpKey !== key;
         });
         setTags(newTags);
@@ -58,7 +60,7 @@ export default function TagMaker(props) {
         } else {
             const newTags = [
                 ...tags,
-                {tagId: tag.model.id, name:tag.name},
+                {tagId: tag.model.id, name: tag.name},
             ];
             newTag = {...emptyTag};
             emptyInputs();

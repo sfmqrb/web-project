@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 import TagMaker from "../common/RecipeMakers/tagMaker";
 import StepMaker from "../common/RecipeMakers/stepMaker";
@@ -17,21 +17,23 @@ import getHeader from "../../utils/getHeader";
 
 
 function NewRecipe(props) {
-    const isEdit = props.id !== ""
+    console.log("props id ",props.id)
+    const isEdit = !(typeof props.id === 'undefined')
+    console.log("isEdit    " + isEdit)
     const username = JSON.parse(localStorage.getItem('user')).username
     const isAdmin = props.isAdmin || false;
     console.log(props.isAdmin)
     const [tags, updateTags] = useState(props.tags || []);
     const [steps, updateSteps] = useState(props.steps || []);
-    const [images, updateImages] = useState(props.images || []);
-    const [imageUrl, updateImageUrl] = useState(props.images || "");
+    const [imageUrl, updateImageUrl] = useState(props.images && props.images[0] || "");
     const [ingredients, updateIngredients] = useState(props.ingredients || []);
     const [title, updateTitle] = useState(props.title || "");
     const [type, updateType] = useState(props.type || "");
     const [body, updateBody] = useState(props.body || "");
     const [id, updateId] = useState(props.id || "");
     const [nationality, updateNationality] = useState(props.nationality || "");
-    const [imageURLs, updateImageURLs] = useState([]);
+    console.log("props tag", props.tags)
+    console.log("tag", tags)
 
     function getRecipe() {
         let recipe =
@@ -52,9 +54,7 @@ function NewRecipe(props) {
         return recipe
     }
 
-    console.log("isEdit    " + isEdit)
     const handleSubmit = (props) => {
-        console.log(images)
         let recipe =
             {
                 name: title,
@@ -95,9 +95,9 @@ function NewRecipe(props) {
             }
         console.log("recipeEdit   " + JSON.stringify(recipe))
         // window.location = "/";
-        // ax.put(cfg.apiUrl + "/recipe/" + id, recipe, getHeader()).then((res) => {
-        //     console.log(res.status)
-        // });
+        ax.put(cfg.apiUrl + "/recipe/" + id, recipe, getHeader()).then((res) => {
+            console.log(res.status)
+        });
     };
 
     const handleDiscard = (tags) => {
@@ -105,18 +105,7 @@ function NewRecipe(props) {
         //todo send backend
     };
 
-    useEffect(() => {
-        if (images.length > 0) {
-            console.log(images)
-            console.log("image   " + images[0].name)
-            ax.post(cfg.apiUrl + "/image/" + images[0].name, images[0]).then((res) => {
-                console.log(res.status)
-                console.log(res.data.fileName)
-                updateImageUrl(res.data.fileName)
-            });
-        }
-        updateImageUrl("")
-    }, [images])
+
     return (
         <>
             <NavBar searchEnabled={false}/>
@@ -151,10 +140,9 @@ function NewRecipe(props) {
                     </div>
                     <div className="col-3">
                         <ImageUploader
-                            onChange={updateImages}
+                            onChange={updateImageUrl}
                             isAdmin={isAdmin}
-                            images={images || []}
-                            imageURLs={[imageUrl] || []}
+                            imageURL={imageUrl || ""}
                         />{" "}
                         <AreaMaker
                             onChange={updateBody}

@@ -15,8 +15,8 @@ function doTagsEditable(
         return (
           <Tag
             blue={blue}
-            key={tag.id}
-            id={tag.id}
+            key={tag.tagId}
+            id={tag.tagId}
             isAuthorizedToEdit={isAuthorizedToEdit}
             onDeletion={onDeletion}>
             <span>{name + " "}</span>

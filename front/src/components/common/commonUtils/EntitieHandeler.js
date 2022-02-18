@@ -31,14 +31,14 @@ export function backRecipeToFrontRecipe(backRecipe) {
 
 export function backTagToTag(backTag) {
     return {
-        id: backTag.tagId,
+        tagId: backTag.tagId,
         name: backTag.tag.name,
     }
 }
 
 export function backFoodIngToFoodIngredient(backIng) {
     return {
-        id: backIng.ingredientKey,
+        ingredientKey: backIng.ingredientKey,
         name: backIng.ingredient.name,
         quantity: backIng.volume,
         unit: backIng.ingredient.unit

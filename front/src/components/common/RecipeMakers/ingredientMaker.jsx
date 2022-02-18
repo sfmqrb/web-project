@@ -5,11 +5,10 @@ import ax from "../../../services/httpService";
 import cfg from "../../../config.json";
 import getHeader from "../../../utils/getHeader";
 import {CheckIngredient} from "../../../services/Tools";
-
 const emptyIng = {
+    ingredientKey:"",
     name: "",
-    quantity: "",
-    unit: "",
+    volume: "",
 };
 
 export default function IngredientMaker(props) {
@@ -44,7 +43,7 @@ export default function IngredientMaker(props) {
     const handleDeleteIngredient = (key) => {
         console.log(`deleting ${key}`);
         const newIngredients = ingredients.filter((ingredient) => {
-            const tmpKey = ingredient.id;
+            const tmpKey = ingredient.ingredientKey;
 
             return tmpKey !== key;
         });

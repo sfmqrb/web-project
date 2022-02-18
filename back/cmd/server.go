@@ -28,7 +28,7 @@ var ConfigData Config
 
 func main() {
 	// test
-	jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUxODM4NjAsIm5iZiI6MTY0NTE4MjY2MCwidXNlcm5hbWUiOiJhbW0yNjYifQ.2c3vksLllv70Siei-9PwpZFdQ0wKlcdFWk1nsc8BGkA"
+	jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUyMDAxNDAsIm5iZiI6MTY0NTE5ODk0MCwidXNlcm5hbWUiOiJhbW0yNjYifQ.boCbfRCaxtgGgczGDPFTM5pKBDeUlL-M6xDudnCb5MQ"
 	_username := authentication.VerifyJWT(jwt, ConfigData.MinuteTryLimit)
 	print(_username)
 
@@ -188,8 +188,12 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				return
 			}
 			var recipe Entities.Recipe
-			err := json.Unmarshal([]byte(getRequestBody(request)), &recipe)
+			recipeJson := getRequestBody(request)
+			err := json.Unmarshal([]byte(recipeJson), &recipe)
+			fmt.Println("recipe json " + recipeJson)
+			fmt.Println("recipe ", recipe)
 			if err != nil {
+				fmt.Println("json error ", err.Error())
 				responseWriter.WriteHeader(http.StatusBadRequest)
 				return
 			}
@@ -438,7 +442,7 @@ func getRequestBody(r *http.Request) string {
 }
 func sendResponseJson(writer http.ResponseWriter, res interface{}) {
 	resJson, _ := json.Marshal(res)
-	fmt.Println("response: " + string(resJson))
+	//fmt.Println("response: " + string(resJson))
 	_, err := writer.Write(resJson)
 	if err != nil {
 		print(err.Error())
