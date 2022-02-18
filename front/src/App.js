@@ -32,6 +32,7 @@ function App() {
         <div>
           <Routes>
             <Route exact path="/recipes" element={<CardSet />} />
+            <Route exact path="/recipes/result" element={<CardSet />} />
             <Route exact path="/login" element={<LoginForm />} />
             <Route exact path="/register" element={<RegisterForm />} />
             <Route exact path="/logout" element={<Logout />} />

@@ -32,6 +32,7 @@ function ImageUploader({
     const newImageURLs = newImages.map((image) => {
       return URL.createObjectURL(image);
     });
+    console.log("im  " + newImages)
     setImageURLs(newImageURLs);
     setImages(newImages);
   }

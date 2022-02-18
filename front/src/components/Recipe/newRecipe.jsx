@@ -11,9 +11,8 @@ import SubmitDiscardFooter from "../common/Buttons/submitDiscardFooter";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./newRecipe.css";
-import {StringArrayToBackSteps} from "../../services/Tools";
 import cfg from "../../config.json";
-import httpService from "../../services/httpService";
+import {StringArrayToBackSteps} from "../../services/Tools";
 import getHeader from "../../utils/getHeader";
 
 
@@ -23,6 +22,7 @@ function NewRecipe(props) {
     const [tags, updateTags] = useState(props.tags || []);
     const [steps, updateSteps] = useState(props.steps || []);
     const [images, updateImages] = useState(props.images || []);
+    const [imageUrl, updateImageUrl] = useState(props.images || "");
     const [ingredients, updateIngredients] = useState(props.ingredients || []);
     const [title, updateTitle] = useState(props.title || "");
     const [type, updateType] = useState(props.type || "");
@@ -36,7 +36,7 @@ function NewRecipe(props) {
             {
                 name: title,
                 //todo
-                imagePath: "",
+                imagePath: imageUrl,
                 steps: StringArrayToBackSteps(steps),
                 type: type,
                 nationality: nationality,
@@ -47,12 +47,12 @@ function NewRecipe(props) {
                 writer: JSON.parse(localStorage.getItem("user")).username
             }
             // if(isAdmin)
-        // window.location = "/";
+        window.location = "/";
         ax.post(cfg.apiUrl + "/recipe", recipe,getHeader()).then((res) => {
             console.log(res.status)
         });
         console.log((recipe))
-        //todo send backend
+        // //todo send backend
     };
     const handleDiscard = (tags) => {
         window.location = "/";
@@ -62,7 +62,17 @@ function NewRecipe(props) {
         console.log(ingredients);
         console.log(tags);
     }, [tags, steps, images, title, ingredients]);
-
+    useEffect(() => {
+        if (images.length > 0) {
+            console.log(images)
+            console.log(images[0].name)
+            ax.post(cfg.apiUrl + "/image/" + images[0].name, images[0]).then((res) => {
+                console.log(res.status)
+                console.log(res.data.fileName)
+                updateImageUrl(res.data.fileName)
+            });
+        }
+    }, [images])
     return (
         <>
             <NavBar searchEnabled={false}/>

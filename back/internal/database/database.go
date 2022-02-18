@@ -120,7 +120,7 @@ func EditRecipe(recipe Entities.Recipe) bool {
 }
 func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []string, orderBy string, ascending bool,
 	minCookingTime int, maxCookingTime int, textSearch string) []Entities.Recipe {
-	var recipes []Entities.Recipe
+	var recipes = []Entities.Recipe{}
 	filter := bson.M{}
 	allIngsM := operator.All
 	if len(ingsIn) == 0 {
@@ -135,12 +135,11 @@ func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []
 	}
 	var textFilter bson.M
 	if textSearch == "" {
-		filter = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut},
-			"cookingTime": bson.M{operator.Gt: minCookingTime, operator.Lt: maxCookingTime}}
+		filter = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut}}
 	} else {
 		textFilter = bson.M{"$search": textSearch}
 		filter = bson.M{"ingredients.ingredientKey": bson.M{allIngsM: ingsIn, operator.Nin: ingsOut}, "tags.tagId": bson.M{allTagsM: tagsIn, operator.Nin: tagsOut},
-			"cookingTime": bson.M{operator.Gt: minCookingTime, operator.Lt: maxCookingTime}, operator.Text: textFilter}
+			operator.Text: textFilter}
 	}
 
 	var orderOption options.FindOptions

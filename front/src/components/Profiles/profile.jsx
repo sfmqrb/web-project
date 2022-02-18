@@ -15,7 +15,7 @@ import ax from "../../services/httpService";
 import cfg from "../../config";
 import getFakeUser from "../../services/fakeUser";
 import getHeader from "../../utils/getHeader";
-import {backProfileToProfile} from "../common/commonUtils/EntitieHandeler";
+import readOnlyProfile from "./readOnlyProfile";
 
 const Profile = (props) => {
     const ReadOnlyProfile = props.ReadOnlyProfile || false;
@@ -35,7 +35,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         console.log(props)
-
+        console.log(ReadOnlyProfile)
         if (ReadOnlyProfile) {
             setName(props.name);
             setEmail(props.email);
@@ -46,11 +46,18 @@ const Profile = (props) => {
             console.log(props.name)
             // request from backend to get user related data
             //todo get data
-            const backUser = ax.get(cfg.apiUrl + "/users/" + props.name, getHeader()).then((res) => {
+            let username = JSON.parse(localStorage.getItem("user")).username
+            console.log("/users/" + username)
+            const backUser = ax.get(cfg.apiUrl + "/users/" + username, getHeader()).then((res) => {
                 console.log(res);
                 console.log(res.data.name)
                 if (res.status === 200) {
                     // toast.success("Password changed");
+                    setName(res.data.name);
+                    setEmail(res.data.email);
+                    setAvatar(res.data.picturePath);
+                    setBio(res.data.bio);
+                    setId(res.data.model.id);
                     return res.data
                 } else {
                     console.log("error")
@@ -58,13 +65,6 @@ const Profile = (props) => {
                     window.location = "/login"
                 }
             })
-            // const userData = getFakeUser();
-            const userData = backProfileToProfile(backUser);
-            setName(userData.name);
-            setEmail(userData.email);
-            setAvatar(userData.avatar);
-            setBio(userData.bio);
-            setId(userData.id);
         }
     }, [props]);
 

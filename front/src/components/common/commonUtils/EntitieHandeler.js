@@ -45,6 +45,7 @@ export function backFoodIngToFoodIngredient(backIng) {
 }
 
 export function backProfileToProfile(backProfile) {
+    console.log(JSON.stringify(backProfile))
     return {
         id: backProfile.model.id,
         password: "",
@@ -67,9 +68,9 @@ export function backProfileToProfile(backProfile) {
 export function backProfileToUserInfo(backProfile) {
     return {
         id: backProfile.model.id,
-        name: "ammir",
-        avatarURL: "https://unsplash.it/400/600",
-        bio: "My hand hurts",
+        name: backProfile.username,
+        avatarURL: backProfile.picturePath,
+        bio: backProfile.bio,
     }
 }
 export function backProfileToStt(backProfile) {
@@ -77,4 +78,19 @@ export function backProfileToStt(backProfile) {
         name: backProfile.username
         , email: backProfile.email, bio: backProfile.bio, avatar: backProfile.picturePath,
     }
+}
+export function tagsToKeyArray(tags){
+    let arr = []
+    tags.forEach((item, index) => {
+        arr.push(item.tagId)
+    })
+    return arr
+}
+
+export function ingredientsToKeyArray(tags){
+    let arr = []
+    tags.forEach((item, index) => {
+        arr.push(item.ingredientKey)
+    })
+    return arr
 }

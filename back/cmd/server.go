@@ -28,7 +28,7 @@ var ConfigData Config
 
 func main() {
 	// test
-	jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUxMzQyNTQsIm5iZiI6MTY0NTEzMzA1NCwidXNlcm5hbWUiOiJhbW0yNjYifQ.Nk-UPJYsRY5gRLo7CGgqidJeGwkFBdMaI6MVQenBpEM"
+	jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUxODM4NjAsIm5iZiI6MTY0NTE4MjY2MCwidXNlcm5hbWUiOiJhbW0yNjYifQ.2c3vksLllv70Siei-9PwpZFdQ0wKlcdFWk1nsc8BGkA"
 	_username := authentication.VerifyJWT(jwt, ConfigData.MinuteTryLimit)
 	print(_username)
 
@@ -103,6 +103,19 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			sendResponseJson(responseWriter, ingredient)
 		}
 	case "recipe":
+		if len(urlList) > 2 && urlList[2] == "find" {
+			// search for recipe
+			body := getRequestBody(request)
+			var searchRequest queryHandeler.SearchRecipeRequest
+			err := json.Unmarshal([]byte(body), &searchRequest)
+			if err != nil {
+				responseWriter.WriteHeader(http.StatusBadRequest)
+			}
+			var recipes []Entities.Recipe
+			recipes = queryHandeler.HandelSearchRecipe(searchRequest)
+			sendResponseJson(responseWriter, recipes)
+			return
+		}
 		switch request.Method {
 		case http.MethodPost:
 			if len(urlList) > 3 && urlList[3] == "comment" {
@@ -158,18 +171,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			}
 			return
 		case http.MethodGet:
-			if urlList[2] == "find" {
-				// search for recipe
-				body := getRequestBody(request)
-				var searchRequest queryHandeler.SearchRecipeRequest
-				err := json.Unmarshal([]byte(body), &searchRequest)
-				if err != nil {
-					responseWriter.WriteHeader(http.StatusBadRequest)
-				}
-				var recipes []Entities.Recipe
-				recipes = queryHandeler.HandelSearchRecipe(searchRequest)
-				sendResponseJson(responseWriter, recipes)
-			} else if urlList[2] == "get_selected_recipes" {
+			if urlList[2] == "get_selected_recipes" {
 				//get all
 				sendResponseJson(responseWriter, queryHandeler.HandleGetAllRecipe())
 			} else {
