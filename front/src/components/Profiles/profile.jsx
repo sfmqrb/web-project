@@ -55,7 +55,7 @@ const Profile = (props) => {
                     // toast.success("Password changed");
                     setName(res.data.name);
                     setEmail(res.data.email);
-                    setAvatar(res.data.picturePath);
+                    setAvatarURL(res.data.picturePath);
                     setBio(res.data.bio);
                     setId(res.data.model.id);
                     return res.data
@@ -71,8 +71,8 @@ const Profile = (props) => {
     const refPicture = useRef();
 
     useEffect(() => {
-        setAvatar(avatar);
         if (avatar) {
+            // setAvatar(avatar);
             console.log(avatar)
             ax.post(cfg.apiUrl + "/image/" + avatar.name, avatar).then((res) => {
                 console.log(res.status)
@@ -209,7 +209,7 @@ const Profile = (props) => {
                             </>
                         ) : null}
 
-                        {avatar ? (
+                        {avatarURL ? (
                             <div className="center-text">
                                 <img
                                     alt="mdo"
