@@ -58,7 +58,7 @@ export default function TagMaker(props) {
         } else {
             const newTags = [
                 ...tags,
-                tag,
+                {tagId: tag.model.id, name:tag.name},
             ];
             newTag = {...emptyTag};
             emptyInputs();

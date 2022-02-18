@@ -68,7 +68,7 @@ export default function IngredientMaker(props) {
         } else {
             const newIngredients = [
                 ...ingredients,
-                ingredient,
+                {ingredientKey: ingredient.model.id, volume: Number(newIng.quantity), name: newIng.name},
             ];
             newIng = emptyIng;
             emptyInputs();

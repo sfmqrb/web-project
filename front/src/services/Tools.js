@@ -26,3 +26,11 @@ export function CheckTag(tagName) {
     })
     return tag
 }
+
+export function StringArrayToBackSteps(arr){
+    let steps = []
+    arr.forEach((item, index) =>{
+        steps.push({text: item})
+    })
+    return steps
+}

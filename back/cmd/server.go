@@ -135,7 +135,8 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 					return
 				}
 				var recipe Entities.Recipe
-				err := json.Unmarshal([]byte(getRequestBody(request)), &recipe)
+				jStr := getRequestBody(request)
+				err := json.Unmarshal([]byte(jStr), &recipe)
 				if err != nil {
 					responseWriter.WriteHeader(http.StatusBadRequest)
 					return
