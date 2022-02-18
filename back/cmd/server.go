@@ -95,8 +95,13 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 		sendResponseJson(responseWriter, loginResponse)
 	case "ingredient":
-		ingredient := queryHandeler.HandelGetIngredient(urlList[2])
-		sendResponseJson(responseWriter, ingredient)
+		if urlList[2] == "all" {
+			ingredients := queryHandeler.HandelGetAllIngredients()
+			sendResponseJson(responseWriter, ingredients)
+		} else {
+			ingredient := queryHandeler.HandelGetIngredient(urlList[2])
+			sendResponseJson(responseWriter, ingredient)
+		}
 	case "recipe":
 		switch request.Method {
 		case http.MethodPost:
@@ -105,6 +110,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				jwt := request.Header.Get("jwt")
 				_username, done := digestJwt(responseWriter, jwt)
 				if done {
+					responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
 					return
 				}
 				var comment Entities.Comment
@@ -125,6 +131,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				jwt := request.Header.Get("jwt")
 				_username, done := digestJwt(responseWriter, jwt)
 				if done {
+					responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
 					return
 				}
 				var recipe Entities.Recipe
@@ -140,6 +147,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			jwt := request.Header.Get("jwt")
 			_username, done := digestJwt(responseWriter, jwt)
 			if done {
+				responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
 				return
 			}
 			if queryHandeler.HandelDelRecipe(urlList[2], _username) {
@@ -173,6 +181,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			jwt := request.Header.Get("jwt")
 			_username, done := digestJwt(responseWriter, jwt)
 			if done {
+				responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
 				return
 			}
 			var recipe Entities.Recipe
@@ -209,6 +218,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				jwt := request.Header.Get("jwt")
 				_username, done := digestJwt(responseWriter, jwt)
 				if done {
+					responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
 					return
 				}
 				added := queryHandeler.HandelSaveRecipe(_username, urlList[2])
@@ -221,6 +231,7 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				jwt := request.Header.Get("jwt")
 				_username, done := digestJwt(responseWriter, jwt)
 				if done {
+					responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
 					return
 				}
 				added := queryHandeler.HandelForgotRecipe(_username, urlList[2])
@@ -232,25 +243,36 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			}
 			return
 		}
-		jwt := request.Header.Get("jwt")
-		_username, done := digestJwt(responseWriter, jwt)
-		if done {
-			return
-		}
+
 		switch request.Method {
 		case http.MethodGet:
 			if urlList[2] == "saved_recipes" {
 				//get saved recipes
+				jwt := request.Header.Get("jwt")
+				_username, done := digestJwt(responseWriter, jwt)
+				if done {
+					responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
+					return
+				}
 				miniRecipes := queryHandeler.HandelGetSavedRecipes(_username)
 				responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, miniRecipes)
 			} else if urlList[2] == "liked_recipes" {
 				// get liked recipes
+				jwt := request.Header.Get("jwt")
+				_username, done := digestJwt(responseWriter, jwt)
+				if done {
+					responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
+					return
+				}
 				recipes := queryHandeler.HandelGetLikedRecipes(_username)
 				responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, recipes)
 			} else {
 				//get profile
+				jwt := request.Header.Get("jwt")
+				//todo
+				_username, _ := digestJwt(responseWriter, jwt)
 				user, found := queryHandeler.HandelGetProfile(_username, urlList[2])
 				if !found {
 					responseWriter.WriteHeader(http.StatusBadRequest)
@@ -258,11 +280,24 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 				}
 				sendResponseJson(responseWriter, user)
 			}
+
 		case http.MethodPut:
 			//follow
+			jwt := request.Header.Get("jwt")
+			_username, done := digestJwt(responseWriter, jwt)
+			if done {
+				responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
+				return
+			}
 			queryHandeler.HandelFollow(_username, urlList[2])
 		case http.MethodDelete:
 			//unfollow
+			jwt := request.Header.Get("jwt")
+			_username, done := digestJwt(responseWriter, jwt)
+			if done {
+				responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
+				return
+			}
 			queryHandeler.HandelUnfollow(_username, urlList[2])
 
 		}
@@ -312,13 +347,18 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			}
 		}
 	case "tag":
-		tag := queryHandeler.HandleGetTag(urlList[2])
-		if tag.Name == "" {
-			responseWriter.WriteHeader(http.StatusNoContent)
-			return
+		if urlList[2] == "all" {
+			tags := queryHandeler.HandelGetAllTags()
+			sendResponseJson(responseWriter, tags)
+		} else {
+			tag := queryHandeler.HandleGetTag(urlList[2])
+			if tag.Name == "" {
+				responseWriter.WriteHeader(http.StatusNoContent)
+				return
+			}
+			sendResponseJson(responseWriter, tag)
+			responseWriter.WriteHeader(http.StatusFound)
 		}
-		sendResponseJson(responseWriter, tag)
-		responseWriter.WriteHeader(http.StatusFound)
 	}
 	return
 }
@@ -343,7 +383,6 @@ func digestJwt(responseWriter http.ResponseWriter, jwt string) (string, bool) {
 		return "", true
 	} else if _username == "" {
 		// invalid jwt
-		responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
 		return "", true
 	}
 	return _username, false

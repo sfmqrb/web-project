@@ -121,6 +121,21 @@ func HandelGetIngredient(_id string) Entities.Ingredient {
 	ingredient := database.GetIngredientById(_id)
 	return ingredient
 }
+func HandelGetAllIngredients() []Entities.Ingredient {
+	ingredients := []Entities.Ingredient{}
+	for _, ingredient := range Entities.Ingredients {
+		ingredients = append(ingredients, ingredient)
+	}
+	return ingredients
+}
+
+func HandelGetAllTags() []Entities.Tag {
+	tags := []Entities.Tag{}
+	for _, tag := range Entities.Tags {
+		tags = append(tags, tag)
+	}
+	return tags
+}
 func HandelGetRecipe(_id string) Entities.Recipe {
 	recipe := database.GetRecipeById(_id)
 	return recipe
