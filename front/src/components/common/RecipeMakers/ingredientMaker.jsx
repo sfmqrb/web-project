@@ -4,7 +4,7 @@ import "./ingredientMaker.css";
 import ax from "../../../services/httpService";
 import cfg from "../../../config.json";
 import getHeader from "../../../utils/getHeader";
-import {CheckIngredient} from "../../../services/Tools";
+import {CheckIngredient, TokenIsExpires} from "../../../services/Tools";
 const emptyIng = {
     ingredientKey:"",
     name: "",
@@ -19,6 +19,10 @@ export default function IngredientMaker(props) {
     if (localStorage.getItem("ingredients") === null) {
         ax.get(cfg.apiUrl + "/ingredient/all", getHeader()).then((res) => {
             console.log(res);
+            if (res.status === 203){
+                TokenIsExpires()
+                return
+            }
             localStorage.setItem("ingredients", JSON.stringify(res.data))
             window.location.reload(false)
         });

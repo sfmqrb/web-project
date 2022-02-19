@@ -5,6 +5,7 @@ import ax from "../services/httpService";
 import Input from "./common/Forms/input";
 import EasyButton from "./common/Buttons/easyButton";
 import cfg from "../config.json";
+import {TokenIsExpires} from "../services/Tools";
 
 const RegisterForm = (props) => {
   const [username, setUsername] = useState("");
@@ -16,6 +17,10 @@ const RegisterForm = (props) => {
     console.log("in registerForm :: handleClick");
     const data = { username, password, name };
     ax.post(cfg.apiUrl + "/register", data).then((res) => {
+      if (res.status === 203){
+        TokenIsExpires()
+        return
+      }
       localStorage.setItem("jwt", res.data.jwt);
       localStorage.setItem("user", JSON.stringify(res.data));
     });

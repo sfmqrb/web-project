@@ -4,6 +4,7 @@ import ax from "../services/httpService"
 import cfg from "../config.json";
 import getHeader from "../utils/getHeader";
 import {backRecipeToFrontRecipe} from "./common/commonUtils/EntitieHandeler";
+import {TokenIsExpires} from "../services/Tools";
 
 const MoreInfoRecipe = () => {
     const [input, setInput] = useState(null);
@@ -14,6 +15,10 @@ const MoreInfoRecipe = () => {
         console.log("recipe id " + id)
         ax.get(cfg.apiUrl + "/recipe/" + id, getHeader()).then((res) => {
             console.log(res);
+            if (res.status === 203){
+                TokenIsExpires()
+                return
+            }
             let recipe = backRecipeToFrontRecipe(res.data)
             const tmpInput = {...recipe, isAdmin: false};
             setInput(tmpInput);

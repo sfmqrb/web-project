@@ -4,6 +4,7 @@ import "./imagesUploader.css";
 import TitleMellow from "../Titles/titleMellow";
 import ax from "../../../services/httpService";
 import cfg from "../../../config.json";
+import {TokenIsExpires} from "../../../services/Tools";
 
 function ImageUploader({
                            onChange: setImageUrlParent,
@@ -29,6 +30,10 @@ function ImageUploader({
         console.log("image   " + image.name)
         ax.post(cfg.apiUrl + "/image/" + image.name, image).then((res) => {
             console.log(res.status)
+            if (res.status === 203){
+                TokenIsExpires()
+                return
+            }
             console.log(res.data.fileName)
             setImageURL(res.data.fileName)
         });

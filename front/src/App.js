@@ -6,7 +6,7 @@ import {
   Routes,
 } from "react-router-dom";
 
-import { ToastContainer } from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import LoginForm from "./components/loginForm";
@@ -60,3 +60,6 @@ function App() {
 }
 
 export default App;
+export function ExpiredTokenToast(){
+  toast.warning("your token is expired",)
+}

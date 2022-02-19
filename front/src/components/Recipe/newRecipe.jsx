@@ -12,12 +12,12 @@ import SubmitDiscardFooter from "../common/Buttons/submitDiscardFooter";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./newRecipe.css";
 import cfg from "../../config.json";
-import {StringArrayToBackSteps} from "../../services/Tools";
+import {StringArrayToBackSteps, TokenIsExpires} from "../../services/Tools";
 import getHeader from "../../utils/getHeader";
 
 
 function NewRecipe(props) {
-    console.log("props id ",props.id)
+    console.log("props id ", props.id)
     const isEdit = !(typeof props.id === 'undefined')
     console.log("isEdit    " + isEdit)
     const username = JSON.parse(localStorage.getItem('user')).username
@@ -71,12 +71,16 @@ function NewRecipe(props) {
                 writer: JSON.parse(localStorage.getItem("user")).username
             }
         // if(isAdmin)
-        window.location = "/";
         ax.post(cfg.apiUrl + "/recipe", recipe, getHeader()).then((res) => {
             console.log(res.status)
+            if (res.status === 203) {
+                TokenIsExpires()
+                return
+            } else {
+                window.location = "/";
+            }
         });
         console.log((recipe))
-        // //todo send backend
     };
     const handleEdit = (props) => {
         let recipe =
@@ -94,8 +98,13 @@ function NewRecipe(props) {
                 writer: JSON.parse(localStorage.getItem("user")).username
             }
         console.log("recipeEdit   " + JSON.stringify(recipe))
-        // window.location = "/";
         ax.put(cfg.apiUrl + "/recipe/" + id, recipe, getHeader()).then((res) => {
+            if (res.status === 203) {
+                TokenIsExpires()
+                return
+            } else {
+                window.location = "/";
+            }
             console.log(res.status)
         });
     };

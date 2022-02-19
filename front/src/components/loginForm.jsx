@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import Input from "./common/Forms/input";
 
 import "../App.css";
+import {TokenIsExpires} from "../services/Tools";
 
 const LoginForm = () => {
     const [username, setUsername] = React.useState("");
@@ -17,6 +18,10 @@ const LoginForm = () => {
         const data = {username, password};
         ax.post(cfg.apiUrl + "/login", data).then((res) => {
             console.log(res.data.jwt);
+            if (res.status === 203){
+                TokenIsExpires()
+                return
+            }
             localStorage.setItem("jwt", res.data.jwt);
             localStorage.setItem("user", JSON.stringify(res.data));
             window.location = "/";

@@ -4,7 +4,7 @@ import "./tagMaker.css";
 import ax from "../../../services/httpService";
 import cfg from "../../../config.json";
 import getHeader from "../../../utils/getHeader";
-import {CheckTag} from "../../../services/Tools";
+import {CheckTag, TokenIsExpires} from "../../../services/Tools";
 
 //todo validate tags
 const emptyTag = {
@@ -24,6 +24,10 @@ export default function TagMaker(props) {
     if (localStorage.getItem("tags") === null) {
         ax.get(cfg.apiUrl + "/tag/all", getHeader()).then((res) => {
             console.log(res);
+            if (res.status === 203){
+                TokenIsExpires()
+                return
+            }
             localStorage.setItem("tags", JSON.stringify(res.data))
             window.location.reload(false)
         });

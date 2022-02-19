@@ -14,6 +14,7 @@ import {toast} from "react-toastify";
 import ax from "../../services/httpService";
 import cfg from "../../config";
 import getHeader from "../../utils/getHeader";
+import {TokenIsExpires} from "../../services/Tools";
 
 const Profile = (props) => {
     const ReadOnlyProfile = props.ReadOnlyProfile || false;
@@ -75,6 +76,10 @@ const Profile = (props) => {
             // setAvatar(avatar);
             console.log(avatar)
             ax.post(cfg.apiUrl + "/image/" + avatar.name, avatar).then((res) => {
+                if (res.status === 203){
+                    TokenIsExpires()
+                    return
+                }
                 console.log(res.status)
                 console.log(res.data.fileName)
                 setAvatarURL(res.data.fileName)
@@ -106,6 +111,10 @@ const Profile = (props) => {
                     toast.success("Password changed");
                 } else {
                     toast.warning("Password not changed");
+                    if (res.status === 203){
+                        TokenIsExpires()
+                        return
+                    }
                 }
             });
         } else {
@@ -125,6 +134,10 @@ const Profile = (props) => {
         ax.post(cfg.apiUrl + "/users/" + JSON.parse(localStorage.getItem("user")).username, req, getHeader()).then((res) => {
             console.log(res.status)
             console.log(res.data)
+            if (res.status === 203){
+                TokenIsExpires()
+                return
+            }
             // setAvatarURL(res.data.imagePath)
             // setBio(res.data.bio)
             // setName(res.data.name)

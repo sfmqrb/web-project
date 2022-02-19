@@ -1,3 +1,6 @@
+import {toast} from "react-toastify";
+import {wait} from "@testing-library/user-event/dist/utils";
+
 export function CheckIngredient(ingredientName) {
     const ingredients = JSON.parse(localStorage.getItem("ingredients"))
     let found = false
@@ -33,4 +36,11 @@ export function StringArrayToBackSteps(arr){
         steps.push({text: item})
     })
     return steps
+}
+
+
+export function TokenIsExpires(){
+    toast.warning("your token is expired")
+    setTimeout(() => { window.location = "/login" }, 2000);
+    // toast.warning("your token is expired")
 }

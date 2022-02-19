@@ -9,6 +9,7 @@ import "./searchAdvanced.css";
 import {backRecipeToFrontRecipe, ingredientsToKeyArray, tagsToKeyArray} from "../common/commonUtils/EntitieHandeler";
 import cfg from "../../config.json";
 import getHeader from "../../utils/getHeader";
+import {TokenIsExpires} from "../../services/Tools";
 
 const SearchAdvanced = (props) => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -38,6 +39,10 @@ const SearchAdvanced = (props) => {
 
         ax.post(cfg.apiUrl + "/recipe/find",req , getHeader()).then((res) => {
             console.log(res);
+            if (res.status === 203){
+                TokenIsExpires()
+                return
+            }
             let recipes = []
             res.data.forEach((item, index) => {
                 recipes.push(backRecipeToFrontRecipe(item))

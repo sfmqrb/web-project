@@ -9,6 +9,7 @@ import getFakeCard from "../services/fakeCard";
 import cfg from "../config.json";
 import getHeader from "../utils/getHeader";
 import {backRecipeToFrontRecipe} from "./common/commonUtils/EntitieHandeler";
+import {TokenIsExpires} from "../services/Tools";
 
 class CardSet extends Component {
     s = window.location.href.split("/")[4]
@@ -42,10 +43,9 @@ class CardSet extends Component {
                 if (true) {
                     ax.get(cfg.apiUrl + "/users/liked_recipes", getHeader()).then((res) => {
                         console.log(res);
-                        if (res.status === 200) {
-                            // toast.success("Password changed");
-                        } else {
-                            // toast.warning("Password not changed");
+                        if (res.status === 203){
+                            TokenIsExpires()
+                            return
                         }
                         let recipes = []
                         res.data.forEach((item, index) => {
@@ -65,10 +65,9 @@ class CardSet extends Component {
                 if (true) {
                     ax.get(cfg.apiUrl + "/users/" + JSON.parse(localStorage.getItem('user')).username + "/recipes", getHeader()).then((res) => {
                         console.log(res);
-                        if (res.status === 200) {
-                            // toast.success("Password changed");
-                        } else {
-                            // toast.warning("Password not changed");
+                        if (res.status === 203){
+                            TokenIsExpires()
+                            return
                         }
                         let recipes = []
                         res.data.forEach((item, index) => {
@@ -88,10 +87,9 @@ class CardSet extends Component {
                 if (true) {
                     ax.get(cfg.apiUrl + "/recipe/get_selected_recipes", getHeader()).then((res) => {
                         console.log(res);
-                        if (res.status === 200) {
-                            // toast.success("Password changed");
-                        } else {
-                            // toast.warning("Password not changed");
+                        if (res.status === 203){
+                            TokenIsExpires()
+                            return
                         }
                         let recipes = []
                         res.data.forEach((item, index) => {
@@ -144,6 +142,10 @@ class CardSet extends Component {
                     }
                 console.log(comment)
                 ax.post(cfg.apiUrl + "/recipe/" + card.id + "/comment", comment, getHeader()).then((res) => {
+                    if (res.status === 203){
+                        TokenIsExpires()
+                        return
+                    }
                 });
 
             }
