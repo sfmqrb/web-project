@@ -85,7 +85,7 @@ const getIsLoggedInHtml = (isLoggedIn) => {
                 <img
                     // todo proper image
                     // src="https://github.com/mdo.png"
-                    src={JSON.parse(localStorage.getItem('user')).image = "" ?  "https://github.com/mdo.png" : JSON.parse(localStorage.getItem('user')).image}
+                    src={JSON.parse(localStorage.getItem('user')).image ? JSON.parse(localStorage.getItem('user')).image  :  "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png"}
                     alt="mdo"
                     width="50"
                     height="50"
