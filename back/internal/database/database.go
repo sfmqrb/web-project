@@ -42,31 +42,7 @@ func ConnectDB() {
 
 	loadIngredients()
 	loadTags()
-
-	//defer mongoCache.StopGC()
-
-	user := Entities.User{
-		Username:         "baba",
-		Password:         "wetytryu",
-		Name:             "Balou",
-		PicturePath:      "",
-		Bio:              "GoooooD",
-		Email:            "A@bulu.com",
-		PhoneNumber:      "0912547869",
-		Links:            []Entities.Link{},
-		Followers:        []string{"Ahmad", "Reza"},
-		Followings:       []string{"Mola", "Mona"},
-		HasMoreFollowers: false,
-		Recipes:          []Entities.MiniRecipe{},
-		SavedRecipes:     []Entities.MiniRecipe{},
-	}
-	fmt.Printf("\n\n")
-	CreateUser(user)
-	fmt.Println("user created successfully")
-	temp := GetUserByUsername("baba")
-	fmt.Println(temp)
-	temp = GetUserByUsername("baba")
-	fmt.Printf("\n\n\n\n\n\n\n")
+	defer mongoCache.StopGC()
 }
 
 func GetUserByUsername(username string) *Entities.User {
@@ -76,11 +52,8 @@ func GetUserByUsername(username string) *Entities.User {
 		if err := json.Unmarshal(metaUser.([]byte), user); err != nil {
 			print(err.Error())
 		}
-		fmt.Println("user in cache")
 		mongoCache.UpdateExpiration(username)
-		fmt.Println("user Exp time updated successfully")
 	} else {
-		fmt.Println("user not in cache")
 		e := mgm.Coll(&Entities.User{}).First(bson.M{"username": username}, user)
 		if e != nil {
 			print(e.Error())
