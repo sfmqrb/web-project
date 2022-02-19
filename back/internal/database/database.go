@@ -113,10 +113,23 @@ func AddRecipe(recipe Entities.Recipe) {
 }
 func GetRecipeById(_id string) Entities.Recipe {
 	var recipe Entities.Recipe
-	err := mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
-	if err != nil {
-		print(err.Error())
-		//todo handel no recipe
+	metaRecipe, err := mongoCache.Get(_id)
+	if err == nil {
+		if err := json.Unmarshal(metaRecipe.([]byte), &recipe); err != nil {
+			print(err.Error())
+		}
+		// update expireAt time
+	} else {
+		err = mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
+		if err != nil {
+			print(err.Error())
+			//todo handel no recipe
+		}
+		value, err := json.Marshal(recipe)
+		if err != nil {
+			print(err.Error())
+		}
+		mongoCache.Set(_id, value)
 	}
 	// fill ingredients
 	for i, _ := range recipe.Ingredients {
@@ -187,14 +200,26 @@ func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []
 	}
 	return recipes
 }
+
+// how to kee pitemps in cache
 func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient
-	ingredient = Entities.Ingredients[_id]
+	data, err := mongoCache.Get(_id)
+	if err != nil {
+		print(err.Error())
+	}
+	_ = json.Unmarshal(data.([]byte), &ingredient)
+	//ingredient = Entities.Ingredients[_id]
 	return ingredient
 }
 func GetTagById(_id string) Entities.Tag {
 	var tag Entities.Tag
-	tag = Entities.Tags[_id]
+	data, err := mongoCache.Get(_id)
+	if err != nil {
+		print(err.Error())
+	}
+	_ = json.Unmarshal(data.([]byte), &tag)
+	//tag = Entities.Tags[_id]
 	return tag
 }
 func GetProfileRecipes(_id string) []Entities.MiniRecipe {
