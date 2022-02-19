@@ -48,13 +48,13 @@ func ConnectDB() {
 }
 
 func GetUserByUsername(username string) *Entities.User {
-	data, err := mongoCache.Get(username)
+	metaUser, err := mongoCache.Get(username)
 	user := &Entities.User{}
 	if err == nil {
-		if err := json.Unmarshal(data.([]byte), user); err != nil {
+		if err := json.Unmarshal(metaUser.([]byte), user); err != nil {
 			print(err.Error())
 		}
-		mongoCache.Set(username, data)
+		mongoCache.UpdateExpiration(metaUser)
 	} else {
 		e := mgm.Coll(&Entities.User{}).First(bson.M{"username": username}, user)
 		if e != nil {
@@ -118,7 +118,8 @@ func GetRecipeById(_id string) Entities.Recipe {
 		if err := json.Unmarshal(metaRecipe.([]byte), &recipe); err != nil {
 			print(err.Error())
 		}
-		// update expireAt time
+		// Hope it works
+		mongoCache.UpdateExpiration(metaRecipe)
 	} else {
 		err = mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
 		if err != nil {
@@ -204,21 +205,21 @@ func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []
 // how to kee pitemps in cache
 func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient
-	data, err := mongoCache.Get(_id)
+	metaIngredient, err := mongoCache.Get(_id)
 	if err != nil {
 		print(err.Error())
 	}
-	_ = json.Unmarshal(data.([]byte), &ingredient)
+	_ = json.Unmarshal(metaIngredient.([]byte), &ingredient)
 	//ingredient = Entities.Ingredients[_id]
 	return ingredient
 }
 func GetTagById(_id string) Entities.Tag {
 	var tag Entities.Tag
-	data, err := mongoCache.Get(_id)
+	metaTag, err := mongoCache.Get(_id)
 	if err != nil {
 		print(err.Error())
 	}
-	_ = json.Unmarshal(data.([]byte), &tag)
+	_ = json.Unmarshal(metaTag.([]byte), &tag)
 	//tag = Entities.Tags[_id]
 	return tag
 }

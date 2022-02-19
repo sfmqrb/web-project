@@ -14,7 +14,12 @@ type Document struct {
 	ExpireAt time.Time   `bson:"expireAt" json:"expireAt"`
 }
 
-// get fetches the key with its given key input 
+// update expired document can improve
+func (m *MongoCache) updateExpiration(data interface{}) {
+	data.(*Document).ExpireAt = time.Now().Add(m.TTL)
+}
+
+// get fetches the key with its given key input
 func (m *MongoCache) get(key string) (*Document, error) {
 	keyValue := new(Document)
 
