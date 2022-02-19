@@ -23,11 +23,6 @@ const ReadOnlyProfile = (props) => {
         if (stt.name === "") {
             const u = ax.get(cfg.apiUrl + "/users/" + username, getHeader()).then((res) => {
                 console.log(res);
-                // if (res.status === 200) {
-                //   toast.success("Password changed");
-                // } else {
-                //   toast.warning("Password not changed");
-                // }
                 let frontUser = backProfileToStt(res.data)
                 console.log("fu " + JSON.stringify(frontUser))
                 // setIsLoaded(true)

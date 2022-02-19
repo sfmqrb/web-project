@@ -40,7 +40,8 @@ const Profile = (props) => {
         if (ReadOnlyProfile) {
             setName(props.name);
             setEmail(props.email);
-            setAvatar(props.avatar);
+            // setAvatar(props.avatar);
+            setAvatarURL(props.avatar)
             setBio(props.bio);
             setId(props.id);
         } else {
