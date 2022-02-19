@@ -49,7 +49,7 @@ func ConnectDB() {
 func GetUserByUsername(username string) *Entities.User {
 	data, err := mongoCache.Get(username)
 	user := &Entities.User{}
-	if err != nil {
+	if err == nil {
 		if err := json.Unmarshal(data.([]byte), user); err != nil {
 			print(err.Error())
 		}
@@ -76,7 +76,11 @@ func CreateUser(user Entities.User) {
 	}
 }
 func UpdateUser(user Entities.User) {
-	err := mongoCache.Set(user.Username, user)
+	value, err := json.Marshal(user)
+	if err != nil {
+		print(err.Error())
+	}
+	err = mongoCache.Set(user.Username, value)
 	if err != nil {
 		print(err.Error())
 	}
