@@ -30,6 +30,7 @@ const _Card_ = (props) => {
         ingredients,
     } = props;
     const image = images[0] || null;
+    console.log("card img  ",image)
     return (
         <Card
             key={id}
@@ -43,7 +44,7 @@ const _Card_ = (props) => {
                 <CardMedia
                     className="pic-overlay"
                     component="img"
-                    image={image}
+                    image={image? image:"https://images.freekaamaal.com/post_images/1606817930.jpg"}
                     alt="dish"
                 />
             </div>

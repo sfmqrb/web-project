@@ -15,8 +15,12 @@ export function backRecipeToFrontRecipe(backRecipe) {
     try {
 
         backRecipe.comments.forEach((item, index) => {
-            if (item.user.username === JSON.parse(localStorage.getItem('user')).username) {
-                liked = true
+            try {
+                if (item.user.username === JSON.parse(localStorage.getItem('user')).username) {
+                    liked = true
+                }
+            } catch (e) {
+
             }
         })
     } catch (e) {

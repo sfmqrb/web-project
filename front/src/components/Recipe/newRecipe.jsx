@@ -20,12 +20,12 @@ function NewRecipe(props) {
     console.log("props id ", props.id)
     const isEdit = !(typeof props.id === 'undefined')
     console.log("isEdit    " + isEdit)
-    const username = JSON.parse(localStorage.getItem('user')).username
+    // const username = JSON.parse(localStorage.getItem('user')).username
     const isAdmin = props.isAdmin || false;
     console.log(props.isAdmin)
     const [tags, updateTags] = useState(props.tags || []);
     const [steps, updateSteps] = useState(props.steps || []);
-    const [imageUrl, updateImageUrl] = useState(props.images && props.images[0] || "");
+    const [imageUrl, updateImageUrl] = useState(props.images && props.images[0] || "https://images.freekaamaal.com/post_images/1606817930.jpg");
     const [ingredients, updateIngredients] = useState(props.ingredients || []);
     const [title, updateTitle] = useState(props.title || "");
     const [type, updateType] = useState(props.type || "");

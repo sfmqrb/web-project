@@ -14,12 +14,13 @@ const MoreInfoRecipe = () => {
         const id = url.split("/")[4];
         console.log("recipe id " + id)
         ax.get(cfg.apiUrl + "/recipe/" + id, getHeader()).then((res) => {
-            console.log(res);
-            if (res.status === 203){
+            console.log("res    ", res);
+            if (res.status === 203) {
                 TokenIsExpires()
                 return
             }
             let recipe = backRecipeToFrontRecipe(res.data)
+            console.log("recipe   ", recipe)
             const tmpInput = {...recipe, isAdmin: false};
             setInput(tmpInput);
         });
@@ -27,8 +28,12 @@ const MoreInfoRecipe = () => {
     let admin = false
     if (input) {
         console.log(input)
-        admin = JSON.parse(localStorage.getItem('user')).username === input.writer
-        console.log(JSON.parse(localStorage.getItem('user')).username + "    " + input.writer)
+        try {
+            admin = JSON.parse(localStorage.getItem('user')).username === input.writer
+            console.log(JSON.parse(localStorage.getItem('user')).username + "    " + input.writer)
+        } catch (e) {
+
+        }
     }
     console.log("admin   " + admin)
     return <>{input ? <NewRecipe {...input} isAdmin={admin}/> : "processing"}</>;
