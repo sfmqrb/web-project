@@ -37,6 +37,7 @@ export function backRecipeToFrontRecipe(backRecipe) {
         tags: tags,
         ingredients: ingredients,
         liked: liked,
+        profileImgUrl: backRecipe.writerObject.picturePath
     }
 }
 

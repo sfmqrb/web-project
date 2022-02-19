@@ -162,14 +162,23 @@ func HandelGetAllTags() []Entities.Tag {
 }
 func HandelGetRecipe(_id string) Entities.Recipe {
 	recipe := database.GetRecipeById(_id)
+	recipe.WriterObject = Entities.UserToMiniUser(*database.GetUserByUsername(recipe.Writer))
 	return recipe
 }
 func HandelSearchRecipe(req SearchRecipeRequest) []Entities.Recipe {
-	return database.SearchRecipe(req.IngsIn, req.IngsOut, req.TagsIn, req.TagsOut, req.OrderBy, req.Ascending,
+	recipes := database.SearchRecipe(req.IngsIn, req.IngsOut, req.TagsIn, req.TagsOut, req.OrderBy, req.Ascending,
 		req.MinCookingTime, req.MaxCookingTime, req.SearchText)
+	for i, recipe := range recipes {
+		recipes[i].WriterObject = Entities.UserToMiniUser(*database.GetUserByUsername(recipe.Writer))
+	}
+	return recipes
 }
 func HandleGetAllRecipe() []Entities.Recipe {
-	return database.GetAllRecipe(10)
+	recipes := database.GetAllRecipe(10)
+	for i, recipe := range recipes {
+		recipes[i].WriterObject = Entities.UserToMiniUser(*database.GetUserByUsername(recipe.Writer))
+	}
+	return recipes
 }
 func HandleGetUserRecipes(_id string) []Entities.MiniRecipe {
 	return database.GetProfileRecipes(_id)
@@ -261,6 +270,7 @@ func HandelGetUserRecipes(_username string) []Entities.Recipe {
 	for i, _ := range miniRecipes {
 		r := MiniRecipeToRecipe(miniRecipes[i])
 		if r.Name != "" {
+			r.WriterObject = Entities.UserToMiniUser(*database.GetUserByUsername(r.Writer))
 			recipes = append(recipes, r)
 		}
 	}
@@ -297,7 +307,11 @@ func HandelForgotRecipe(_username string, recipeId string) bool {
 	return true
 }
 func HandelGetLikedRecipes(_username string) []Entities.Recipe {
-	return database.GetCommentedRecipes(*database.GetUserByUsername(_username))
+	recipes := database.GetCommentedRecipes(*database.GetUserByUsername(_username))
+	for i, recipe := range recipes {
+		recipes[i].WriterObject = Entities.UserToMiniUser(*database.GetUserByUsername(recipe.Writer))
+	}
+	return recipes
 }
 func HandelGetSavedRecipes(_username string) []Entities.MiniRecipe {
 	user := database.GetUserByUsername(_username)
