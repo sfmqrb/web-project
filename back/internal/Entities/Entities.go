@@ -37,14 +37,13 @@ var Tags = make(map[string]Tag)
 type User struct {
 	mgm.DefaultModel `bson:",inline" json:"model"`
 	Username         string `json:"username" bson:"username"`
-	// todo hash password
-	Password    string `json:"password" bson:"password"`
-	Name        string `json:"name" bson:"name"`
-	PicturePath string `json:"picturePath" bson:"picturePath"`
-	Bio         string `json:"bio" bson:"bio"`
-	Email       string `json:"email" bson:"email"`
-	PhoneNumber string `json:"phoneNumber" bson:"phoneNumber"`
-	Links       []Link `json:"links" bson:"links"`
+	Password         string `json:"password" bson:"password"`
+	Name             string `json:"name" bson:"name"`
+	PicturePath      string `json:"picturePath" bson:"picturePath"`
+	Bio              string `json:"bio" bson:"bio"`
+	Email            string `json:"email" bson:"email"`
+	PhoneNumber      string `json:"phoneNumber" bson:"phoneNumber"`
+	Links            []Link `json:"links" bson:"links"`
 	//todo is right?
 	//list of hex as User Id
 	Followers        []string     `json:"followers" bson:"followers"`

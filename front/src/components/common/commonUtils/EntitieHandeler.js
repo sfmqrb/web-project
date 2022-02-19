@@ -11,6 +11,17 @@ export function backRecipeToFrontRecipe(backRecipe) {
     backRecipe.ingredients.forEach((item, index) => {
         ingredients.push(backFoodIngToFoodIngredient(item))
     })
+    let liked = false
+    try {
+
+        backRecipe.comments.forEach((item, index) => {
+            if (item.user.username === JSON.parse(localStorage.getItem('user')).username) {
+                liked = true
+            }
+        })
+    } catch (e) {
+        console.log("no comment on " + backRecipe.name)
+    }
     return {
         images: [backRecipe.imagePath],
         steps: steps,
@@ -25,7 +36,7 @@ export function backRecipeToFrontRecipe(backRecipe) {
         nationality: backRecipe.nationality,
         tags: tags,
         ingredients: ingredients,
-        liked: false,
+        liked: liked,
     }
 }
 
@@ -74,13 +85,15 @@ export function backProfileToUserInfo(backProfile) {
         bio: backProfile.bio,
     }
 }
+
 export function backProfileToStt(backProfile) {
     return {
         name: backProfile.username
         , email: backProfile.email, bio: backProfile.bio, avatar: backProfile.picturePath,
     }
 }
-export function tagsToKeyArray(tags){
+
+export function tagsToKeyArray(tags) {
     let arr = []
     tags.forEach((item, index) => {
         arr.push(item.tagId)
@@ -88,7 +101,7 @@ export function tagsToKeyArray(tags){
     return arr
 }
 
-export function ingredientsToKeyArray(tags){
+export function ingredientsToKeyArray(tags) {
     let arr = []
     tags.forEach((item, index) => {
         arr.push(item.ingredientKey)

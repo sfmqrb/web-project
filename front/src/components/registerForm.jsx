@@ -10,11 +10,11 @@ const RegisterForm = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
 
   const handleClick = () => {
     console.log("in registerForm :: handleClick");
-    const data = { username, password, name, email };
+    const data = { username, password, name };
     ax.post(cfg.apiUrl + "/register", data).then((res) => {
       localStorage.setItem("jwt", res.data.jwt);
       localStorage.setItem("user", JSON.stringify(res.data));
@@ -65,13 +65,13 @@ const RegisterForm = (props) => {
             label="Name"
             onChange={(e) => setName(e.target.value)}
           />
-          <Input
-            name="email"
-            label="Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
+          {/*<Input*/}
+          {/*  name="email"*/}
+          {/*  label="Email"*/}
+          {/*  onChange={(e) => {*/}
+          {/*    setEmail(e.target.value);*/}
+          {/*  }}*/}
+          {/*/>*/}
           <EasyButton onClick={handleClick} title="Register" />
         </div>
         <div className="col"></div>
