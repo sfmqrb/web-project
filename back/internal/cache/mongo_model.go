@@ -15,8 +15,10 @@ type Document struct {
 }
 
 // update expired document can improve
-func (m *MongoCache) updateExpiration(data interface{}) {
-	data.(*Document).ExpireAt = time.Now().Add(m.TTL)
+func (m *MongoCache) updateExpiration(key string) {
+	document, _ := m.get(key)
+	document.ExpireAt = time.Now().Add(m.TTL)
+	//data.(*Document).ExpireAt = time.Now().Add(m.TTL)
 }
 
 // get fetches the key with its given key input

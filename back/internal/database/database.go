@@ -19,9 +19,6 @@ import (
 var cache_session = initMongoCache()
 var mongoCache = cache.NewMongoCacheWithTTL(cache_session, cache.StartGC())
 
-///////			cache should be initialized properly
-//defer mongoCache.StopGC()
-///////////////////////////////////////////////////////////////////////////
 type config struct {
 	Uri            string `json:"uri"`
 	DbName         string `json:"dbName"`
@@ -45,6 +42,31 @@ func ConnectDB() {
 
 	loadIngredients()
 	loadTags()
+
+	//defer mongoCache.StopGC()
+
+	user := Entities.User{
+		Username:         "baba",
+		Password:         "wetytryu",
+		Name:             "Balou",
+		PicturePath:      "",
+		Bio:              "GoooooD",
+		Email:            "A@bulu.com",
+		PhoneNumber:      "0912547869",
+		Links:            []Entities.Link{},
+		Followers:        []string{"Ahmad", "Reza"},
+		Followings:       []string{"Mola", "Mona"},
+		HasMoreFollowers: false,
+		Recipes:          []Entities.MiniRecipe{},
+		SavedRecipes:     []Entities.MiniRecipe{},
+	}
+	fmt.Printf("\n\n")
+	CreateUser(user)
+	fmt.Println("user created successfully")
+	temp := GetUserByUsername("baba")
+	fmt.Println(temp)
+	temp = GetUserByUsername("baba")
+	fmt.Printf("\n\n\n\n\n\n\n")
 }
 
 func GetUserByUsername(username string) *Entities.User {
@@ -54,8 +76,11 @@ func GetUserByUsername(username string) *Entities.User {
 		if err := json.Unmarshal(metaUser.([]byte), user); err != nil {
 			print(err.Error())
 		}
-		mongoCache.UpdateExpiration(metaUser)
+		fmt.Println("user in cache")
+		mongoCache.UpdateExpiration(username)
+		fmt.Println("user Exp time updated successfully")
 	} else {
+		fmt.Println("user not in cache")
 		e := mgm.Coll(&Entities.User{}).First(bson.M{"username": username}, user)
 		if e != nil {
 			print(e.Error())
@@ -118,8 +143,7 @@ func GetRecipeById(_id string) Entities.Recipe {
 		if err := json.Unmarshal(metaRecipe.([]byte), &recipe); err != nil {
 			print(err.Error())
 		}
-		// Hope it works
-		mongoCache.UpdateExpiration(metaRecipe)
+		mongoCache.UpdateExpiration(_id)
 	} else {
 		err = mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
 		if err != nil {
@@ -205,22 +229,12 @@ func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []
 // how to kee pitemps in cache
 func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient
-	metaIngredient, err := mongoCache.Get(_id)
-	if err != nil {
-		print(err.Error())
-	}
-	_ = json.Unmarshal(metaIngredient.([]byte), &ingredient)
-	//ingredient = Entities.Ingredients[_id]
+	ingredient = Entities.Ingredients[_id]
 	return ingredient
 }
 func GetTagById(_id string) Entities.Tag {
 	var tag Entities.Tag
-	metaTag, err := mongoCache.Get(_id)
-	if err != nil {
-		print(err.Error())
-	}
-	_ = json.Unmarshal(metaTag.([]byte), &tag)
-	//tag = Entities.Tags[_id]
+	tag = Entities.Tags[_id]
 	return tag
 }
 func GetProfileRecipes(_id string) []Entities.MiniRecipe {

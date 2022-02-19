@@ -164,8 +164,8 @@ func (m *MongoCache) Get(key string) (interface{}, error) {
 	return data.Value, nil
 }
 
-func (m *MongoCache) UpdateExpiration(data interface{}) {
-	m.updateExpiration(data)
+func (m *MongoCache) UpdateExpiration(key string) {
+	m.updateExpiration(key)
 }
 
 // Set will persist a value to the cache or override existing one with the new
