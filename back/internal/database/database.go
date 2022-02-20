@@ -46,6 +46,8 @@ func ConnectDB() {
 }
 
 func GetUserByUsername(username string) *Entities.User {
+
+	fmt.Println("user  " + username)
 	metaUser, err := mongoCache.Get(username)
 	user := &Entities.User{}
 	if err == nil {
@@ -221,6 +223,20 @@ func GetProfileRecipes(_id string) []Entities.MiniRecipe {
 func AddCommentToRecipe(recipe Entities.Recipe, comment Entities.Comment) {
 	//todo is add directly to db faster or nah?
 	recipe.Comments = append(recipe.Comments, comment)
+	err := mgm.Coll(&recipe).Update(&recipe)
+	if err != nil {
+		print(err.Error())
+	}
+}
+func DelCommentFromRecipe(recipe Entities.Recipe, username string) {
+	//todo is add directly to db faster or nah?
+	var newComments []Entities.Comment
+	for _, comment := range recipe.Comments {
+		if comment.User.Username != username {
+			newComments = append(newComments, comment)
+		}
+	}
+	recipe.Comments = newComments
 	err := mgm.Coll(&recipe).Update(&recipe)
 	if err != nil {
 		print(err.Error())

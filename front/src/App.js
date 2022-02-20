@@ -25,6 +25,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import {OnGoogleCallBack} from "./services/Tools";
 import GoogleCallBack from "./components/googleCallBacj";
+import Test from "./Test";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <div>
           <Routes>
             <Route exact path="/recipes" element={<CardSet />} />
+            <Route exact path="/test" element={<Test />} />
             <Route exact path="/recipes/result" element={<CardSet />} />
             <Route exact path="/recipes/liked" element={<CardSet />} />
             <Route exact path="/recipes/my" element={<CardSet />} />
@@ -44,7 +46,7 @@ function App() {
             <Route exact path="/search" element={<SearchAdvanced />} />
             <Route exact path="/profile/:id" element={<ReadOnlyProfile />} />
             <Route exact path="/:id/follower" element={<UserInfoList />} />
-            <Route exact path="/:id/follower" element={<UserInfoList />} />
+            <Route exact path="/:id/following" element={<UserInfoList />} />
 
             <Route
               exact

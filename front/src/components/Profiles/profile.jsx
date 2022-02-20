@@ -14,7 +14,7 @@ import {toast} from "react-toastify";
 import ax from "../../services/httpService";
 import cfg from "../../config";
 import getHeader from "../../utils/getHeader";
-import {TokenIsExpires} from "../../services/Tools";
+import {handelFollow, handelUnFollow, TokenIsExpires} from "../../services/Tools";
 
 const Profile = (props) => {
     const ReadOnlyProfile = props.ReadOnlyProfile || false;
@@ -22,6 +22,7 @@ const Profile = (props) => {
 
     const [id, setId] = React.useState("");
     const [name, setName] = React.useState("");
+    const [username, setUsername] = React.useState("");
     const [email, setEmail] = React.useState("");
 
     const [password, setPassword] = React.useState(""); // must be empty
@@ -31,14 +32,17 @@ const Profile = (props) => {
     const [avatar, setAvatar] = React.useState("");
     const [bio, setBio] = React.useState("");
     const [avatarURL, setAvatarURL] = React.useState("");
-    function handelLikedRecipes(){
+
+    function handelLikedRecipes() {
 
     }
+
     useEffect(() => {
         console.log(props)
         console.log(ReadOnlyProfile)
         if (ReadOnlyProfile) {
             setName(props.name);
+            setUsername(props.username);
             setEmail(props.email);
             // setAvatar(props.avatar);
             setAvatarURL(props.avatar)
@@ -56,6 +60,7 @@ const Profile = (props) => {
                 if (res.status === 200) {
                     // toast.success("Password changed");
                     setName(res.data.name);
+                    setUsername(res.data.username);
                     setEmail(res.data.email);
                     setAvatarURL(res.data.picturePath);
                     setBio(res.data.bio);
@@ -77,7 +82,7 @@ const Profile = (props) => {
             // setAvatar(avatar);
             console.log(avatar)
             ax.post(cfg.apiUrl + "/image/" + avatar.name, avatar).then((res) => {
-                if (res.status === 203){
+                if (res.status === 203) {
                     TokenIsExpires()
                     return
                 }
@@ -112,7 +117,7 @@ const Profile = (props) => {
                     toast.success("Password changed");
                 } else {
                     toast.warning("Password not changed");
-                    if (res.status === 203){
+                    if (res.status === 203) {
                         TokenIsExpires()
                         return
                     }
@@ -135,7 +140,7 @@ const Profile = (props) => {
         ax.post(cfg.apiUrl + "/users/" + JSON.parse(localStorage.getItem("user")).username, req, getHeader()).then((res) => {
             console.log(res.status)
             console.log(res.data)
-            if (res.status === 203){
+            if (res.status === 203) {
                 TokenIsExpires()
                 return
             }
@@ -145,6 +150,8 @@ const Profile = (props) => {
         });
     };
 
+    if (id !== username)
+        setId(username)
     return (
         <>
             <NavBar searchEnabled={false}/>
@@ -159,7 +166,7 @@ const Profile = (props) => {
             <div className="container">
                 <div className="row">
                     <div className="centered mb-3">
-                        <h1 className="display-5">Profile</h1>
+                        <h1 className="display-5">{username}</h1>
                     </div>
                     <div className="col-3" style={{marginTop: "30px"}}>
                         {!ReadOnlyProfile ? (
@@ -169,12 +176,13 @@ const Profile = (props) => {
                                     as="ul"
                                     style={{fontSize: "20px", margin: "40px"}}>
                                     <ListGroup.Item as="li">
-                                        <Link to="/recipes/liked" onClick={handelLikedRecipes} className="no-text-decoration">
+                                        <Link to="/recipes/liked" onClick={handelLikedRecipes}
+                                              className="no-text-decoration">
                                             Liked Recipes
                                         </Link>
                                     </ListGroup.Item>
                                     <ListGroup.Item as="li">
-                                        <Link to="/recipe-created" className="no-text-decoration">
+                                        <Link to="/recipes/my" className="no-text-decoration">
                                             Created Recipes
                                         </Link>
                                     </ListGroup.Item>
@@ -323,8 +331,8 @@ const Profile = (props) => {
                         <SubmitDiscardFooter
                             discardTitle="Follow"
                             submitTitle="Unfollow"
-                            onDiscard={() => (window.location.href = "/")}
-                            onSubmit={() => (window.location.href = "/")} // change backend
+                            onDiscard={() => handelFollow(username)}
+                            onSubmit={() => handelUnFollow(username)} // change backend
                             bottom={80}
                         />
                     </div>

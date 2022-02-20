@@ -6,8 +6,6 @@ import (
 	"back/internal/database"
 	"back/internal/tools"
 	"errors"
-	"github.com/markbates/goth"
-	"strings"
 )
 
 func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
@@ -26,15 +24,12 @@ func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
 	return response
 }
 
-func GoogleUserToLoginResponse(googleUser goth.User, sessionLength int) LoginResponse {
-	username := strings.Split(googleUser.Email, "@")[1]
-	pass := username + "googleLogin"
-	user := database.GetUserByUsername(username)
+func GoogleUserToLoginResponse(googleUser RegisterRequest, sessionLength int) LoginResponse {
+	pass := googleUser.Username + "googleLogin"
+	user := database.GetUserByUsername(googleUser.Username)
 	if user.Username == "" {
-		//register
-		//todo extra step
 		return HandleRegisterQuery(RegisterRequest{
-			Username: username,
+			Username: googleUser.Username,
 			Password: pass,
 			Name:     googleUser.Name,
 			Email:    googleUser.Email,
@@ -42,7 +37,7 @@ func GoogleUserToLoginResponse(googleUser goth.User, sessionLength int) LoginRes
 	} else {
 		//login
 		return HandelLoginQuery(LoginRequest{
-			Username: username,
+			Username: googleUser.Username,
 			Password: pass,
 		}, sessionLength)
 	}
@@ -191,8 +186,23 @@ func HandleRecipeComment(recipeId string, comment Entities.Comment, username str
 	recipe := database.GetRecipeById(recipeId)
 	// recalculate recipe stars
 	recipe.Stars = ((float64(len(recipe.Comments)) * recipe.Stars) + comment.Star) / float64(len(recipe.Comments)+1)
-	database.AddCommentToRecipe(recipe, comment)
+	//todo comment as like
+	alreadyCommented := false
+	for _, c := range recipe.Comments {
+		if c.User.Username == username {
+			alreadyCommented = true
+			break
+		}
+	}
+	if !alreadyCommented {
+		database.AddCommentToRecipe(recipe, comment)
+	}
 	return nil
+}
+func HandelRecipeUnComment(recipeId string, username string) {
+	//todo comment as like
+	recipe := database.GetRecipeById(recipeId)
+	database.DelCommentFromRecipe(recipe, username)
 }
 func HandleGetTag(_id string) Entities.Tag {
 	var tag Entities.Tag
@@ -255,12 +265,12 @@ func HandelUnfollow(_reqUserName string, username string) {
 	database.UpdateUser(user)
 	database.UpdateUser(reqUser)
 }
-func HandelGetFollowers(_username string) []Entities.MiniUser {
+func HandelGetFollowers(_username string) []Entities.User {
 	user := database.GetUserByUsername(_username)
 	return fillUsernameSlice(user.Followers)
 }
 
-func HandelGetFollowings(_username string) []Entities.MiniUser {
+func HandelGetFollowings(_username string) []Entities.User {
 	user := database.GetUserByUsername(_username)
 	return fillUsernameSlice(user.Followings)
 }
@@ -328,10 +338,10 @@ func removeFromArray(slice []string, username string) []string {
 	return newReqUserFollowings
 }
 
-func fillUsernameSlice(usernames []string) []Entities.MiniUser {
-	miniUsers := []Entities.MiniUser{}
+func fillUsernameSlice(usernames []string) []Entities.User {
+	miniUsers := []Entities.User{}
 	for _, username := range usernames {
-		miniUsers = append(miniUsers, Entities.UserToMiniUser(*database.GetUserByUsername(username)))
+		miniUsers = append(miniUsers, *database.GetUserByUsername(username))
 	}
 	return miniUsers
 }

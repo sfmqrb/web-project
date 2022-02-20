@@ -5,14 +5,42 @@ import ax from "../services/httpService";
 import EasyButton from "./common/Buttons/easyButton";
 import {Link} from "react-router-dom";
 import Input from "./common/Forms/input";
-
 import "../App.css";
 import {TokenIsExpires} from "../services/Tools";
 
 const LoginForm = () => {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const auth = React.Component.auth
+    const onSignInClick = () => {
+        auth.signIn();
+    };
+    window.gapi.load("client: auth2", () => {
+        window.gapi.client
+            .init({
+                clientId:
+                    "344491237182-88rpfs7cpgmragionokmpddhh1va4uqf.apps.googleusercontent.com",
+                scope: "email",
+            })
+            .then(() => {
+                this.auth = window.gapi.auth2.getAuthInstance();
 
+                this.setState({isSignedIn: this.auth.isSignedIn.get()});
+                // console.log(this.state.isSignedIn);
+                // console.log(this.state.userGoodName);
+
+                console.log("is in", this.auth.isSignedIn.le)
+                // const userInitial = this.auth.currentUser.get().Qt.Ad;
+                // console.log(userInitial)
+
+                // this.setState({ userGoodName: userInitial });
+
+                this.auth.isSignedIn.listen(this.onAuthChange);
+                // console.log("signed in   ", this.state.isSignedIn)
+                // console.log("user name   ", this.state.userGoodName)
+                // window.location.reload()
+            });
+    });
     const handleClick = () => {
         console.log("in loginForm :: handleClick");
         const data = {username, password};
@@ -29,13 +57,9 @@ const LoginForm = () => {
         });
     };
     const handleClickGoogle = () => {
-        ax.post("https://127.0.0.1:8080/","dlskajd" ).then((res) => {
-            console.log(res.data);
-
-        });
-        // console.log("in loginForm :: handleClickGoogle");
-        // const data = {username, password};
-        // window.location.replace(cfg.apiUrl+"/login/google");
+        console.log("in loginForm :: handleClickGoogle");
+        const data = {username, password};
+        window.location.replace(cfg.apiUrl + "/login/google");
 
     };
 
@@ -79,7 +103,18 @@ const LoginForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <EasyButton onClick={handleClick} title="Login"/>
-                    <EasyButton onClick={handleClickGoogle} title="Login With google"/>
+                    <div>
+                        <button className="g-button" onClick={onSignInClick}>
+                            <img
+                                className="g-logo"
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/157px-Google_%22G%22_Logo.svg.png"
+                                alt="Google Logo"
+                            />
+                            <p className="g-text">Sign in with Google</p>
+                        </button>
+                        <br/>
+                        <h3>Hii, If you click this button i will so you your name.</h3>
+                    </div>
                 </div>
                 <div className="col"></div>
             </div>

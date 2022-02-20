@@ -26,6 +26,12 @@ export function backRecipeToFrontRecipe(backRecipe) {
     } catch (e) {
         console.log("no comment on " + backRecipe.name)
     }
+    let likeCount = 0
+    try {
+        likeCount = backRecipe.comments.length
+    } catch (e) {
+        console.log("no comment on recipe")
+    }
     return {
         images: [backRecipe.imagePath],
         steps: steps,
@@ -41,6 +47,7 @@ export function backRecipeToFrontRecipe(backRecipe) {
         tags: tags,
         ingredients: ingredients,
         liked: liked,
+        likeCount: likeCount,
         profileImgUrl: backRecipe.writerObject.picturePath
     }
 }
@@ -83,8 +90,14 @@ export function backProfileToProfile(backProfile) {
 }
 
 export function backProfileToUserInfo(backProfile) {
+    let id = ""
+    try {
+        id = backProfile.model.id
+    } catch (e) {
+
+    }
     return {
-        id: backProfile.model.id,
+        id: id,
         name: backProfile.username,
         avatarURL: backProfile.picturePath,
         bio: backProfile.bio,
@@ -93,7 +106,8 @@ export function backProfileToUserInfo(backProfile) {
 
 export function backProfileToStt(backProfile) {
     return {
-        name: backProfile.username
+        username: backProfile.username,
+        name: backProfile.name
         , email: backProfile.email, bio: backProfile.bio, avatar: backProfile.picturePath,
     }
 }

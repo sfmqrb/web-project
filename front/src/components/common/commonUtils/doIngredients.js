@@ -7,6 +7,7 @@ function doIngredients(
     onDeletion = null,
     title
 ) {
+    title = title || "Ingredients"
     console.log("do ingredient title  ", title)
     return (
         <>

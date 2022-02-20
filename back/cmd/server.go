@@ -52,14 +52,9 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 	switch urlList[1] {
 	case "login":
 		if request.URL.Path == "/login/google" {
-			setGoogleSetting()
-			goth.UseProviders(
-				google.New("344491237182-hgm5j65vlsac9qhh0dmsogp0kd2d8oql.apps.googleusercontent.com", "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", "http://localhost:3000/auth/google/callback", "email", "profile"),
-			)
-			gothic.BeginAuthHandler(responseWriter, request)
-		} else if request.URL.Path == "/login/google/callback" {
 			fmt.Println("google callback")
-			googleUser, err := gothic.CompleteUserAuth(responseWriter, request)
+			googleUser := queryHandeler.RegisterRequest{}
+			err := json.Unmarshal([]byte(getRequestBody(request)), &googleUser)
 			if err != nil {
 				fmt.Fprintln(responseWriter, err)
 				return
@@ -145,6 +140,17 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 					responseWriter.WriteHeader(http.StatusNotAcceptable)
 					return
 				}
+			} else if len(urlList) > 3 && urlList[3] == "unComment" {
+				// unComment in recipe
+				jwt := request.Header.Get("jwt")
+				_username, done := digestJwt(responseWriter, jwt)
+				if done {
+					responseWriter.WriteHeader(http.StatusNonAuthoritativeInfo)
+					return
+				}
+				queryHandeler.HandelRecipeUnComment(urlList[2], _username)
+				responseWriter.WriteHeader(http.StatusOK)
+				return
 			} else {
 				// send recipe
 				jwt := request.Header.Get("jwt")
@@ -215,12 +221,12 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 			switch urlList[3] {
 			case "followers":
 				followers := queryHandeler.HandelGetFollowers(urlList[2])
-				responseWriter.WriteHeader(http.StatusOK)
+				//responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, followers)
 				return
 			case "followings":
 				followings := queryHandeler.HandelGetFollowings(urlList[2])
-				responseWriter.WriteHeader(http.StatusOK)
+				//responseWriter.WriteHeader(http.StatusOK)
 				sendResponseJson(responseWriter, followings)
 				return
 			case "recipes":

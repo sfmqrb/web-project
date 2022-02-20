@@ -12,6 +12,7 @@ import MoreIcon from "@mui/icons-material/More";
 import doIngredients from "./commonUtils/doIngredients";
 import doTags from "./commonUtils/doTags";
 import {Link} from "react-router-dom";
+import TitleMellow from "./Titles/titleMellow";
 
 const clr = "dark";
 
@@ -28,9 +29,10 @@ const _Card_ = (props) => {
         onLike,
         tags,
         ingredients,
+        likeCount
     } = props;
     const image = images[0] || null;
-    console.log("card img  ",image)
+    console.log("card img  ", image)
     return (
         <Card
             key={id}
@@ -44,7 +46,7 @@ const _Card_ = (props) => {
                 <CardMedia
                     className="pic-overlay"
                     component="img"
-                    image={image? image:"https://images.freekaamaal.com/post_images/1606817930.jpg"}
+                    image={image ? image : "https://images.freekaamaal.com/post_images/1606817930.jpg"}
                     alt="dish"
                 />
             </div>
@@ -84,6 +86,9 @@ const _Card_ = (props) => {
                     color={liked ? "error" : "default"}>
                     <FavoriteIcon/>
                 </IconButton>
+                <span style={{paddingRight:"10px"}}>
+                <TitleMellow title={likeCount}/>
+                </span>
                 <Link to={`/recipe/${id}`}>
                     <IconButton aria-label="More Info" color="primary">
                         <MoreIcon/>

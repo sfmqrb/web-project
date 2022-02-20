@@ -18,7 +18,7 @@ const getFakeInfos = () => {
       avatarURL: "https://unsplash.it/400/600",
       bio: "My hand hurts",
     },
-  ];
+  ]
 };
 
 export default getFakeInfos;

@@ -43,7 +43,7 @@ class CardSet extends Component {
                 if (true) {
                     ax.get(cfg.apiUrl + "/users/liked_recipes", getHeader()).then((res) => {
                         console.log(res);
-                        if (res.status === 203){
+                        if (res.status === 203) {
                             TokenIsExpires()
                             return
                         }
@@ -65,7 +65,7 @@ class CardSet extends Component {
                 if (true) {
                     ax.get(cfg.apiUrl + "/users/" + JSON.parse(localStorage.getItem('user')).username + "/recipes", getHeader()).then((res) => {
                         console.log(res);
-                        if (res.status === 203){
+                        if (res.status === 203) {
                             TokenIsExpires()
                             return
                         }
@@ -87,7 +87,7 @@ class CardSet extends Component {
                 if (true) {
                     ax.get(cfg.apiUrl + "/recipe/get_selected_recipes", getHeader()).then((res) => {
                         console.log(res);
-                        if (res.status === 203){
+                        if (res.status === 203) {
                             TokenIsExpires()
                             return
                         }
@@ -129,28 +129,38 @@ class CardSet extends Component {
         const newCards = tmpCards.map((card) => {
             if (card.id === id) {
                 card.liked = !card.liked;
-
-                let comment =
-                    {
-                        user: {
-                            username: JSON.parse(localStorage.getItem('user')).username,
-                            name: JSON.parse(localStorage.getItem('user')).name,
-                            picturePath: JSON.parse(localStorage.getItem('user')).picturePath
-                        },
-                        text: "",
-                        star: 5
-                    }
-                console.log(comment)
-                ax.post(cfg.apiUrl + "/recipe/" + card.id + "/comment", comment, getHeader()).then((res) => {
-                    if (res.status === 203){
-                        TokenIsExpires()
-                        return
-                    }
-                });
-
+                if (card.liked) {
+                    card.likeCount += 1
+                    let comment =
+                        {
+                            user: {
+                                username: JSON.parse(localStorage.getItem('user')).username,
+                                name: JSON.parse(localStorage.getItem('user')).name,
+                                picturePath: JSON.parse(localStorage.getItem('user')).picturePath
+                            },
+                            text: "",
+                            star: 5
+                        }
+                    console.log(comment)
+                    ax.post(cfg.apiUrl + "/recipe/" + card.id + "/comment", comment, getHeader()).then((res) => {
+                        if (res.status === 203) {
+                            TokenIsExpires()
+                            return
+                        }
+                    });
+                } else {
+                    card.likeCount -= 1
+                    ax.post(cfg.apiUrl + "/recipe/" + card.id + "/unComment", {}, getHeader()).then((res) => {
+                        if (res.status === 203) {
+                            TokenIsExpires()
+                            return
+                        }
+                    });
+                }
             }
             return card;
         });
+        // window.location.reload(false)
         this.setState({cards: newCards});
     };
 

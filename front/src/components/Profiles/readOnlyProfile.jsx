@@ -31,8 +31,6 @@ const ReadOnlyProfile = (props) => {
             });
         }
     }, [window.location]);
-    console.log(JSON.stringify(userData))
-    console.log(JSON.stringify(stt))
     return <Profile {...stt} ReadOnlyProfile={ReadOnlyProfile}/>;
 };
 
