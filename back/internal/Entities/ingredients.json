@@ -1,4 +1,4 @@
-{
+[{
     "model":{"id":"000000000000000000000000",
             "created_at":"0001-01-01T00:00:00Z",
             "updated_at":"0001-01-01T00:00:00Z"},
@@ -13,7 +13,7 @@
     "fat":1,
     "details":"it's from wheat"
 }
-
+,
 {
     "model":{"id":"000000000000000000000000",
             "created_at":"0001-01-01T00:00:00Z",
@@ -28,7 +28,7 @@
     "carbs":0.6,
     "fat":12,
     "details":"it's made from wheat"
-}
+},
 
 {
     "model":{"id":"000000000000000000000000",
@@ -44,7 +44,7 @@
     "carbs":7,
     "fat":0.2,
     "details":"it's made from tomato"
-}
+},
 
 {
     "model":{"id":"000000000000000000000000",
@@ -60,12 +60,9 @@
     "carbs":1.3,
     "fat":33,
     "details":"it's made from tomato"
-}
+},
 
 {
-    "model":{"id":"000000000000000000000000",
-            "created_at":"0001-01-01T00:00:00Z",
-            "updated_at":"0001-01-01T00:00:00Z"},
             "name":"chream-cheese",
             "imagePath":"",
             "type":"animal-based",
@@ -76,7 +73,7 @@
             "carbs":0.7,
             "fat":31,
             "details":"it's made from tomato"
-}
+},
 
 {
     "model":{"id":"000000000000000000000000",
@@ -92,4 +89,4 @@
     "carbs":22,
     "fat":5,
     "details":"good green source of proten"
-}
+}]
