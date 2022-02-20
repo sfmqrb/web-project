@@ -19,12 +19,6 @@ import (
 var cache_session = initMongoCache()
 var mongoCache = cache.NewMongoCacheWithTTL(cache_session, cache.StartGC())
 
-type Test struct {
-	mgm.DefaultModel `bson:",inline" json:"model"`
-	A                string `bson:"a" json:"a"`
-	B                string `bson:"b,omitempty" json:"b,omitempty"`
-}
-
 type config struct {
 	Uri            string `json:"uri"`
 	DbName         string `json:"dbName"`
@@ -49,21 +43,17 @@ func ConnectDB() {
 	loadIngredients()
 	loadTags()
 	defer mongoCache.StopGC()
-
 }
 
 func GetUserByUsername(username string) *Entities.User {
-	data, err := mongoCache.Get(username)
+	metaUser, err := mongoCache.Get(username)
 	user := &Entities.User{}
 	if err == nil {
-		if err := json.Unmarshal(data.([]byte), user); err != nil {
+		if err := json.Unmarshal(metaUser.([]byte), user); err != nil {
 			print(err.Error())
 		}
-		//todo
-		fmt.Println("get user from cache")
-		mongoCache.Set(username, data)
+		mongoCache.UpdateExpiration(username)
 	} else {
-		fmt.Println("miss cache user")
 		e := mgm.Coll(&Entities.User{}).First(bson.M{"username": username}, user)
 		if e != nil {
 			print(e.Error())
@@ -121,10 +111,23 @@ func AddRecipe(recipe Entities.Recipe) {
 }
 func GetRecipeById(_id string) Entities.Recipe {
 	var recipe Entities.Recipe
-	err := mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
-	if err != nil {
-		print(err.Error())
-		//todo handel no recipe
+	metaRecipe, err := mongoCache.Get(_id)
+	if err == nil {
+		if err := json.Unmarshal(metaRecipe.([]byte), &recipe); err != nil {
+			print(err.Error())
+		}
+		mongoCache.UpdateExpiration(_id)
+	} else {
+		err = mgm.Coll(&Entities.Recipe{}).FindByID(_id, &recipe)
+		if err != nil {
+			print(err.Error())
+			//todo handel no recipe
+		}
+		value, err := json.Marshal(recipe)
+		if err != nil {
+			print(err.Error())
+		}
+		mongoCache.Set(_id, value)
 	}
 	// fill ingredients
 	for i, _ := range recipe.Ingredients {
@@ -195,6 +198,8 @@ func SearchRecipe(ingsIn []string, ingsOut []string, tagsIn []string, tagsOut []
 	}
 	return recipes
 }
+
+// how to kee pitemps in cache
 func GetIngredientById(_id string) Entities.Ingredient {
 	var ingredient Entities.Ingredient
 	ingredient = Entities.Ingredients[_id]
