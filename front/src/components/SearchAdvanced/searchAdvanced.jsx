@@ -14,7 +14,9 @@ import {TokenIsExpires} from "../../services/Tools";
 const SearchAdvanced = (props) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [tags, setTags] = useState([]);
+    const [excludeTags, setExcludeTags] = useState([]);
     const [ingredients, setIngredients] = useState([]);
+    const [excludeIngredients, setExcludeIngredients] = useState([]);
     const [sortBy, setSortBy] = useState("like"); // also by time
 
     const handleSubmit = () => {
@@ -24,22 +26,22 @@ const SearchAdvanced = (props) => {
         console.log(ingredientsToKeyArray(ingredients))
         console.log(sortBy)
         let orderBy = "cookingTime"
-        if(sortBy === "like"){
+        if (sortBy === "like") {
             orderBy = "stars"
         }
         let req = {
             ingsIn: ingredientsToKeyArray(ingredients),
-            ingsOut: [],
+            ingsOut: ingredientsToKeyArray(excludeIngredients),
             tagsIn: tagsToKeyArray(tags),
-            tagsOut: [],
+            tagsOut: tagsToKeyArray(excludeTags),
             orderBy: orderBy,
             ascending: true,
             searchText: searchQuery
         }
 
-        ax.post(cfg.apiUrl + "/recipe/find",req , getHeader()).then((res) => {
+        ax.post(cfg.apiUrl + "/recipe/find", req, getHeader()).then((res) => {
             console.log(res);
-            if (res.status === 203){
+            if (res.status === 203) {
                 TokenIsExpires()
                 return
             }
@@ -72,7 +74,10 @@ const SearchAdvanced = (props) => {
 
                 <div className="row">
                     <div className="ml-0 p-0  mt-4">
-                        <TagMaker onChange={setTags} isAdmin={true} tags={[]}/>
+                        <TagMaker onChange={setTags} isAdmin={true} title="include tags:" tags={[]}/>
+                    </div>
+                    <div className="ml-0 p-0  mt-4">
+                        <TagMaker onChange={setExcludeTags} isAdmin={true} title="exclude tags:" tags={[]}/>
                     </div>
                 </div>
                 <div className="row">
@@ -81,6 +86,13 @@ const SearchAdvanced = (props) => {
                             onChange={setIngredients}
                             isAdmin={true}
                             ingredients={[]}
+                            title="include ingredients:"
+                        />
+                        <IngredientMaker
+                            onChange={setExcludeIngredients}
+                            isAdmin={true}
+                            ingredients={[]}
+                            title="exclude ingredients:"
                         />
                         <span className="mt-4"/>
                         <TitleMellow title={"Choose sorting algorithm"}/>
@@ -92,7 +104,7 @@ const SearchAdvanced = (props) => {
                         type="checkbox"
                         id="basedOnLikes"
                         name="basedOnLikes"
-                        checked={sortBy == "like"}
+                        checked={sortBy === "like"}
                         onChange={() => {
                             setSortBy("like");
                         }}

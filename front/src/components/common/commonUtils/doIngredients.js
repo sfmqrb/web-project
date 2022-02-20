@@ -4,11 +4,13 @@ import TitleMellow from "../Titles/titleMellow";
 function doIngredients(
     ingredients,
     isAuthorizedToEdit = false,
-    onDeletion = null
+    onDeletion = null,
+    title
 ) {
+    console.log("do ingredient title  ", title)
     return (
         <>
-            <TitleMellow title="Ingredients"/>
+            <TitleMellow title={title}/>
             {ingredients.map((ingredient) => {
                 const {name, quantity, unit} = ingredient;
                 return (

@@ -23,6 +23,8 @@ import UserInfoList from "./components/common/UserInfo/userInfoList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import {OnGoogleCallBack} from "./services/Tools";
+import GoogleCallBack from "./components/googleCallBacj";
 
 function App() {
   return (
@@ -50,6 +52,7 @@ function App() {
               element={<NewRecipe isAdmin={true} />}
             />
             <Route exact path="/recipe/:id" element={<MoreInfoRecipe />} />
+            <Route exact path="/auth/google/*" element={<GoogleCallBack/>}/>
             <Route path="/" element={<Navigate to="/recipes" />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

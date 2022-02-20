@@ -21,6 +21,7 @@ export default function TagMaker(props) {
     const [tags, setTags] = useState(props.tags);
     const inputTagRef = useRef(null);
     const widthModifier = props.widthModifier || "";
+    const title = props.title
     if (localStorage.getItem("tags") === null) {
         ax.get(cfg.apiUrl + "/tag/all", getHeader()).then((res) => {
             console.log(res);
@@ -74,7 +75,7 @@ export default function TagMaker(props) {
 
     return (
         <>
-            {doTagsEditable(tags, props.isAdmin, handleDeleteTag, true)}
+            {doTagsEditable(tags, props.isAdmin, handleDeleteTag, true, title)}
             {props.isAdmin ? (
                 <div>
                     {addNewTag(newTag, inputTagRef, widthModifier)}

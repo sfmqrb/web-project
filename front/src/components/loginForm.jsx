@@ -18,7 +18,8 @@ const LoginForm = () => {
         const data = {username, password};
         ax.post(cfg.apiUrl + "/login", data).then((res) => {
             console.log(res.data.jwt);
-            if (res.status === 203){
+            console.log(res.data);
+            if (res.status === 203) {
                 TokenIsExpires()
                 return
             }
@@ -26,6 +27,16 @@ const LoginForm = () => {
             localStorage.setItem("user", JSON.stringify(res.data));
             window.location = "/";
         });
+    };
+    const handleClickGoogle = () => {
+        ax.post("https://127.0.0.1:8080/","dlskajd" ).then((res) => {
+            console.log(res.data);
+
+        });
+        // console.log("in loginForm :: handleClickGoogle");
+        // const data = {username, password};
+        // window.location.replace(cfg.apiUrl+"/login/google");
+
     };
 
     const LoginMessage = (
@@ -68,6 +79,7 @@ const LoginForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <EasyButton onClick={handleClick} title="Login"/>
+                    <EasyButton onClick={handleClickGoogle} title="Login With google"/>
                 </div>
                 <div className="col"></div>
             </div>

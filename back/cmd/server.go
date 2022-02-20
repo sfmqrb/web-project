@@ -33,8 +33,9 @@ func main() {
 	print(_username)
 
 	preLoad()
+
 	http.HandleFunc("/", HandleRequest)
-	log.Fatal(http.ListenAndServe(":"+ConfigData.Port, nil))
+	log.Fatal(http.ListenAndServeTLS(":"+ConfigData.Port, "ssl/go-server.crt", "ssl/go-server.key", nil))
 
 }
 
@@ -51,8 +52,13 @@ func HandleRequest(responseWriter http.ResponseWriter, request *http.Request) {
 	switch urlList[1] {
 	case "login":
 		if request.URL.Path == "/login/google" {
+			setGoogleSetting()
+			goth.UseProviders(
+				google.New("344491237182-hgm5j65vlsac9qhh0dmsogp0kd2d8oql.apps.googleusercontent.com", "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", "http://localhost:3000/auth/google/callback", "email", "profile"),
+			)
 			gothic.BeginAuthHandler(responseWriter, request)
 		} else if request.URL.Path == "/login/google/callback" {
+			fmt.Println("google callback")
 			googleUser, err := gothic.CompleteUserAuth(responseWriter, request)
 			if err != nil {
 				fmt.Fprintln(responseWriter, err)
@@ -412,7 +418,7 @@ func digestJwt(responseWriter http.ResponseWriter, jwt string) (string, bool) {
 
 func preLoad() {
 	database.ConnectDB()
-	setGoogleSetting()
+	//setGoogleSetting()
 	file, _ := ioutil.ReadFile("cmd/config.json")
 	err := json.Unmarshal(file, &ConfigData)
 	if err != nil {

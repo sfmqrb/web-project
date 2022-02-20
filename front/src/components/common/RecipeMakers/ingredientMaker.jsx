@@ -16,6 +16,8 @@ export default function IngredientMaker(props) {
     const inputNameRef = useRef(null);
     const inputQuantityRef = useRef(null);
     const inputUnitRef = useRef(null);
+    const title = props.title
+    console.log("ingredient title  ", title)
     if (localStorage.getItem("ingredients") === null) {
         ax.get(cfg.apiUrl + "/ingredient/all", getHeader()).then((res) => {
             console.log(res);
@@ -81,7 +83,7 @@ export default function IngredientMaker(props) {
 
     return (
         <>
-            {doIngredients(ingredients, props.isAdmin, handleDeleteIngredient)}
+            {doIngredients(ingredients, props.isAdmin, handleDeleteIngredient,title)}
             {props.isAdmin ? (
                 <div className="p-0">
                     {addNewIngredient(

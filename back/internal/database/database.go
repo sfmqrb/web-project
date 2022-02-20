@@ -19,9 +19,12 @@ import (
 var cache_session = initMongoCache()
 var mongoCache = cache.NewMongoCacheWithTTL(cache_session, cache.StartGC())
 
-///////			cache should be initialized properly
-//defer mongoCache.StopGC()
-///////////////////////////////////////////////////////////////////////////
+type Test struct {
+	mgm.DefaultModel `bson:",inline" json:"model"`
+	A                string `bson:"a" json:"a"`
+	B                string `bson:"b,omitempty" json:"b,omitempty"`
+}
+
 type config struct {
 	Uri            string `json:"uri"`
 	DbName         string `json:"dbName"`
@@ -45,6 +48,8 @@ func ConnectDB() {
 
 	loadIngredients()
 	loadTags()
+	defer mongoCache.StopGC()
+
 }
 
 func GetUserByUsername(username string) *Entities.User {
@@ -54,8 +59,11 @@ func GetUserByUsername(username string) *Entities.User {
 		if err := json.Unmarshal(data.([]byte), user); err != nil {
 			print(err.Error())
 		}
+		//todo
+		fmt.Println("get user from cache")
 		mongoCache.Set(username, data)
 	} else {
+		fmt.Println("miss cache user")
 		e := mgm.Coll(&Entities.User{}).First(bson.M{"username": username}, user)
 		if e != nil {
 			print(e.Error())

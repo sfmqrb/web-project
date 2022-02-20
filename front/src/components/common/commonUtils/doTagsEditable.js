@@ -5,11 +5,12 @@ function doTagsEditable(
   tags,
   isAuthorizedToEdit = false,
   onDeletion = null,
-  blue = false
+  blue = false,
+  title
 ) {
   return (
     <>
-      <TitleMellow title="Tags" />
+      <TitleMellow title={title} />
       {tags.map((tag) => {
         const { name } = tag;
         return (

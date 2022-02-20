@@ -11,7 +11,7 @@ type UploadResponse struct {
 }
 
 const defaultImageDirPath = "images"
-const defaultImageURL = "http://localhost:8080/image/"
+const defaultImageURL = "https://127.0.0.1:8080/image/"
 
 func HandleUploadImage(fileByte []byte, fileName string) string {
 	uniqueId := uuid.New()

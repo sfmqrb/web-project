@@ -44,3 +44,7 @@ export function TokenIsExpires(){
     setTimeout(() => { window.location = "/login" }, 2000);
     // toast.warning("your token is expired")
 }
+
+export function OnGoogleCallBack() {
+    console.log("on google call back")
+}
