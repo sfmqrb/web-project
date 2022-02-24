@@ -1,2 +1,3 @@
 # web-project
-Web Programming :: Final Project 
+### Final Project of Web Programming Course
+### More Information in Each Directory!!
