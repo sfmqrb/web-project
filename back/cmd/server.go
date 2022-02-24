@@ -13,7 +13,6 @@ import (
 	"github.com/markbates/goth/gothic"
 	"github.com/markbates/goth/providers/google"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
 )
@@ -27,15 +26,9 @@ type Config struct {
 var ConfigData Config
 
 func main() {
-	// test
-	jwt := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUyMDAxNDAsIm5iZiI6MTY0NTE5ODk0MCwidXNlcm5hbWUiOiJhbW0yNjYifQ.boCbfRCaxtgGgczGDPFTM5pKBDeUlL-M6xDudnCb5MQ"
-	_username := authentication.VerifyJWT(jwt, ConfigData.MinuteTryLimit)
-	print(_username)
-
 	preLoad()
-
 	http.HandleFunc("/", HandleRequest)
-	log.Fatal(http.ListenAndServeTLS(":"+ConfigData.Port, "ssl/go-server.crt", "ssl/go-server.key", nil))
+	http.ListenAndServeTLS(":"+ConfigData.Port, "ssl/go-server.crt", "ssl/go-server.key", nil)
 
 }
 

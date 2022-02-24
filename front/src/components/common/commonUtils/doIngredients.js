@@ -9,11 +9,15 @@ function doIngredients(
 ) {
     title = title || "Ingredients"
     console.log("do ingredient title  ", title)
+    console.log("ing    ",ingredients)
     return (
         <>
             <TitleMellow title={title}/>
             {ingredients.map((ingredient) => {
-                const {name, quantity, unit} = ingredient;
+                let {name, quantity, unit} = ingredient;
+                if(!quantity){
+                    quantity = ingredient.volume
+                }
                 return (
                     <Tag
                         key={ingredient.ingredientKey}
@@ -21,7 +25,7 @@ function doIngredients(
                         id={ingredient.ingredientKey}
                         onDeletion={onDeletion}>
                         <span>{name + " "}</span>
-                        {/*<span style={{ fontSize: "12px" }}>{quantity + unit}</span>*/}
+                        <span style={{ fontSize: "12px" }}>{quantity + " " + unit}</span>
                     </Tag>
                 );
             })}

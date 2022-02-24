@@ -1,0 +1,78 @@
+[
+  {
+    "name" : "quick",
+    "imagePath":"",
+    "type":"break-fast",
+    "details":"gflskj"
+  }
+  ,
+  {
+    "name" : "vegetarian",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "vegan",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "diabetes",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "gluten free",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "slow food",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "meat lover",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "seafood",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "petfood",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "party",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+  ,
+  {
+    "name" : "easy",
+    "imagePath":"",
+    "type":"",
+    "details":""
+  }
+]

@@ -134,6 +134,7 @@ function NewRecipe(props) {
                 <div className="container row">
                     <div className="col-3">
                         <TagMaker
+                            title = "tags"
                             onChange={updateTags}
                             isAdmin={isAdmin}
                             widthModifier="53%"

@@ -6,6 +6,7 @@ import (
 	"back/internal/database"
 	"back/internal/tools"
 	"errors"
+	"fmt"
 )
 
 func HandelLoginQuery(request LoginRequest, sessionLength int) LoginResponse {
@@ -54,6 +55,8 @@ func fillLoginResponse(sessionLength int, user *Entities.User) LoginResponse {
 }
 
 func HandleRegisterQuery(request RegisterRequest, sessionLength int) LoginResponse {
+	fmt.Println(request.Password)
+	fmt.Println(request.Username)
 	user := database.GetUserByUsername(request.Username)
 	response := LoginResponse{}
 	if user.Username != "" {

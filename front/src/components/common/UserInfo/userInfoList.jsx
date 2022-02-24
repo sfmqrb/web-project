@@ -1,4 +1,5 @@
 import UserInfo from "./userInfo";
+import { useHistory } from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import getFakeInfos from "../../../services/fakeUserInfos";
 import ax from "../../../services/httpService"
@@ -6,11 +7,14 @@ import cfg from "../../../config.json";
 import getHeader from "../../../utils/getHeader";
 import {backProfileToUserInfo} from "../commonUtils/EntitieHandeler";
 import {TokenIsExpires} from "../../../services/Tools";
+import EasyButton from "../Buttons/easyButton";
+import {useNavigate} from 'react-router'
 
 const UserInfoList = () => {
     const [userInfos, setUserInfos] = useState([]);
     const username = window.location.href.split("/")[3]
     const reqType = window.location.href.split("/")[4] + "s"
+
     useEffect(() => {
         console.log(username)
         let users = []
@@ -29,6 +33,8 @@ const UserInfoList = () => {
             setUserInfos(backUsers);
         });
     }, []);
+    console.log(window.history)
+    let navigation = useNavigate();
     return (
         <>
             <h1 className="display-4 center-text m-2"> {reqType} </h1>
@@ -41,6 +47,9 @@ const UserInfoList = () => {
                     );
                 })}
             </div>
+            <div style={{position:"absolute", marginBottom: "10px"}}>
+            </div>
+                {/*<EasyButton title = "back" style={{position:"absolute", marginTop: "100px"}} onClick={() => navigation.goBack()}/>*/}
         </>
     );
 };

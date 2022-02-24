@@ -25,8 +25,9 @@ export default function IngredientMaker(props) {
                 TokenIsExpires()
                 return
             }
+            console.log("ingredients   ",JSON.stringify(res.data))
             localStorage.setItem("ingredients", JSON.stringify(res.data))
-            window.location.reload(false)
+            // window.location.reload(false)
         });
     }
 
@@ -71,9 +72,10 @@ export default function IngredientMaker(props) {
             alert("This ingredient is not exist")
             return;
         } else {
+            console.log("newIng   ",newIng)
             const newIngredients = [
                 ...ingredients,
-                {ingredientKey: ingredient.model.id, volume: Number(newIng.quantity), name: newIng.name},
+                {ingredientKey: ingredient.model.id, volume: Number(newIng.quantity), name: newIng.name, unit : ingredient.unit},
             ];
             newIng = emptyIng;
             emptyInputs();

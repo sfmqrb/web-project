@@ -31,7 +31,7 @@ const UserInfo = (props) => {
         }
     }, [props]);
     return (<div className="user-info">
-      <span className="user-info__avatar" style={{marginTop: "10px"}}>
+      <span className="user-info__avatar" style={{marginTop: "20px"}}>
         <img
             src={avatarURL || ""}
             alt="avatar"
@@ -42,7 +42,7 @@ const UserInfo = (props) => {
       </span>
         <span className="user-info__name">{user.name}</span>
         <span className="user-info__bio">{user.bio}</span>
-        <span style={{right: "10%", position: "absolute"}}>
+        <span style={{right: "20%", position: "absolute"}}>
                 <EasyButton title="follow" color="green"
                             onClick={follow}
                 />

@@ -11,14 +11,14 @@ export function CheckIngredient(ingredientName) {
     let ing = null
     ingredients.forEach((item, index) => {
         console.log("ingredient check " + "   " + ingredientName + "   " + item.name)
-        if (item.name === ingredientName) {
+        if (item.name.toUpperCase() === ingredientName.toUpperCase()) {
             found = true
+            console.log("check ing    ",ing)
             ing = item
         }
     })
     return ing
 }
-
 
 export function CheckTag(tagName) {
     const tags = JSON.parse(localStorage.getItem("tags"))
@@ -26,7 +26,7 @@ export function CheckTag(tagName) {
     let tag = null
     tags.forEach((item, index) => {
         console.log("tag check " + "   " + tagName + "   " + item.name)
-        if (item.name === tagName) {
+        if (item.name.toUpperCase() === tagName.toUpperCase()) {
             found = true
             tag = item
         }
@@ -46,7 +46,7 @@ export function StringArrayToBackSteps(arr) {
 export function TokenIsExpires() {
     toast.warning("your token is expired")
     setTimeout(() => {
-        // window.location = "/login"
+        window.location = "/login"
     }, 2000);
     // toast.warning("your token is expired")
 }

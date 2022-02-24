@@ -17,14 +17,15 @@ const RegisterForm = (props) => {
     console.log("in registerForm :: handleClick");
     const data = { username, password, name };
     ax.post(cfg.apiUrl + "/register", data).then((res) => {
+      console.log(res.status)
       if (res.status === 203){
         TokenIsExpires()
         return
       }
       localStorage.setItem("jwt", res.data.jwt);
       localStorage.setItem("user", JSON.stringify(res.data));
-    });
     window.location = "/";
+    });
   };
 
   const registerMessage = (
